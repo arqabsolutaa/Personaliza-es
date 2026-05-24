@@ -7,276 +7,193 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --gold: #C9A96E;
-  --gold-light: #E8D5B0;
-  --gold-dark: #9A7A4A;
-  --dark: #0E0E0E;
-  --dark2: #1A1A1A;
-  --dark3: #242424;
-  --dark4: #2E2E2E;
-  --text: #F0EDE8;
-  --text-muted: #8A8478;
-  --text-dim: #5A5650;
-  --success: #4CAF7D;
-  --warning: #E8A84A;
-  --danger: #E05C5C;
-  --sidebar-w: 280px;
-  --radius: 10px;
+  --gold: #C9A96E; --gold-light: #E8D5B0; --gold-dark: #9A7A4A;
+  --dark: #0E0E0E; --dark2: #1A1A1A; --dark3: #242424; --dark4: #2E2E2E;
+  --text: #F0EDE8; --text-muted: #8A8478; --text-dim: #5A5650;
+  --success: #4CAF7D; --warning: #E8A84A; --danger: #E05C5C;
+  --sidebar-w: 290px; --radius: 10px;
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--dark); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden;}
 
-/* ── SPLASH ── */
-#splash {
-  position: fixed; inset: 0; z-index: 1000;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  background: var(--dark);
-  transition: opacity 0.8s ease, visibility 0.8s ease;
-}
-#splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-#splash-bg {
-  position: absolute; inset: 0;
-  background: linear-gradient(160deg, #0E0E0E 0%, #1a1510 50%, #0E0E0E 100%);
-}
-#splash-bg::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(201,169,110,0.12) 0%, transparent 70%);
-}
-.splash-content { position: relative; text-align: center; padding: 2rem; }
-.splash-logo { font-family: 'Cormorant Garamond', serif; font-size: 3.8rem; font-weight: 300; letter-spacing: 0.15em; color: var(--text); line-height: 1; }
-.splash-logo span { color: var(--gold); }
-.splash-sub { font-size: 0.75rem; letter-spacing: 0.5em; color: var(--text-muted); text-transform: uppercase; margin-top: 0.5rem; }
-.splash-divider { width: 60px; height: 1px; background: var(--gold); margin: 2rem auto; opacity: 0.5; }
-.splash-tagline { font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.1em; }
-.splash-enter {
-  margin-top: 3rem;
-  background: transparent; border: 1px solid var(--gold);
-  color: var(--gold); font-family: 'DM Sans', sans-serif;
-  font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase;
-  padding: 0.85rem 2.5rem; cursor: pointer; border-radius: 2px;
-  transition: all 0.3s ease;
-}
-.splash-enter:hover { background: var(--gold); color: var(--dark); }
+/* SPLASH */
+#splash{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--dark);transition:opacity 0.8s,visibility 0.8s;}
+#splash.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+#splash-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(201,169,110,0.12) 0%,transparent 70%);}
+.splash-content{position:relative;text-align:center;padding:2rem;}
+.splash-logo{font-family:'Cormorant Garamond',serif;font-size:3.8rem;font-weight:300;letter-spacing:0.15em;color:var(--text);line-height:1;}
+.splash-logo span{color:var(--gold);}
+.splash-sub{font-size:0.75rem;letter-spacing:0.5em;color:var(--text-muted);text-transform:uppercase;margin-top:0.5rem;}
+.splash-divider{width:60px;height:1px;background:var(--gold);margin:2rem auto;opacity:0.5;}
+.splash-enter{margin-top:2rem;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;padding:0.85rem 2.5rem;cursor:pointer;border-radius:2px;transition:all 0.3s;}
+.splash-enter:hover{background:var(--gold);color:var(--dark);}
 
-/* ── LAYOUT ── */
-#app { display: flex; min-height: 100vh; }
+/* LAYOUT */
+#app{display:flex;min-height:100vh;}
 
-/* ── SIDEBAR ── */
-#sidebar {
-  width: var(--sidebar-w); min-height: 100vh;
-  background: var(--dark2);
-  border-right: 1px solid rgba(201,169,110,0.12);
-  display: flex; flex-direction: column;
-  position: fixed; left: 0; top: 0; bottom: 0; z-index: 100;
-  overflow-y: auto;
-  transition: transform 0.3s ease;
-}
-.sidebar-header {
-  padding: 1.8rem 1.5rem 1.2rem;
-  border-bottom: 1px solid rgba(201,169,110,0.1);
-}
-.sidebar-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; letter-spacing: 0.1em; color: var(--text); }
-.sidebar-logo span { color: var(--gold); }
-.sidebar-obra { font-size: 0.68rem; letter-spacing: 0.3em; color: var(--text-dim); text-transform: uppercase; margin-top: 0.2rem; }
-.sidebar-progress-wrap { padding: 1rem 1.5rem; border-bottom: 1px solid rgba(201,169,110,0.1); }
-.sidebar-progress-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.5rem; }
-.progress-bar-track { height: 3px; background: var(--dark4); border-radius: 2px; overflow: hidden; }
-.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--gold-dark), var(--gold)); border-radius: 2px; transition: width 0.6s ease; }
-.sidebar-nav { padding: 1rem 0; flex: 1; }
-.nav-section { margin-bottom: 0.25rem; }
-.nav-section-btn {
-  width: 100%; display: flex; align-items: center; justify-content: space-between;
-  padding: 0.75rem 1.5rem; background: none; border: none; color: var(--text);
-  font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
-  letter-spacing: 0.05em; cursor: pointer; text-align: left;
-  transition: all 0.2s ease;
-}
-.nav-section-btn:hover { color: var(--gold); background: rgba(201,169,110,0.04); }
-.nav-section-btn.active { color: var(--gold); }
-.nav-section-icon { font-size: 0.7rem; color: var(--text-dim); transition: transform 0.25s ease; }
-.nav-section-btn.active .nav-section-icon { transform: rotate(90deg); color: var(--gold); }
-.nav-badge { font-size: 0.65rem; background: var(--dark4); color: var(--text-muted); padding: 0.1rem 0.45rem; border-radius: 10px; margin-left: auto; margin-right: 0.5rem; }
-.nav-sub { display: none; padding: 0.25rem 0 0.5rem; }
-.nav-sub.open { display: block; }
-.nav-sub-item {
-  width: 100%; display: flex; align-items: center; gap: 0.6rem;
-  padding: 0.5rem 1.5rem 0.5rem 2.8rem; background: none; border: none;
-  color: var(--text-muted); font-family: 'DM Sans', sans-serif;
-  font-size: 0.78rem; cursor: pointer; text-align: left; transition: all 0.2s ease;
-}
-.nav-sub-item:hover { color: var(--text); }
-.nav-sub-item.active { color: var(--gold); }
-.nav-sub-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text-dim); flex-shrink: 0; }
-.nav-sub-item.active .nav-sub-dot { background: var(--gold); }
-.sidebar-footer { padding: 1rem 1.5rem; border-top: 1px solid rgba(201,169,110,0.1); }
-.btn-report {
-  width: 100%; padding: 0.7rem; background: rgba(201,169,110,0.08);
-  border: 1px solid rgba(201,169,110,0.2); color: var(--gold);
-  font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.15em;
-  text-transform: uppercase; cursor: pointer; border-radius: var(--radius);
-  transition: all 0.2s ease;
-}
-.btn-report:hover { background: rgba(201,169,110,0.15); }
+/* SIDEBAR */
+#sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--dark2);border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:100;overflow-y:auto;}
+.sidebar-header{padding:1.8rem 1.5rem 1.2rem;border-bottom:1px solid rgba(201,169,110,0.1);}
+.sidebar-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;letter-spacing:0.1em;}
+.sidebar-logo span{color:var(--gold);}
+.sidebar-obra{font-size:0.68rem;letter-spacing:0.3em;color:var(--text-dim);text-transform:uppercase;margin-top:0.2rem;}
+.sidebar-progress-wrap{padding:1rem 1.5rem;border-bottom:1px solid rgba(201,169,110,0.1);}
+.sidebar-progress-label{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);margin-bottom:0.5rem;}
+.progress-bar-track{height:3px;background:var(--dark4);border-radius:2px;overflow:hidden;}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold-dark),var(--gold));border-radius:2px;transition:width 0.6s;}
+.sidebar-nav{padding:1rem 0;flex:1;}
+.nav-section{margin-bottom:0.1rem;}
+.nav-section-btn{width:100%;display:flex;align-items:center;padding:0.75rem 1.5rem;background:none;border:none;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;letter-spacing:0.03em;cursor:pointer;text-align:left;transition:all 0.2s;gap:0.5rem;}
+.nav-section-btn:hover{color:var(--gold);background:rgba(201,169,110,0.04);}
+.nav-section-btn.active{color:var(--gold);}
+.nav-badge{font-size:0.65rem;background:var(--dark4);color:var(--text-muted);padding:0.1rem 0.45rem;border-radius:10px;margin-left:auto;}
+.nav-arrow{font-size:0.7rem;color:var(--text-dim);transition:transform 0.25s;margin-left:0.25rem;}
+.nav-section-btn.active .nav-arrow{transform:rotate(90deg);color:var(--gold);}
+.nav-sub{display:none;padding:0.1rem 0 0.4rem;}
+.nav-sub.open{display:block;}
+.nav-sub-item{width:100%;display:flex;align-items:center;gap:0.6rem;padding:0.45rem 1.5rem 0.45rem 2.6rem;background:none;border:none;color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:0.77rem;cursor:pointer;text-align:left;transition:all 0.2s;}
+.nav-sub-item:hover{color:var(--text);}
+.nav-sub-item.active{color:var(--gold);}
+.nav-sub-dot{width:4px;height:4px;border-radius:50%;background:var(--text-dim);flex-shrink:0;}
+.nav-sub-item.active .nav-sub-dot{background:var(--gold);}
+.sidebar-footer{padding:1rem 1.5rem;border-top:1px solid rgba(201,169,110,0.1);display:flex;flex-direction:column;gap:0.5rem;}
+.btn-footer{width:100%;padding:0.65rem;background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.2);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;border-radius:var(--radius);transition:all 0.2s;}
+.btn-footer:hover{background:rgba(201,169,110,0.15);}
 
-/* ── MAIN ── */
-#main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
-.main-header {
-  padding: 1.5rem 2rem; border-bottom: 1px solid rgba(201,169,110,0.08);
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
-  background: var(--dark2);
-}
-.main-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: var(--text); }
-.main-subtitle { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
-.header-actions { display: flex; gap: 0.75rem; }
-.btn-sm {
-  padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.75rem; letter-spacing: 0.05em;
-  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s ease; border: none;
-}
-.btn-primary { background: var(--gold); color: var(--dark); font-weight: 500; }
-.btn-primary:hover { background: var(--gold-light); }
-.btn-outline { background: transparent; border: 1px solid rgba(201,169,110,0.3); color: var(--gold); }
-.btn-outline:hover { background: rgba(201,169,110,0.1); }
-.main-content { padding: 2rem; flex: 1; }
+/* MAIN */
+#main{margin-left:var(--sidebar-w);flex:1;min-height:100vh;display:flex;flex-direction:column;}
+.main-header{padding:1.25rem 2rem;border-bottom:1px solid rgba(201,169,110,0.08);display:flex;align-items:center;justify-content:space-between;background:var(--dark2);flex-wrap:wrap;gap:0.75rem;}
+.main-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;}
+.main-subtitle{font-size:0.72rem;color:var(--text-muted);margin-top:0.1rem;}
+.header-actions{display:flex;gap:0.6rem;flex-wrap:wrap;}
+.btn-sm{padding:0.45rem 1rem;border-radius:6px;font-size:0.73rem;letter-spacing:0.04em;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;border:none;}
+.btn-primary{background:var(--gold);color:var(--dark);font-weight:500;}
+.btn-primary:hover{background:var(--gold-light);}
+.btn-outline{background:transparent;border:1px solid rgba(201,169,110,0.3);color:var(--gold);}
+.btn-outline:hover{background:rgba(201,169,110,0.1);}
+.btn-danger{background:rgba(224,92,92,0.15);border:1px solid rgba(224,92,92,0.3);color:var(--danger);}
+.main-content{padding:1.5rem 2rem;flex:1;}
 
-/* ── DASHBOARD HOME ── */
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-.stat-card {
-  background: var(--dark2); border: 1px solid rgba(201,169,110,0.1);
-  border-radius: var(--radius); padding: 1.25rem 1.5rem;
-}
-.stat-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); }
-.stat-value { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--text); line-height: 1; margin-top: 0.3rem; }
-.stat-value span { color: var(--gold); }
-.stat-change { font-size: 0.72rem; color: var(--success); margin-top: 0.4rem; }
+/* CONFIG */
+.config-panel{background:var(--dark3);border:1px solid rgba(201,169,110,0.15);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.5rem;}
+.config-title{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;}
+.config-row{display:flex;gap:0.75rem;align-items:flex-end;flex-wrap:wrap;}
+.config-field{flex:1;min-width:200px;}
+.config-field label{display:block;font-size:0.68rem;color:var(--text-muted);margin-bottom:0.35rem;}
+.config-field input,.config-field select{width:100%;background:var(--dark2);border:1px solid rgba(255,255,255,0.1);color:var(--text);padding:0.55rem 0.85rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.78rem;}
+.config-field input:focus,.config-field select:focus{outline:none;border-color:rgba(201,169,110,0.4);}
 
-/* ── GRÁFICO OVERVIEW ── */
-.charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
-@media(max-width:900px){ .charts-row { grid-template-columns: 1fr; } }
-.card {
-  background: var(--dark2); border: 1px solid rgba(201,169,110,0.1);
-  border-radius: var(--radius); padding: 1.25rem 1.5rem;
-}
-.card-title { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1.25rem; }
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:1.5rem;}
+.stat-card{background:var(--dark2);border:1px solid rgba(201,169,110,0.1);border-radius:var(--radius);padding:1rem 1.25rem;}
+.stat-label{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);}
+.stat-value{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--text);line-height:1;margin-top:0.25rem;}
+.stat-value span{color:var(--gold);}
 
-/* ── ETAPA VIEW ── */
-.etapa-view { display: none; }
-.etapa-view.active { display: block; }
-.apto-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
-.apto-card {
-  background: var(--dark2); border: 1px solid rgba(201,169,110,0.1);
-  border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s;
-}
-.apto-card:hover { border-color: rgba(201,169,110,0.3); }
-.apto-header {
-  padding: 0.9rem 1.1rem; display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.apto-num { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--text); }
-.apto-pct { font-size: 0.75rem; font-weight: 500; color: var(--gold); }
-.apto-progress { height: 3px; background: var(--dark4); }
-.apto-progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold-dark), var(--gold)); transition: width 0.5s ease; }
-.apto-body { padding: 0.75rem 1.1rem; }
-.check-item {
-  display: flex; align-items: center; gap: 0.6rem;
-  padding: 0.38rem 0; border-bottom: 1px solid rgba(255,255,255,0.03);
-  font-size: 0.78rem; color: var(--text-muted);
-}
-.check-item:last-child { border-bottom: none; }
-.check-item input[type=checkbox] { accent-color: var(--gold); width: 14px; height: 14px; cursor: pointer; flex-shrink: 0; }
-.check-item label { cursor: pointer; flex: 1; transition: color 0.2s; }
-.check-item input:checked + label { color: var(--success); text-decoration: line-through; text-decoration-color: var(--text-dim); }
-.prazo-wrap { display: flex; align-items: center; gap: 0.4rem; margin-left: auto; flex-shrink: 0; }
-.prazo-input {
-  background: var(--dark3); border: 1px solid rgba(255,255,255,0.06);
-  color: var(--text-muted); font-size: 0.68rem; padding: 0.2rem 0.4rem;
-  border-radius: 4px; width: 90px; font-family: 'DM Sans', sans-serif;
-}
-.prazo-input:focus { outline: none; border-color: rgba(201,169,110,0.3); color: var(--text); }
-.tag { font-size: 0.62rem; padding: 0.15rem 0.45rem; border-radius: 10px; font-weight: 500; }
-.tag-ok { background: rgba(76,175,125,0.15); color: var(--success); }
-.tag-warn { background: rgba(232,168,74,0.15); color: var(--warning); }
-.tag-late { background: rgba(224,92,92,0.15); color: var(--danger); }
+/* CHARTS */
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem;}
+@media(max-width:900px){.charts-row{grid-template-columns:1fr;}}
+.card{background:var(--dark2);border:1px solid rgba(201,169,110,0.1);border-radius:var(--radius);padding:1.25rem 1.5rem;}
+.card-title{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:1rem;}
+.bar-chart{display:flex;flex-direction:column;gap:0.55rem;}
+.bar-row{display:flex;align-items:center;gap:0.6rem;}
+.bar-label{font-size:0.7rem;color:var(--text-muted);width:90px;flex-shrink:0;text-align:right;}
+.bar-track{flex:1;height:5px;background:var(--dark4);border-radius:3px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold-dark),var(--gold));transition:width 0.8s;}
+.bar-pct{font-size:0.66rem;color:var(--text-muted);width:30px;text-align:right;flex-shrink:0;}
+.bubble-wrap{display:flex;flex-wrap:wrap;gap:0.35rem;}
+.bubble{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.62rem;font-weight:500;cursor:pointer;transition:all 0.2s;border:1px solid transparent;}
+.bubble-none{background:var(--dark4);color:var(--text-dim);}
+.bubble-low{background:rgba(201,169,110,0.1);color:var(--gold);border-color:rgba(201,169,110,0.2);}
+.bubble-mid{background:rgba(201,169,110,0.25);color:var(--gold);border-color:rgba(201,169,110,0.4);}
+.bubble-done{background:rgba(76,175,125,0.2);color:var(--success);border-color:rgba(76,175,125,0.3);}
+.bubble-late{background:rgba(224,92,92,0.15);color:var(--danger);border-color:rgba(224,92,92,0.25);}
+.bubble:hover{transform:scale(1.15);}
 
-/* ── GRÁFICO BARRAS CUSTOM ── */
-.bar-chart { display: flex; flex-direction: column; gap: 0.6rem; }
-.bar-row { display: flex; align-items: center; gap: 0.75rem; }
-.bar-label { font-size: 0.72rem; color: var(--text-muted); width: 80px; flex-shrink: 0; text-align: right; }
-.bar-track { flex: 1; height: 6px; background: var(--dark4); border-radius: 3px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--gold-dark), var(--gold)); transition: width 0.8s ease; }
-.bar-pct { font-size: 0.68rem; color: var(--text-muted); width: 32px; text-align: right; flex-shrink: 0; }
+/* APTO GRID */
+.apto-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:0.75rem;}
+.apto-card{background:var(--dark2);border:1px solid rgba(201,169,110,0.1);border-radius:var(--radius);overflow:hidden;transition:border-color 0.2s;}
+.apto-card:hover{border-color:rgba(201,169,110,0.25);}
+.apto-card.disabled{opacity:0.4;}
+.apto-header{padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);}
+.apto-num{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--text);}
+.apto-pct-bar{height:2px;background:var(--dark4);}
+.apto-pct-fill{height:100%;background:linear-gradient(90deg,var(--gold-dark),var(--gold));transition:width 0.5s;}
+.apto-body{padding:0.6rem 1rem;}
 
-/* ── BUBBLE APTOS ── */
-.bubble-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.bubble {
-  width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  font-size: 0.65rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent;
-}
-.bubble-none { background: var(--dark4); color: var(--text-dim); }
-.bubble-low  { background: rgba(201,169,110,0.1); color: var(--gold); border-color: rgba(201,169,110,0.2); }
-.bubble-mid  { background: rgba(201,169,110,0.25); color: var(--gold); border-color: rgba(201,169,110,0.4); }
-.bubble-done { background: rgba(76,175,125,0.2); color: var(--success); border-color: rgba(76,175,125,0.3); }
-.bubble-late { background: rgba(224,92,92,0.15); color: var(--danger); border-color: rgba(224,92,92,0.25); }
-.bubble:hover { transform: scale(1.15); z-index: 1; }
+/* CHECK ITEMS */
+.check-group{margin-bottom:0.4rem;}
+.check-group-label{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);padding:0.3rem 0 0.2rem;border-top:1px solid rgba(255,255,255,0.04);margin-top:0.2rem;}
+.check-item{display:flex;align-items:center;gap:0.5rem;padding:0.3rem 0;font-size:0.76rem;color:var(--text-muted);}
+.check-item input[type=checkbox]{accent-color:var(--gold);width:13px;height:13px;cursor:pointer;flex-shrink:0;}
+.check-item label{cursor:pointer;flex:1;transition:color 0.2s;}
+.check-item input:checked+label{color:var(--success);text-decoration:line-through;text-decoration-color:var(--text-dim);}
+.date-auto{font-size:0.65rem;color:var(--text-dim);margin-left:auto;flex-shrink:0;}
+.check-item input:checked~.date-auto{color:var(--success);}
 
-/* ── MODAL ── */
-#modal-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 500;
-  display: none; align-items: center; justify-content: center;
-}
-#modal-overlay.open { display: flex; }
-#modal {
-  background: var(--dark2); border: 1px solid rgba(201,169,110,0.2);
-  border-radius: 12px; padding: 2rem; width: 90%; max-width: 680px; max-height: 85vh; overflow-y: auto;
-}
-.modal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; }
-.modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; }
-.modal-close { background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; }
-.modal-close:hover { color: var(--text); }
+/* TAGS */
+.tag{font-size:0.61rem;padding:0.12rem 0.4rem;border-radius:10px;font-weight:500;flex-shrink:0;}
+.tag-ok{background:rgba(76,175,125,0.15);color:var(--success);}
+.tag-warn{background:rgba(232,168,74,0.15);color:var(--warning);}
+.tag-late{background:rgba(224,92,92,0.15);color:var(--danger);}
+.tag-none{background:var(--dark4);color:var(--text-dim);}
 
-/* ── TOAST ── */
-#toast {
-  position: fixed; bottom: 2rem; right: 2rem; z-index: 9999;
-  background: var(--dark3); border: 1px solid rgba(201,169,110,0.2);
-  color: var(--text); padding: 0.85rem 1.25rem; border-radius: 8px;
-  font-size: 0.8rem; opacity: 0; transform: translateY(10px);
-  transition: all 0.3s ease; pointer-events: none;
-}
-#toast.show { opacity: 1; transform: translateY(0); }
-#toast.success { border-color: rgba(76,175,125,0.4); }
-#toast.error { border-color: rgba(224,92,92,0.4); }
+/* PDF SECTION */
+.pdf-section{margin-top:0.5rem;padding-top:0.5rem;border-top:1px solid rgba(255,255,255,0.04);}
+.pdf-label{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.35rem;}
+.pdf-row{display:flex;gap:0.4rem;align-items:center;}
+.pdf-input{flex:1;background:var(--dark3);border:1px solid rgba(255,255,255,0.06);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.5rem;border-radius:5px;font-family:'DM Sans',sans-serif;}
+.pdf-input:focus{outline:none;border-color:rgba(201,169,110,0.3);color:var(--text);}
+.pdf-btn{background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);color:var(--gold);font-size:0.68rem;padding:0.3rem 0.6rem;border-radius:5px;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;}
+.pdf-btn:hover{background:rgba(201,169,110,0.2);}
 
-/* ── RELATÓRIO ── */
-.report-section { margin-bottom: 1.5rem; }
-.report-section h3 { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
-.report-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-.report-table th { text-align: left; padding: 0.5rem 0.75rem; color: var(--text-dim); font-weight: 400; font-size: 0.7rem; letter-spacing: 0.1em; }
-.report-table td { padding: 0.5rem 0.75rem; border-top: 1px solid rgba(255,255,255,0.04); color: var(--text-muted); }
-.report-table td:first-child { color: var(--text); font-weight: 500; }
+/* PRAZO GLOBAL */
+.prazo-info{font-size:0.7rem;color:var(--text-muted);display:flex;align-items:center;gap:0.4rem;}
+.prazo-info input[type=date]{background:var(--dark3);border:1px solid rgba(255,255,255,0.08);color:var(--text-muted);font-size:0.68rem;padding:0.2rem 0.4rem;border-radius:4px;font-family:'DM Sans',sans-serif;}
+.prazo-info input[type=date]:focus{outline:none;border-color:rgba(201,169,110,0.3);}
 
-/* ── LOADING ── */
-.loading-wrap { display: flex; align-items: center; justify-content: center; padding: 3rem; color: var(--text-muted); font-size: 0.82rem; gap: 0.75rem; }
-.spinner { width: 18px; height: 18px; border: 2px solid rgba(201,169,110,0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
+/* MODAL */
+#modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem;}
+#modal-overlay.open{display:flex;}
+#modal{background:var(--dark2);border:1px solid rgba(201,169,110,0.2);border-radius:12px;padding:1.75rem;width:100%;max-width:700px;max-height:88vh;overflow-y:auto;}
+.modal-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.25rem;}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;}
+.modal-close{background:none;border:none;color:var(--text-muted);font-size:1.1rem;cursor:pointer;}
+.modal-close:hover{color:var(--text);}
+.modal-section{margin-bottom:1.25rem;}
+.modal-section h3{font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.6rem;padding-bottom:0.4rem;border-bottom:1px solid rgba(255,255,255,0.05);}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+@media(max-width:500px){.modal-grid{grid-template-columns:1fr;}}
+.modal-field label{display:block;font-size:0.68rem;color:var(--text-muted);margin-bottom:0.3rem;}
+.modal-field input,.modal-field select,.modal-field textarea{width:100%;background:var(--dark3);border:1px solid rgba(255,255,255,0.08);color:var(--text);padding:0.5rem 0.75rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.78rem;}
+.modal-field input:focus,.modal-field select:focus,.modal-field textarea:focus{outline:none;border-color:rgba(201,169,110,0.35);}
+.modal-field textarea{resize:vertical;min-height:70px;}
 
-/* ── CONEXÃO CONFIG ── */
-.config-panel { background: var(--dark3); border: 1px solid rgba(201,169,110,0.15); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 2rem; }
-.config-title { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
-.config-input-wrap { display: flex; gap: 0.75rem; align-items: flex-end; flex-wrap: wrap; }
-.config-field { flex: 1; min-width: 200px; }
-.config-field label { display: block; font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.4rem; }
-.config-field input {
-  width: 100%; background: var(--dark2); border: 1px solid rgba(255,255,255,0.1);
-  color: var(--text); padding: 0.6rem 0.9rem; border-radius: 6px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
-}
-.config-field input:focus { outline: none; border-color: rgba(201,169,110,0.4); }
+/* REPORT */
+.report-table{width:100%;border-collapse:collapse;font-size:0.78rem;}
+.report-table th{text-align:left;padding:0.45rem 0.6rem;color:var(--text-dim);font-weight:400;font-size:0.67rem;letter-spacing:0.1em;}
+.report-table td{padding:0.45rem 0.6rem;border-top:1px solid rgba(255,255,255,0.04);color:var(--text-muted);}
+.report-table td:first-child{color:var(--text);}
 
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: var(--dark); }
-::-webkit-scrollbar-thumb { background: var(--dark4); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+/* TOAST */
+#toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:var(--dark3);border:1px solid rgba(201,169,110,0.2);color:var(--text);padding:0.75rem 1.1rem;border-radius:8px;font-size:0.78rem;opacity:0;transform:translateY(8px);transition:all 0.3s;pointer-events:none;}
+#toast.show{opacity:1;transform:translateY(0);}
+#toast.success{border-color:rgba(76,175,125,0.4);}
+#toast.error{border-color:rgba(224,92,92,0.4);}
+
+/* PRAZOS GLOBAIS PAGE */
+.prazos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0.75rem;}
+.prazo-card{background:var(--dark2);border:1px solid rgba(201,169,110,0.1);border-radius:var(--radius);padding:1rem 1.25rem;}
+.prazo-card-title{font-size:0.8rem;font-weight:500;color:var(--text);margin-bottom:0.75rem;}
+.prazo-item{display:flex;align-items:center;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.75rem;color:var(--text-muted);gap:0.5rem;}
+.prazo-item:last-child{border-bottom:none;}
+.prazo-item span{flex:1;}
+.prazo-item input[type=date]{background:var(--dark3);border:1px solid rgba(255,255,255,0.08);color:var(--text-muted);font-size:0.67rem;padding:0.18rem 0.35rem;border-radius:4px;font-family:'DM Sans',sans-serif;}
+.prazo-item input[type=date]:focus{outline:none;border-color:rgba(201,169,110,0.3);}
+
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:var(--dark);}
+::-webkit-scrollbar-thumb{background:var(--dark4);border-radius:2px;}
 </style>
 </head>
 <body>
@@ -287,445 +204,450 @@ body { font-family: 'DM Sans', sans-serif; background: var(--dark); color: var(-
   <div class="splash-content">
     <div class="splash-logo">Essence <span>Residence</span></div>
     <div class="splash-sub">Controle de Obras</div>
-    <div class="splash-divider"></div>
-    <div class="splash-tagline">Acompanhamento em tempo real</div>
+    <div class="splash-divider" style="width:60px;height:1px;background:var(--gold);margin:1.5rem auto;opacity:0.5;"></div>
     <button class="splash-enter" onclick="enterApp()">Acessar Dashboard</button>
   </div>
 </div>
 
 <!-- APP -->
 <div id="app">
-
-  <!-- SIDEBAR -->
-  <aside id="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-logo">Essence <span>Residence</span></div>
-      <div class="sidebar-obra">Controle de Obras</div>
+<aside id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">Essence <span>Residence</span></div>
+    <div class="sidebar-obra">Controle de Obras</div>
+  </div>
+  <div class="sidebar-progress-wrap">
+    <div class="sidebar-progress-label"><span>Progresso geral</span><span id="pct-geral">—</span></div>
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="bar-geral" style="width:0%"></div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">
+      <button class="nav-section-btn" onclick="goHome()">◈ &nbsp;Visão Geral</button>
     </div>
-    <div class="sidebar-progress-wrap">
-      <div class="sidebar-progress-label">
-        <span>Progresso geral</span>
-        <span id="pct-geral">—</span>
+    <div class="nav-section">
+      <button class="nav-section-btn" onclick="toggleSection('civil',this)">◈ &nbsp;Etapa Civil <span class="nav-badge" id="badge-civil">0%</span><span class="nav-arrow">›</span></button>
+      <div class="nav-sub" id="sub-civil">
+        <button class="nav-sub-item" onclick="openEtapa('civil','vedacao')"><span class="nav-sub-dot"></span>Vedação</button>
+        <button class="nav-sub-item" onclick="openEtapa('civil','eletrica')"><span class="nav-sub-dot"></span>Elétrica</button>
+        <button class="nav-sub-item" onclick="openEtapa('civil','hidraulica')"><span class="nav-sub-dot"></span>Hidráulica</button>
+        <button class="nav-sub-item" onclick="openEtapa('civil','banheira')"><span class="nav-sub-dot"></span>Pontos de banheira</button>
+        <button class="nav-sub-item" onclick="openEtapa('civil','aspiracao')"><span class="nav-sub-dot"></span>Aspiração central</button>
+        <button class="nav-sub-item" onclick="openEtapa('civil','arcond')"><span class="nav-sub-dot"></span>Ar-condicionado</button>
+        <button class="nav-sub-item" onclick="openEtapa('civil','contrapiso')"><span class="nav-sub-dot"></span>Contrapiso</button>
+        <button class="nav-sub-item" onclick="openEtapa('civil','forro')"><span class="nav-sub-dot"></span>Forro</button>
+        <button class="nav-sub-item" onclick="openEtapa('civil','gesso')"><span class="nav-sub-dot"></span>Gesso nas paredes</button>
+        <button class="nav-sub-item" onclick="openEtapa('civil','nichos')"><span class="nav-sub-dot"></span>Nichos</button>
       </div>
-      <div class="progress-bar-track"><div class="progress-bar-fill" id="bar-geral" style="width:0%"></div></div>
     </div>
-
-    <nav class="sidebar-nav">
-      <div class="nav-section">
-        <button class="nav-section-btn" onclick="goHome()">
-          ▣ &nbsp;Visão Geral
-        </button>
+    <div class="nav-section">
+      <button class="nav-section-btn" onclick="toggleSection('rev',this)">◈ &nbsp;Revestimentos <span class="nav-badge" id="badge-rev">0%</span><span class="nav-arrow">›</span></button>
+      <div class="nav-sub" id="sub-rev">
+        <button class="nav-sub-item" onclick="openEtapa('rev','catalogo')"><span class="nav-sub-dot"></span>Catálogo enviado</button>
+        <button class="nav-sub-item" onclick="openEtapa('rev','projeto')"><span class="nav-sub-dot"></span>Projeto recebido</button>
+        <button class="nav-sub-item" onclick="openEtapa('rev','escolhido')"><span class="nav-sub-dot"></span>Revestimento escolhido</button>
+        <button class="nav-sub-item" onclick="openEtapa('rev','revestido')"><span class="nav-sub-dot"></span>Ambientes revestidos</button>
       </div>
-
-      <!-- CIVIL -->
-      <div class="nav-section">
-        <button class="nav-section-btn" onclick="toggleSection('civil',this)" id="btn-civil">
-          ◈ &nbsp;Etapa Civil
-          <span class="nav-badge" id="badge-civil">0%</span>
-          <span class="nav-section-icon">›</span>
-        </button>
-        <div class="nav-sub" id="sub-civil">
-          <button class="nav-sub-item" onclick="openEtapa('civil','vedacao')"><span class="nav-sub-dot"></span>Vedação</button>
-          <button class="nav-sub-item" onclick="openEtapa('civil','eletrica')"><span class="nav-sub-dot"></span>Elétrica</button>
-          <button class="nav-sub-item" onclick="openEtapa('civil','hidraulica')"><span class="nav-sub-dot"></span>Hidráulica</button>
-          <button class="nav-sub-item" onclick="openEtapa('civil','banheira')"><span class="nav-sub-dot"></span>Pontos de banheira</button>
-          <button class="nav-sub-item" onclick="openEtapa('civil','aspiracao')"><span class="nav-sub-dot"></span>Aspiração central</button>
-          <button class="nav-sub-item" onclick="openEtapa('civil','arcond')"><span class="nav-sub-dot"></span>Ar-condicionado</button>
-          <button class="nav-sub-item" onclick="openEtapa('civil','contrapiso')"><span class="nav-sub-dot"></span>Contrapiso</button>
-          <button class="nav-sub-item" onclick="openEtapa('civil','forro')"><span class="nav-sub-dot"></span>Forro</button>
-          <button class="nav-sub-item" onclick="openEtapa('civil','gesso')"><span class="nav-sub-dot"></span>Gesso nas paredes</button>
-          <button class="nav-sub-item" onclick="openEtapa('civil','nichos')"><span class="nav-sub-dot"></span>Nichos</button>
-        </div>
-      </div>
-
-      <!-- REVESTIMENTOS -->
-      <div class="nav-section">
-        <button class="nav-section-btn" onclick="toggleSection('rev',this)" id="btn-rev">
-          ◈ &nbsp;Revestimentos
-          <span class="nav-badge" id="badge-rev">0%</span>
-          <span class="nav-section-icon">›</span>
-        </button>
-        <div class="nav-sub" id="sub-rev">
-          <button class="nav-sub-item" onclick="openEtapa('rev','modelos_env')"><span class="nav-sub-dot"></span>Arquivos de modelos enviados</button>
-          <button class="nav-sub-item" onclick="openEtapa('rev','escolhido')"><span class="nav-sub-dot"></span>Revestimento escolhido</button>
-          <button class="nav-sub-item" onclick="openEtapa('rev','revestido')"><span class="nav-sub-dot"></span>Apartamento revestido</button>
-        </div>
-      </div>
-
-      <!-- MARMORARIA -->
-      <div class="nav-section">
-        <button class="nav-section-btn" onclick="toggleSection('marm',this)" id="btn-marm">
-          ◈ &nbsp;Marmoraria
-          <span class="nav-badge" id="badge-marm">0%</span>
-          <span class="nav-section-icon">›</span>
-        </button>
-        <div class="nav-sub" id="sub-marm">
-          <button class="nav-sub-item" onclick="openEtapa('marm','modelos_gratuitos')"><span class="nav-sub-dot"></span>Modelos gratuitos enviados</button>
-          <button class="nav-sub-item" onclick="openEtapa('marm','pedra_escolhida')"><span class="nav-sub-dot"></span>Pedra escolhida</button>
-          <button class="nav-sub-item" onclick="openEtapa('marm','chapas_selecionadas')"><span class="nav-sub-dot"></span>Qtd. de chapas selecionadas</button>
-          <button class="nav-sub-item" onclick="openEtapa('marm','chapas_compradas')"><span class="nav-sub-dot"></span>Chapas compradas</button>
-          <button class="nav-sub-item" onclick="openEtapa('marm','pedras_obra')"><span class="nav-sub-dot"></span>Pedras em obra</button>
-          <button class="nav-sub-item" onclick="openEtapa('marm','bancadas')"><span class="nav-sub-dot"></span>Bancadas por ambiente</button>
-          <button class="nav-sub-item" onclick="openEtapa('marm','concluido')"><span class="nav-sub-dot"></span>Apartamento concluído</button>
-        </div>
-      </div>
-    </nav>
-
-    <div class="sidebar-footer">
-      <button class="btn-report" onclick="openReport()">↓ Gerar Relatório</button>
     </div>
-  </aside>
-
-  <!-- MAIN -->
-  <main id="main">
-    <div class="main-header">
-      <div>
-        <div class="main-title" id="main-title">Visão Geral</div>
-        <div class="main-subtitle" id="main-subtitle">Essence Residence — 30 apartamentos</div>
+    <div class="nav-section">
+      <button class="nav-section-btn" onclick="toggleSection('marm',this)">◈ &nbsp;Marmoraria <span class="nav-badge" id="badge-marm">0%</span><span class="nav-arrow">›</span></button>
+      <div class="nav-sub" id="sub-marm">
+        <button class="nav-sub-item" onclick="openEtapa('marm','catalogo')"><span class="nav-sub-dot"></span>Catálogo enviado</button>
+        <button class="nav-sub-item" onclick="openEtapa('marm','projeto')"><span class="nav-sub-dot"></span>Projeto recebido</button>
+        <button class="nav-sub-item" onclick="openEtapa('marm','pedra')"><span class="nav-sub-dot"></span>Pedra escolhida</button>
+        <button class="nav-sub-item" onclick="openEtapa('marm','chapas_sel')"><span class="nav-sub-dot"></span>Chapas selecionadas</button>
+        <button class="nav-sub-item" onclick="openEtapa('marm','chapas_comp')"><span class="nav-sub-dot"></span>Chapas compradas</button>
+        <button class="nav-sub-item" onclick="openEtapa('marm','pedras_obra')"><span class="nav-sub-dot"></span>Pedras em obra</button>
+        <button class="nav-sub-item" onclick="openEtapa('marm','bancadas')"><span class="nav-sub-dot"></span>Bancadas por ambiente</button>
+        <button class="nav-sub-item" onclick="openEtapa('marm','concluido')"><span class="nav-sub-dot"></span>Apartamento concluído</button>
       </div>
-      <div class="header-actions">
-        <button class="btn-sm btn-outline" onclick="syncData()">↺ Sincronizar</button>
-        <button class="btn-sm btn-primary" onclick="saveAll()">✓ Salvar</button>
+    </div>
+    <div class="nav-section">
+      <button class="nav-section-btn" onclick="openPrazos()">◈ &nbsp;Prazos Globais</button>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="btn-footer" onclick="openReport()">↓ Gerar Relatório</button>
+  </div>
+</aside>
+
+<main id="main">
+  <div class="main-header">
+    <div>
+      <div class="main-title" id="main-title">Visão Geral</div>
+      <div class="main-subtitle" id="main-subtitle">Essence Residence — 30 apartamentos</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-sm btn-outline" onclick="syncData()">↺ Sincronizar</button>
+      <button class="btn-sm btn-primary" onclick="saveAll()">✓ Salvar</button>
+    </div>
+  </div>
+  <div class="main-content">
+
+    <!-- CONFIG -->
+    <div class="config-panel" id="config-panel">
+      <div class="config-title">⚙ Conectar ao Google Sheets</div>
+      <div class="config-row">
+        <div class="config-field" style="flex:2">
+          <label>URL do Apps Script</label>
+          <input type="text" id="script-url" placeholder="https://script.google.com/macros/s/SEU_ID/exec"/>
+        </div>
+        <button class="btn-sm btn-primary" style="height:34px" onclick="saveConfig()">Conectar</button>
       </div>
     </div>
 
-    <div class="main-content">
-
-      <!-- CONFIG PANEL (mostrado se não tiver script configurado) -->
-      <div class="config-panel" id="config-panel">
-        <div class="config-title">⚙ Configuração do Apps Script</div>
-        <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1rem;">Cole abaixo a URL do seu Google Apps Script para conectar ao banco de dados.</p>
-        <div class="config-input-wrap">
-          <div class="config-field" style="flex:2">
-            <label>URL do Apps Script</label>
-            <input type="text" id="script-url" placeholder="https://script.google.com/macros/s/SEU_ID/exec" />
-          </div>
-          <button class="btn-sm btn-primary" style="height:36px" onclick="saveConfig()">Conectar</button>
-        </div>
+    <!-- VISÃO GERAL -->
+    <div id="view-home">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Total</div><div class="stat-value">30</div></div>
+        <div class="stat-card"><div class="stat-label">Concluídos</div><div class="stat-value" id="stat-conc"><span>0</span></div></div>
+        <div class="stat-card"><div class="stat-label">Em andamento</div><div class="stat-value" id="stat-and"><span>0</span></div></div>
+        <div class="stat-card"><div class="stat-label">Atrasados</div><div class="stat-value" id="stat-late"><span>0</span></div></div>
       </div>
-
-      <!-- VISÃO GERAL -->
-      <div id="view-home">
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-label">Apartamentos</div>
-            <div class="stat-value">30</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Concluídos</div>
-            <div class="stat-value" id="stat-concluidos"><span>0</span></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Em andamento</div>
-            <div class="stat-value" id="stat-andamento"><span>0</span></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Atrasados</div>
-            <div class="stat-value" id="stat-atrasados"><span>0</span></div>
+      <div class="charts-row">
+        <div class="card">
+          <div class="card-title">Progresso por etapa</div>
+          <div class="bar-chart">
+            <div class="bar-row"><div class="bar-label">Civil</div><div class="bar-track"><div class="bar-fill" id="bar-civil" style="width:0%"></div></div><div class="bar-pct" id="pct-civil-chart">0%</div></div>
+            <div class="bar-row"><div class="bar-label">Revestimentos</div><div class="bar-track"><div class="bar-fill" id="bar-rev" style="width:0%"></div></div><div class="bar-pct" id="pct-rev-chart">0%</div></div>
+            <div class="bar-row"><div class="bar-label">Marmoraria</div><div class="bar-track"><div class="bar-fill" id="bar-marm" style="width:0%"></div></div><div class="bar-pct" id="pct-marm-chart">0%</div></div>
           </div>
         </div>
-
-        <div class="charts-row">
-          <div class="card">
-            <div class="card-title">Progresso por etapa</div>
-            <div class="bar-chart" id="chart-etapas">
-              <div class="bar-row"><div class="bar-label">Civil</div><div class="bar-track"><div class="bar-fill" id="bar-civil" style="width:0%"></div></div><div class="bar-pct" id="pct-civil">0%</div></div>
-              <div class="bar-row"><div class="bar-label">Revestimento</div><div class="bar-track"><div class="bar-fill" id="bar-rev" style="width:0%"></div></div><div class="bar-pct" id="pct-rev-chart">0%</div></div>
-              <div class="bar-row"><div class="bar-label">Marmoraria</div><div class="bar-track"><div class="bar-fill" id="bar-marm-chart" style="width:0%"></div></div><div class="bar-pct" id="pct-marm-chart">0%</div></div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-title">Status dos apartamentos</div>
-            <div class="bubble-wrap" id="bubble-aptos"></div>
-          </div>
+        <div class="card">
+          <div class="card-title">Status dos apartamentos</div>
+          <div class="bubble-wrap" id="bubble-aptos"></div>
         </div>
       </div>
-
-      <!-- VIEWS DE ETAPA (geradas dinamicamente) -->
-      <div id="view-etapa" style="display:none">
-        <div class="apto-grid" id="apto-grid"></div>
-      </div>
-
     </div>
-  </main>
+
+    <!-- ETAPA VIEW -->
+    <div id="view-etapa" style="display:none">
+      <div id="etapa-header" style="margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+        <div id="etapa-prazo-global" class="prazo-info"></div>
+        <div id="etapa-pdf-global" style="display:flex;gap:0.5rem;align-items:center;font-size:0.75rem;color:var(--text-muted);"></div>
+      </div>
+      <div class="apto-grid" id="apto-grid"></div>
+    </div>
+
+    <!-- PRAZOS GLOBAIS -->
+    <div id="view-prazos" style="display:none">
+      <div class="prazos-grid" id="prazos-grid"></div>
+    </div>
+
+  </div>
+</main>
 </div>
 
-<!-- MODAL RELATÓRIO -->
+<!-- MODAL -->
 <div id="modal-overlay">
   <div id="modal">
     <div class="modal-header">
-      <div class="modal-title">Relatório de Obras</div>
+      <div class="modal-title" id="modal-title">Detalhes</div>
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
     <div id="modal-body"></div>
-    <div style="margin-top:1.5rem;display:flex;gap:0.75rem;justify-content:flex-end">
+    <div style="margin-top:1.25rem;display:flex;gap:0.6rem;justify-content:flex-end">
       <button class="btn-sm btn-outline" onclick="closeModal()">Fechar</button>
-      <button class="btn-sm btn-primary" onclick="printReport()">Imprimir / PDF</button>
+      <button class="btn-sm btn-primary" id="modal-save-btn" style="display:none" onclick="modalSave()">Salvar</button>
     </div>
   </div>
 </div>
 
-<!-- TOAST -->
 <div id="toast"></div>
 
 <script>
-// ── CONFIGURAÇÃO ──────────────────────────────────────────────
-const TOTAL_APTOS = 30;
-const OBRA_NOME = 'Essence Residence';
+// ── APARTAMENTOS ──────────────────────────────────────────────
+const APTOS = [
+  '11','12','21','22','31','32','41','42','51','52',
+  '61','62','71','72','81','82','91','92',
+  '101','102','111','112','121','122','131','132',
+  '141','142','151','152'
+];
 
-const ETAPAS = {
+// ── DEFINIÇÃO DAS ETAPAS ──────────────────────────────────────
+const ETAPAS_DEF = {
   civil: {
     label: 'Etapa Civil',
     itens: {
-      vedacao:    'Vedação',
-      eletrica:   'Elétrica',
-      hidraulica: 'Hidráulica',
-      banheira:   'Pontos de banheira',
-      aspiracao:  'Aspiração central',
-      arcond:     'Ar-condicionado',
-      contrapiso: 'Contrapiso',
-      forro:      'Forro',
-      gesso:      'Gesso nas paredes',
-      nichos:     'Nichos'
+      vedacao:    { label: 'Vedação', checkboxes: ['Executada'] },
+      eletrica:   { label: 'Elétrica', checkboxes: ['Executada'] },
+      hidraulica: { label: 'Hidráulica', checkboxes: ['Executada'] },
+      banheira:   { label: 'Pontos de banheira', checkboxes: ['Executada'] },
+      aspiracao:  { label: 'Aspiração central', checkboxes: ['Executada'] },
+      arcond:     { label: 'Ar-condicionado', checkboxes: ['Executada'] },
+      contrapiso: { label: 'Contrapiso', checkboxes: ['Contrapiso vinílico','Contrapiso porcelanato'] },
+      forro:      { label: 'Forro', checkboxes: ['Executado'] },
+      gesso:      { label: 'Gesso nas paredes', checkboxes: ['Executado'] },
+      nichos:     { label: 'Nichos', checkboxes: ['Executados'] }
     }
   },
   rev: {
     label: 'Revestimentos',
     itens: {
-      modelos_env: 'Modelos enviados',
-      escolhido:   'Revestimento escolhido',
-      revestido:   'Apartamento revestido'
+      catalogo:  { label: 'Catálogo enviado', checkboxes: ['Catálogo enviado ao cliente'] },
+      projeto:   { label: 'Projeto recebido', checkboxes: ['Projeto do arquiteto recebido'] },
+      escolhido: { label: 'Revestimento escolhido', checkboxes: ['Living / Sala','Cozinha','Lavabo','Hall social','Área de serviço','Quartos','Banheiro suíte 1','Banheiro suíte 2','Banheiro suíte 3','Banheiro suíte 4','Paredes banheiros','Parede cozinha','Parede área de serviço','Parede gourmet'] },
+      revestido: { label: 'Ambientes revestidos', checkboxes: ['Living / Sala','Cozinha','Lavabo','Hall social','Área de serviço','Quartos','Banheiro suíte 1','Banheiro suíte 2','Banheiro suíte 3','Banheiro suíte 4','Paredes banheiros','Parede cozinha','Parede área de serviço','Parede gourmet'] }
     }
   },
   marm: {
     label: 'Marmoraria',
     itens: {
-      modelos_gratuitos:  'Modelos gratuitos enviados',
-      pedra_escolhida:    'Pedra escolhida',
-      chapas_selecionadas:'Qtd. de chapas selecionadas',
-      chapas_compradas:   'Chapas compradas',
-      pedras_obra:        'Pedras em obra',
-      bancadas:           'Bancadas por ambiente',
-      concluido:          'Apartamento concluído'
+      catalogo:    { label: 'Catálogo enviado', checkboxes: ['Catálogo enviado ao cliente'] },
+      projeto:     { label: 'Projeto recebido', checkboxes: ['Projeto do arquiteto recebido'] },
+      pedra:       { label: 'Pedra escolhida', checkboxes: ['Cozinha','Banheiro suíte 1','Banheiro suíte 2','Banheiro suíte 3','Banheiro suíte 4','Lavabo','Área gourmet'] },
+      chapas_sel:  { label: 'Chapas selecionadas', checkboxes: ['Cozinha','Banheiro suíte 1','Banheiro suíte 2','Banheiro suíte 3','Banheiro suíte 4','Lavabo','Área gourmet'] },
+      chapas_comp: { label: 'Chapas compradas', checkboxes: ['Compradas e pagas'] },
+      pedras_obra: { label: 'Pedras em obra', checkboxes: ['Chapas entregues em obra'] },
+      bancadas:    { label: 'Bancadas por ambiente', checkboxes: ['Cozinha produzida','Cozinha instalada','Suíte 1 produzida','Suíte 1 instalada','Suíte 2 produzida','Suíte 2 instalada','Suíte 3 produzida','Suíte 3 instalada','Suíte 4 produzida','Suíte 4 instalada','Lavabo produzido','Lavabo instalado','Gourmet produzido','Gourmet instalado'] },
+      concluido:   { label: 'Apartamento concluído', checkboxes: ['Todas as pedras instaladas'] }
     }
   }
 };
 
-// Estado local (salvo no localStorage enquanto não tem Apps Script)
+// ── ESTADO ──────────────────────────────────────────────────
 let STATE = {};
+let PRAZOS_GLOBAIS = {};
+let APTOS_DESATIVADOS = {};
+let PDF_LINKS = {};
 let SCRIPT_URL = localStorage.getItem('essence_script_url') || '';
-let currentEtapa = null;
-let currentItem = null;
+let curEtapa = null, curItem = null;
 
-function stateKey(etapa, item, apto) { return `${etapa}_${item}_${apto}`; }
-
+function sk(etapa, item, apto, sub) { return `${etapa}|${item}|${apto}|${sub}`; }
 function loadState() {
-  const raw = localStorage.getItem('essence_state');
-  STATE = raw ? JSON.parse(raw) : {};
+  const r = localStorage.getItem('essence_v2');
+  if (r) { const d = JSON.parse(r); STATE = d.state||{}; PRAZOS_GLOBAIS = d.prazos||{}; APTOS_DESATIVADOS = d.disabled||{}; PDF_LINKS = d.pdfs||{}; }
 }
-function saveState() { localStorage.setItem('essence_state', JSON.stringify(STATE)); }
+function saveState() { localStorage.setItem('essence_v2', JSON.stringify({state:STATE,prazos:PRAZOS_GLOBAIS,disabled:APTOS_DESATIVADOS,pdfs:PDF_LINKS})); }
 
-// ── SPLASH ──────────────────────────────────────────────────────
+// ── SPLASH ──────────────────────────────────────────────────
 function enterApp() {
   document.getElementById('splash').classList.add('hidden');
-  setTimeout(() => document.getElementById('splash').remove(), 900);
+  setTimeout(()=>document.getElementById('splash').remove(),900);
   init();
 }
 
-// ── INIT ──────────────────────────────────────────────────────
 function init() {
   loadState();
-  if (SCRIPT_URL) {
-    document.getElementById('config-panel').style.display = 'none';
-    syncData();
-  }
-  buildBubbles();
+  if (SCRIPT_URL) { document.getElementById('config-panel').style.display='none'; syncData(); }
   updateDashboard();
 }
 
-// ── SIDEBAR ──────────────────────────────────────────────────────
+// ── SIDEBAR ──────────────────────────────────────────────────
 function toggleSection(id, btn) {
-  const sub = document.getElementById('sub-' + id);
+  const sub = document.getElementById('sub-'+id);
   const isOpen = sub.classList.contains('open');
-  document.querySelectorAll('.nav-sub').forEach(s => s.classList.remove('open'));
-  document.querySelectorAll('.nav-section-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.nav-sub').forEach(s=>s.classList.remove('open'));
+  document.querySelectorAll('.nav-section-btn').forEach(b=>b.classList.remove('active'));
   if (!isOpen) { sub.classList.add('open'); btn.classList.add('active'); }
 }
 
+function showView(home, etapa, prazos) {
+  document.getElementById('view-home').style.display = home ? 'block' : 'none';
+  document.getElementById('view-etapa').style.display = etapa ? 'block' : 'none';
+  document.getElementById('view-prazos').style.display = prazos ? 'block' : 'none';
+}
+
 function goHome() {
-  document.getElementById('view-home').style.display = 'block';
-  document.getElementById('view-etapa').style.display = 'none';
+  showView(true,false,false);
   document.getElementById('main-title').textContent = 'Visão Geral';
-  document.getElementById('main-subtitle').textContent = OBRA_NOME + ' — 30 apartamentos';
-  currentEtapa = null; currentItem = null;
+  document.getElementById('main-subtitle').textContent = 'Essence Residence — 30 apartamentos';
+  curEtapa = null; curItem = null;
   updateDashboard();
 }
 
 function openEtapa(etapa, item) {
-  currentEtapa = etapa;
-  currentItem = item;
-  document.querySelectorAll('.nav-sub-item').forEach(b => b.classList.remove('active'));
+  curEtapa = etapa; curItem = item;
+  document.querySelectorAll('.nav-sub-item').forEach(b=>b.classList.remove('active'));
   event.currentTarget.classList.add('active');
-  document.getElementById('view-home').style.display = 'none';
-  document.getElementById('view-etapa').style.display = 'block';
-  document.getElementById('main-title').textContent = ETAPAS[etapa].itens[item];
-  document.getElementById('main-subtitle').textContent = ETAPAS[etapa].label + ' · 30 apartamentos';
+  showView(false,true,false);
+  const def = ETAPAS_DEF[etapa].itens[item];
+  document.getElementById('main-title').textContent = def.label;
+  document.getElementById('main-subtitle').textContent = ETAPAS_DEF[etapa].label;
+  buildEtapaHeader(etapa, item);
   buildAptoGrid(etapa, item);
+}
+
+function buildEtapaHeader(etapa, item) {
+  const pKey = `prazo_global_${etapa}_${item}`;
+  const prazoVal = PRAZOS_GLOBAIS[pKey] || '';
+  document.getElementById('etapa-prazo-global').innerHTML = `
+    <span style="color:var(--text-dim);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;">Prazo:</span>
+    <input type="date" value="${prazoVal}" onchange="setPrazoGlobal('${pKey}',this.value)" style="background:var(--dark3);border:1px solid rgba(255,255,255,0.08);color:var(--text-muted);font-size:0.7rem;padding:0.2rem 0.5rem;border-radius:4px;font-family:'DM Sans',sans-serif;">
+    ${prazoVal ? getTagPrazo(prazoVal, false) : ''}
+  `;
+  const pdfKey = `pdf_${etapa}_${item}`;
+  const pdfVal = PDF_LINKS[pdfKey] || '';
+  document.getElementById('etapa-pdf-global').innerHTML = `
+    <span style="color:var(--text-dim);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;">Projeto:</span>
+    <input class="pdf-input" type="url" placeholder="Cole o link do PDF / Drive" value="${pdfVal}" onchange="setPdfGlobal('${pdfKey}',this.value)" style="width:220px;">
+    ${pdfVal ? `<a href="${pdfVal}" target="_blank" class="pdf-btn">Abrir ↗</a>` : ''}
+  `;
+}
+
+function setPrazoGlobal(key, val) {
+  PRAZOS_GLOBAIS[key] = val;
+  saveState();
+  buildEtapaHeader(curEtapa, curItem);
+  buildAptoGrid(curEtapa, curItem);
+  updateDashboard();
+}
+
+function setPdfGlobal(key, val) {
+  PDF_LINKS[key] = val;
+  saveState();
+  buildEtapaHeader(curEtapa, curItem);
+}
+
+function openPrazos() {
+  showView(false,false,true);
+  document.getElementById('main-title').textContent = 'Prazos Globais';
+  document.getElementById('main-subtitle').textContent = 'Defina os prazos por etapa e sub-etapa';
+  buildPrazosView();
+}
+
+function buildPrazosView() {
+  const grid = document.getElementById('prazos-grid');
+  grid.innerHTML = '';
+  Object.keys(ETAPAS_DEF).forEach(etapa => {
+    const def = ETAPAS_DEF[etapa];
+    let html = `<div class="prazo-card"><div class="prazo-card-title">${def.label}</div>`;
+    Object.keys(def.itens).forEach(item => {
+      const key = `prazo_global_${etapa}_${item}`;
+      const val = PRAZOS_GLOBAIS[key] || '';
+      html += `<div class="prazo-item"><span>${def.itens[item].label}</span><input type="date" value="${val}" onchange="setPrazoGlobal('${key}',this.value)"></div>`;
+    });
+    html += '</div>';
+    grid.innerHTML += html;
+  });
 }
 
 // ── BUILD APTO GRID ──────────────────────────────────────────
 function buildAptoGrid(etapa, item) {
   const grid = document.getElementById('apto-grid');
   grid.innerHTML = '';
-  for (let i = 1; i <= TOTAL_APTOS; i++) {
-    const apto = String(i).padStart(2, '0');
-    const key = stateKey(etapa, item, apto);
-    const checked = STATE[key] || false;
-    const prazoKey = key + '_prazo';
-    const prazo = STATE[prazoKey] || '';
-    const pct = checked ? 100 : 0;
-    const statusTag = getPrazoTag(prazo, checked);
+  const def = ETAPAS_DEF[etapa].itens[item];
+  const pKey = `prazo_global_${etapa}_${item}`;
+  const prazoGlobal = PRAZOS_GLOBAIS[pKey] || '';
+
+  APTOS.forEach(apto => {
+    const disabled = APTOS_DESATIVADOS[`${etapa}_${item}_${apto}`];
+    const checks = def.checkboxes;
+    const doneCount = checks.filter(c => STATE[sk(etapa,item,apto,c)]).length;
+    const pct = checks.length > 0 ? Math.round(doneCount/checks.length*100) : 0;
+    const tagHtml = getTagPrazo(prazoGlobal, pct===100);
+
+    let checksHtml = checks.map(c => {
+      const key = sk(etapa,item,apto,c);
+      const checked = STATE[key] || false;
+      const dateKey = key+'_date';
+      const dateVal = STATE[dateKey] || '';
+      return `<div class="check-item">
+        <input type="checkbox" id="chk_${key.replace(/\|/g,'_')}" ${checked?'checked':''} ${disabled?'disabled':''} onchange="toggleCheck('${etapa}','${item}','${apto}','${c.replace(/'/g,"\\'")}',this)">
+        <label for="chk_${key.replace(/\|/g,'_')}">${c}</label>
+        <span class="date-auto">${dateVal || ''}</span>
+      </div>`;
+    }).join('');
 
     grid.innerHTML += `
-      <div class="apto-card" id="card-${etapa}-${item}-${apto}">
+      <div class="apto-card ${disabled?'disabled':''}" id="card_${apto}">
         <div class="apto-header">
           <div class="apto-num">Apto ${apto}</div>
-          ${statusTag}
-        </div>
-        <div class="apto-progress"><div class="apto-progress-fill" id="fill-${etapa}-${item}-${apto}" style="width:${pct}%"></div></div>
-        <div class="apto-body">
-          <div class="check-item">
-            <input type="checkbox" id="chk-${apto}" ${checked ? 'checked' : ''} onchange="toggleCheck('${etapa}','${item}','${apto}',this)">
-            <label for="chk-${apto}">${ETAPAS[etapa].itens[item]}</label>
-            <div class="prazo-wrap">
-              <input type="date" class="prazo-input" value="${prazo}" onchange="setPrazo('${etapa}','${item}','${apto}',this)" title="Prazo">
-            </div>
+          <div style="display:flex;align-items:center;gap:0.4rem">
+            ${tagHtml}
+            <button onclick="toggleApto('${etapa}','${item}','${apto}')" class="tag ${disabled?'tag-late':'tag-none'}" style="border:none;cursor:pointer;font-size:0.6rem">${disabled?'Inativo':'Ativo'}</button>
           </div>
         </div>
+        <div class="apto-pct-bar"><div class="apto-pct-fill" id="fill_${apto}" style="width:${pct}%"></div></div>
+        <div class="apto-body">${checksHtml}</div>
       </div>`;
-  }
+  });
 }
 
-function getPrazoTag(prazo, done) {
+function getTagPrazo(prazo, done) {
   if (done) return '<span class="tag tag-ok">✓ Concluído</span>';
-  if (!prazo) return '<span class="tag" style="color:var(--text-dim)">Sem prazo</span>';
+  if (!prazo) return '';
   const hoje = new Date(); hoje.setHours(0,0,0,0);
-  const d = new Date(prazo + 'T00:00:00');
-  const diff = Math.ceil((d - hoje) / 86400000);
-  if (diff < 0)  return `<span class="tag tag-late">Atrasado ${Math.abs(diff)}d</span>`;
-  if (diff <= 7) return `<span class="tag tag-warn">${diff}d restantes</span>`;
-  return `<span class="tag tag-ok">${diff}d restantes</span>`;
+  const d = new Date(prazo+'T00:00:00');
+  const diff = Math.ceil((d-hoje)/86400000);
+  if (diff<0) return `<span class="tag tag-late">Atrasado ${Math.abs(diff)}d</span>`;
+  if (diff<=7) return `<span class="tag tag-warn">${diff}d</span>`;
+  return `<span class="tag tag-ok">${diff}d</span>`;
 }
 
-function toggleCheck(etapa, item, apto, el) {
-  const key = stateKey(etapa, item, apto);
+function toggleCheck(etapa, item, apto, sub, el) {
+  const key = sk(etapa,item,apto,sub);
   STATE[key] = el.checked;
+  if (el.checked) {
+    const hoje = new Date();
+    STATE[key+'_date'] = hoje.toLocaleDateString('pt-BR');
+    const dateSpan = el.parentElement.querySelector('.date-auto');
+    if (dateSpan) dateSpan.textContent = STATE[key+'_date'];
+  } else {
+    STATE[key+'_date'] = '';
+    const dateSpan = el.parentElement.querySelector('.date-auto');
+    if (dateSpan) dateSpan.textContent = '';
+  }
   saveState();
-  const prazo = STATE[key + '_prazo'] || '';
-  const tag = document.querySelector(`#card-${etapa}-${item}-${apto} .apto-header .tag, #card-${etapa}-${item}-${apto} .apto-header span`);
-  if (tag) tag.outerHTML = getPrazoTag(prazo, el.checked);
-  const fill = document.getElementById(`fill-${etapa}-${item}-${apto}`);
-  if (fill) fill.style.width = el.checked ? '100%' : '0%';
+  // Atualiza barra do card
+  const def = ETAPAS_DEF[etapa].itens[item];
+  const checks = def.checkboxes;
+  const doneCount = checks.filter(c => STATE[sk(etapa,item,apto,c)]).length;
+  const pct = Math.round(doneCount/checks.length*100);
+  const fill = document.getElementById('fill_'+apto);
+  if (fill) fill.style.width = pct+'%';
   updateDashboard();
-  if (SCRIPT_URL) pushData(etapa, item, apto, el.checked, prazo);
+  if (SCRIPT_URL) pushItem(etapa,item,apto,sub,el.checked);
 }
 
-function setPrazo(etapa, item, apto, el) {
-  const key = stateKey(etapa, item, apto) + '_prazo';
-  STATE[key] = el.value;
+function toggleApto(etapa, item, apto) {
+  const key = `${etapa}_${item}_${apto}`;
+  APTOS_DESATIVADOS[key] = !APTOS_DESATIVADOS[key];
   saveState();
-  const checked = STATE[stateKey(etapa, item, apto)] || false;
-  const header = document.querySelector(`#card-${etapa}-${item}-${apto} .apto-header`);
-  if (header) {
-    const oldTag = header.querySelector('.tag, span:last-child');
-    if (oldTag) oldTag.outerHTML = getPrazoTag(el.value, checked);
-  }
-  updateDashboard();
+  buildAptoGrid(etapa, item);
+  showToast(APTOS_DESATIVADOS[key] ? `Apto ${apto} desativado nesta etapa` : `Apto ${apto} reativado`, 'success');
 }
 
 // ── DASHBOARD ──────────────────────────────────────────────
 function calcPct(etapa) {
-  const itens = Object.keys(ETAPAS[etapa].itens);
-  let total = 0, done = 0;
-  for (let a = 1; a <= TOTAL_APTOS; a++) {
-    const apto = String(a).padStart(2,'0');
-    itens.forEach(item => {
-      total++;
-      if (STATE[stateKey(etapa, item, apto)]) done++;
+  const itens = ETAPAS_DEF[etapa].itens;
+  let total=0, done=0;
+  APTOS.forEach(apto => {
+    Object.keys(itens).forEach(item => {
+      if (APTOS_DESATIVADOS[`${etapa}_${item}_${apto}`]) return;
+      itens[item].checkboxes.forEach(c => {
+        total++;
+        if (STATE[sk(etapa,item,apto,c)]) done++;
+      });
     });
-  }
-  return total > 0 ? Math.round(done / total * 100) : 0;
+  });
+  return total>0 ? Math.round(done/total*100) : 0;
 }
 
 function calcAptoPct(apto) {
-  let total = 0, done = 0;
-  Object.keys(ETAPAS).forEach(etapa => {
-    Object.keys(ETAPAS[etapa].itens).forEach(item => {
-      total++;
-      if (STATE[stateKey(etapa, item, apto)]) done++;
+  let total=0,done=0;
+  Object.keys(ETAPAS_DEF).forEach(etapa=>{
+    Object.keys(ETAPAS_DEF[etapa].itens).forEach(item=>{
+      if (APTOS_DESATIVADOS[`${etapa}_${item}_${apto}`]) return;
+      ETAPAS_DEF[etapa].itens[item].checkboxes.forEach(c=>{
+        total++;
+        if(STATE[sk(etapa,item,apto,c)]) done++;
+      });
     });
   });
-  return total > 0 ? Math.round(done / total * 100) : 0;
-}
-
-function updateDashboard() {
-  const pc = calcPct('civil');
-  const pr = calcPct('rev');
-  const pm = calcPct('marm');
-  const geral = Math.round((pc + pr + pm) / 3);
-
-  document.getElementById('pct-geral').textContent = geral + '%';
-  document.getElementById('bar-geral').style.width = geral + '%';
-  document.getElementById('badge-civil').textContent = pc + '%';
-  document.getElementById('badge-rev').textContent = pr + '%';
-  document.getElementById('badge-marm').textContent = pm + '%';
-  document.getElementById('bar-civil').style.width = pc + '%';
-  document.getElementById('pct-civil').textContent = pc + '%';
-  document.getElementById('bar-rev').style.width = pr + '%';
-  document.getElementById('pct-rev-chart').textContent = pr + '%';
-  document.getElementById('bar-marm-chart').style.width = pm + '%';
-  document.getElementById('pct-marm-chart').textContent = pm + '%';
-
-  let concluidos = 0, atrasados = 0, andamento = 0;
-  const bubbleWrap = document.getElementById('bubble-aptos');
-  if (bubbleWrap) bubbleWrap.innerHTML = '';
-
-  for (let i = 1; i <= TOTAL_APTOS; i++) {
-    const apto = String(i).padStart(2,'0');
-    const pct = calcAptoPct(apto);
-    if (pct === 100) concluidos++;
-    else if (pct > 0) andamento++;
-
-    const hasLate = checkLate(apto);
-    if (hasLate) atrasados++;
-
-    let cls = 'bubble-none';
-    if (pct === 100) cls = 'bubble-done';
-    else if (hasLate) cls = 'bubble-late';
-    else if (pct >= 50) cls = 'bubble-mid';
-    else if (pct > 0) cls = 'bubble-low';
-
-    if (bubbleWrap) {
-      bubbleWrap.innerHTML += `<div class="bubble ${cls}" title="Apto ${apto}: ${pct}%" onclick="openAptoDetail('${apto}')">${i}</div>`;
-    }
-  }
-
-  const sc = document.getElementById('stat-concluidos');
-  const sa = document.getElementById('stat-andamento');
-  const sl = document.getElementById('stat-atrasados');
-  if (sc) sc.innerHTML = `<span>${concluidos}</span>`;
-  if (sa) sa.innerHTML = `<span>${andamento}</span>`;
-  if (sl) sl.innerHTML = `<span>${atrasados}</span>`;
+  return total>0 ? Math.round(done/total*100) : 0;
 }
 
 function checkLate(apto) {
   const hoje = new Date(); hoje.setHours(0,0,0,0);
-  for (const etapa of Object.keys(ETAPAS)) {
-    for (const item of Object.keys(ETAPAS[etapa].itens)) {
-      const done = STATE[stateKey(etapa, item, apto)];
-      const prazo = STATE[stateKey(etapa, item, apto) + '_prazo'];
-      if (!done && prazo) {
-        const d = new Date(prazo + 'T00:00:00');
+  for (const etapa of Object.keys(ETAPAS_DEF)) {
+    for (const item of Object.keys(ETAPAS_DEF[etapa].itens)) {
+      const pKey = `prazo_global_${etapa}_${item}`;
+      const prazo = PRAZOS_GLOBAIS[pKey];
+      if (!prazo) continue;
+      const checks = ETAPAS_DEF[etapa].itens[item].checkboxes;
+      const allDone = checks.every(c => STATE[sk(etapa,item,apto,c)]);
+      if (!allDone) {
+        const d = new Date(prazo+'T00:00:00');
         if (d < hoje) return true;
       }
     }
@@ -733,126 +655,122 @@ function checkLate(apto) {
   return false;
 }
 
-function buildBubbles() { updateDashboard(); }
-
-function openAptoDetail(apto) {
-  openEtapa('civil', 'vedacao');
-  document.getElementById('main-title').textContent = `Apartamento ${apto}`;
+function updateDashboard() {
+  const pc=calcPct('civil'), pr=calcPct('rev'), pm=calcPct('marm');
+  const geral=Math.round((pc+pr+pm)/3);
+  document.getElementById('pct-geral').textContent=geral+'%';
+  document.getElementById('bar-geral').style.width=geral+'%';
+  document.getElementById('badge-civil').textContent=pc+'%';
+  document.getElementById('badge-rev').textContent=pr+'%';
+  document.getElementById('badge-marm').textContent=pm+'%';
+  ['civil','rev','marm'].forEach((e,i)=>{
+    const p=[pc,pr,pm][i];
+    const b=document.getElementById('bar-'+e);
+    const t=document.getElementById('pct-'+e+'-chart');
+    if(b) b.style.width=p+'%';
+    if(t) t.textContent=p+'%';
+  });
+  let conc=0,and=0,late=0;
+  const bw=document.getElementById('bubble-aptos');
+  if(bw) bw.innerHTML='';
+  APTOS.forEach(apto=>{
+    const pct=calcAptoPct(apto);
+    const isLate=checkLate(apto);
+    if(pct===100) conc++;
+    else if(pct>0) and++;
+    if(isLate) late++;
+    let cls='bubble-none';
+    if(pct===100) cls='bubble-done';
+    else if(isLate) cls='bubble-late';
+    else if(pct>=50) cls='bubble-mid';
+    else if(pct>0) cls='bubble-low';
+    if(bw) bw.innerHTML+=`<div class="bubble ${cls}" title="Apto ${apto}: ${pct}%">${apto}</div>`;
+  });
+  const sc=document.getElementById('stat-conc');
+  const sa=document.getElementById('stat-and');
+  const sl=document.getElementById('stat-late');
+  if(sc) sc.innerHTML=`<span>${conc}</span>`;
+  if(sa) sa.innerHTML=`<span>${and}</span>`;
+  if(sl) sl.innerHTML=`<span>${late}</span>`;
 }
 
-// ── SINCRONIZAÇÃO ──────────────────────────────────────────
+// ── SYNC ────────────────────────────────────────────────────
 function saveConfig() {
-  const url = document.getElementById('script-url').value.trim();
-  if (!url) return showToast('Cole a URL do Apps Script', 'error');
-  SCRIPT_URL = url;
-  localStorage.setItem('essence_script_url', url);
-  document.getElementById('config-panel').style.display = 'none';
-  showToast('Conectado! Sincronizando...', 'success');
+  const url=document.getElementById('script-url').value.trim();
+  if(!url) return showToast('Cole a URL do Apps Script','error');
+  SCRIPT_URL=url;
+  localStorage.setItem('essence_script_url',url);
+  document.getElementById('config-panel').style.display='none';
+  showToast('Conectado! Sincronizando...','success');
   syncData();
 }
 
 async function syncData() {
-  if (!SCRIPT_URL) return;
+  if(!SCRIPT_URL) return;
   try {
-    const res = await fetch(SCRIPT_URL + '?action=getAll');
-    const data = await res.json();
-    if (data && data.state) {
-      STATE = { ...STATE, ...data.state };
-      saveState();
-      updateDashboard();
-      if (currentEtapa && currentItem) buildAptoGrid(currentEtapa, currentItem);
-      showToast('Dados sincronizados ✓', 'success');
-    }
-  } catch(e) { showToast('Erro ao sincronizar', 'error'); }
+    const res=await fetch(SCRIPT_URL+'?action=getAll');
+    const data=await res.json();
+    if(data&&data.state){ STATE={...STATE,...data.state}; saveState(); updateDashboard(); if(curEtapa&&curItem) buildAptoGrid(curEtapa,curItem); showToast('Sincronizado ✓','success'); }
+  } catch(e){ showToast('Erro ao sincronizar','error'); }
 }
 
-async function pushData(etapa, item, apto, checked, prazo) {
-  if (!SCRIPT_URL) return;
-  try {
-    await fetch(SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'save', etapa, item, apto, checked, prazo }),
-      headers: { 'Content-Type': 'text/plain' }
-    });
-  } catch(e) {}
+async function pushItem(etapa,item,apto,sub,checked) {
+  if(!SCRIPT_URL) return;
+  try { await fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify({action:'save',etapa,item,apto,sub,checked,date:STATE[sk(etapa,item,apto,sub)+'_date']||''}),headers:{'Content-Type':'text/plain'}}); } catch(e){}
 }
 
 function saveAll() {
   saveState();
-  if (SCRIPT_URL) {
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'saveAll', state: STATE }),
-      headers: { 'Content-Type': 'text/plain' }
-    }).then(() => showToast('Salvo com sucesso ✓', 'success'))
-      .catch(() => showToast('Salvo localmente ✓', 'success'));
-  } else {
-    showToast('Salvo localmente ✓', 'success');
-  }
+  if(SCRIPT_URL){
+    fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify({action:'saveAll',state:STATE,prazos:PRAZOS_GLOBAIS,pdfs:PDF_LINKS}),headers:{'Content-Type':'text/plain'}})
+    .then(()=>showToast('Salvo ✓','success')).catch(()=>showToast('Salvo localmente ✓','success'));
+  } else showToast('Salvo localmente ✓','success');
 }
 
 // ── RELATÓRIO ──────────────────────────────────────────────
 function openReport() {
-  const hoje = new Date().toLocaleDateString('pt-BR');
-  let atrasados = [], emDia = [], concluidos = [];
-
-  for (let i = 1; i <= TOTAL_APTOS; i++) {
-    const apto = String(i).padStart(2,'0');
-    const pct = calcAptoPct(apto);
-    const late = checkLate(apto);
-    if (pct === 100) concluidos.push(apto);
-    else if (late) atrasados.push({ apto, pct });
-    else emDia.push({ apto, pct });
+  const hoje=new Date().toLocaleDateString('pt-BR');
+  let atrasados=[],ok=[],conc=[];
+  APTOS.forEach(apto=>{
+    const pct=calcAptoPct(apto);
+    const late=checkLate(apto);
+    if(pct===100) conc.push(apto);
+    else if(late) atrasados.push({apto,pct});
+    else ok.push({apto,pct});
+  });
+  let html=`<div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:1.25rem">Gerado em ${hoje} · Essence Residence</div>
+  <div class="modal-section"><h3>Resumo</h3>
+  <table class="report-table">
+    <tr><td>Concluídos</td><td style="color:var(--success)">${conc.length}</td></tr>
+    <tr><td>Em andamento</td><td style="color:var(--warning)">${ok.length}</td></tr>
+    <tr><td>Atrasados</td><td style="color:var(--danger)">${atrasados.length}</td></tr>
+    <tr><td>Civil</td><td>${calcPct('civil')}%</td></tr>
+    <tr><td>Revestimentos</td><td>${calcPct('rev')}%</td></tr>
+    <tr><td>Marmoraria</td><td>${calcPct('marm')}%</td></tr>
+  </table></div>`;
+  if(atrasados.length){
+    html+=`<div class="modal-section"><h3>⚠ Atrasados</h3><table class="report-table"><tr><th>Apto</th><th>Progresso</th></tr>`;
+    atrasados.forEach(a=>{ html+=`<tr><td>Apto ${a.apto}</td><td style="color:var(--danger)">${a.pct}%</td></tr>`; });
+    html+=`</table></div>`;
   }
-
-  let html = `
-    <div style="font-size:0.72rem;color:var(--text-dim);margin-bottom:1.5rem">Gerado em ${hoje} · ${OBRA_NOME}</div>
-    <div class="report-section">
-      <h3>Resumo geral</h3>
-      <table class="report-table">
-        <tr><td>Total de apartamentos</td><td>30</td></tr>
-        <tr><td>Concluídos</td><td style="color:var(--success)">${concluidos.length}</td></tr>
-        <tr><td>Em andamento</td><td style="color:var(--warning)">${emDia.length}</td></tr>
-        <tr><td>Atrasados</td><td style="color:var(--danger)">${atrasados.length}</td></tr>
-        <tr><td>Progresso Civil</td><td>${calcPct('civil')}%</td></tr>
-        <tr><td>Progresso Revestimentos</td><td>${calcPct('rev')}%</td></tr>
-        <tr><td>Progresso Marmoraria</td><td>${calcPct('marm')}%</td></tr>
-      </table>
-    </div>`;
-
-  if (atrasados.length) {
-    html += `<div class="report-section"><h3>⚠ Apartamentos com atraso</h3><table class="report-table"><tr><th>Apto</th><th>Progresso</th></tr>`;
-    atrasados.forEach(a => { html += `<tr><td>Apto ${a.apto}</td><td style="color:var(--danger)">${a.pct}%</td></tr>`; });
-    html += `</table></div>`;
+  if(conc.length){
+    html+=`<div class="modal-section"><h3>✓ Concluídos</h3><p style="font-size:0.78rem;color:var(--text-muted);line-height:1.8">${conc.map(a=>'Apto '+a).join(' · ')}</p></div>`;
   }
-
-  if (concluidos.length) {
-    html += `<div class="report-section"><h3>✓ Apartamentos concluídos</h3><p style="font-size:0.8rem;color:var(--text-muted)">${concluidos.map(a=>'Apto '+a).join(', ')}</p></div>`;
-  }
-
-  document.getElementById('modal-body').innerHTML = html;
+  document.getElementById('modal-title').textContent='Relatório de Obras';
+  document.getElementById('modal-save-btn').style.display='none';
+  document.getElementById('modal-body').innerHTML=html;
   document.getElementById('modal-overlay').classList.add('open');
 }
 
-function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); }
+function modalSave(){}
 
-function printReport() {
-  window.print();
+function showToast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='show '+(type||'');
+  clearTimeout(window._tt);
+  window._tt=setTimeout(()=>t.className='',3000);
 }
-
-// ── TOAST ──────────────────────────────────────────────────
-function showToast(msg, type = '') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'show ' + type;
-  clearTimeout(window._toastTimer);
-  window._toastTimer = setTimeout(() => t.className = '', 3000);
-}
-
-// ── START ──────────────────────────────────────────────────
-window.addEventListener('load', () => {
-  // Auto-entrar sem splash em reload
-});
 </script>
 </body>
 </html>
