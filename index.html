@@ -18,9 +18,9 @@
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
 
 /* ── SPLASH ── */
-#splash{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.8s,visibility 0.8s;overflow:hidden;}
+#splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.8s,visibility 0.8s;overflow:hidden;background:#1a1814;}
 #splash.hidden{opacity:0;visibility:hidden;pointer-events:none;}
-#splash-img{position:absolute;inset:0;background:url('https://drive.google.com/thumbnail?id=1dkq2l7ZTkHBW5IWYi6Hh6noUn2ZfqMMG&sz=w1920') center/cover no-repeat;filter:brightness(0.38);}
+#splash-img{position:absolute;inset:0;filter:brightness(0.38);overflow:hidden;}#splash-img img{width:100%;height:100%;object-fit:cover;display:block;}
 .splash-content{position:relative;text-align:center;padding:2rem;}
 .splash-logo{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,7vw,4rem);font-weight:300;letter-spacing:0.15em;color:#F0EDE8;line-height:1;}
 .splash-logo span{color:var(--gold-light);}
@@ -232,7 +232,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 <!-- SPLASH -->
 <div id="splash">
-  <div id="splash-img"></div>
+  <div id="splash-img"><img src="https://drive.google.com/thumbnail?id=1dkq2l7ZTkHBW5IWYi6Hh6noUn2ZfqMMG&sz=w1920" alt="" onerror="this.parentElement.style.background='linear-gradient(160deg,#1a1814,#2c2518)'"></div>
   <div class="splash-content">
     <div class="splash-logo">Essence <span>Residence</span></div>
     <div class="splash-sub">Controle de Obras</div>
