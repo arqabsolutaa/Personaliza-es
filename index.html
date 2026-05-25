@@ -337,26 +337,75 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="main-content">
     <!-- VISÃO GERAL -->
     <div id="view-home">
-      <div class="stats-grid">
+
+      <!-- STATS -->
+      <div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))">
         <div class="stat-card"><div class="stat-label">Total</div><div class="stat-value">30</div></div>
         <div class="stat-card"><div class="stat-label">Concluídos</div><div class="stat-value" id="stat-conc"><span>0</span></div></div>
         <div class="stat-card"><div class="stat-label">Andamento</div><div class="stat-value" id="stat-and"><span>0</span></div></div>
         <div class="stat-card"><div class="stat-label">Atrasados</div><div class="stat-value" id="stat-late"><span>0</span></div></div>
+        <div class="stat-card"><div class="stat-label">Conferidos</div><div class="stat-value" id="stat-conf"><span>0</span></div></div>
+        <div class="stat-card"><div class="stat-label">Itens feitos</div><div class="stat-value" id="stat-itens"><span>0</span></div></div>
       </div>
-      <div class="charts-row">
-        <div class="card">
-          <div class="card-title">Progresso por etapa</div>
-          <div class="bar-chart">
-            <div class="bar-row"><div class="bar-label">Civil</div><div class="bar-track"><div class="bar-fill" id="bar-civil" style="width:0%"></div></div><div class="bar-pct" id="pct-civil-chart">0%</div></div>
-            <div class="bar-row"><div class="bar-label">Revestimentos</div><div class="bar-track"><div class="bar-fill" id="bar-rev" style="width:0%"></div></div><div class="bar-pct" id="pct-rev-chart">0%</div></div>
-            <div class="bar-row"><div class="bar-label">Marmoraria</div><div class="bar-track"><div class="bar-fill" id="bar-marm" style="width:0%"></div></div><div class="bar-pct" id="pct-marm-chart">0%</div></div>
-          </div>
+
+      <!-- PROGRESSO GERAL GRANDE -->
+      <div class="card" style="margin-bottom:0.75rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem">
+          <div class="card-title" style="margin-bottom:0">Progresso geral da obra</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--gold)" id="pct-geral-big">0%</div>
         </div>
+        <div style="height:8px;background:var(--bg3);border-radius:4px;overflow:hidden;margin-bottom:1rem">
+          <div id="bar-geral-big" style="height:100%;width:0%;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light));border-radius:4px;transition:width 0.8s"></div>
+        </div>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label">Civil</div><div class="bar-track"><div class="bar-fill" id="bar-civil" style="width:0%"></div></div><div class="bar-pct" id="pct-civil-chart">0%</div></div>
+          <div class="bar-row"><div class="bar-label">Revestimentos</div><div class="bar-track"><div class="bar-fill" id="bar-rev" style="width:0%"></div></div><div class="bar-pct" id="pct-rev-chart">0%</div></div>
+          <div class="bar-row"><div class="bar-label">Marmoraria</div><div class="bar-track"><div class="bar-fill" id="bar-marm" style="width:0%"></div></div><div class="bar-pct" id="pct-marm-chart">0%</div></div>
+        </div>
+      </div>
+
+      <!-- LINHA 2: MAPA + PROXIMOS VENCIMENTOS -->
+      <div class="charts-row" style="margin-bottom:0.75rem">
         <div class="card">
-          <div class="card-title">Status dos apartamentos</div>
+          <div class="card-title">Mapa dos apartamentos</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem">
+            <div style="display:flex;align-items:center;gap:0.3rem;font-size:0.65rem;color:var(--text-dim)"><div style="width:10px;height:10px;border-radius:50%;background:var(--bg3)"></div>Não iniciado</div>
+            <div style="display:flex;align-items:center;gap:0.3rem;font-size:0.65rem;color:var(--text-dim)"><div style="width:10px;height:10px;border-radius:50%;background:rgba(184,146,74,0.25)"></div>Em andamento</div>
+            <div style="display:flex;align-items:center;gap:0.3rem;font-size:0.65rem;color:var(--text-dim)"><div style="width:10px;height:10px;border-radius:50%;background:rgba(58,143,98,0.3)"></div>Concluído</div>
+            <div style="display:flex;align-items:center;gap:0.3rem;font-size:0.65rem;color:var(--text-dim)"><div style="width:10px;height:10px;border-radius:50%;background:rgba(192,64,64,0.2)"></div>Atrasado</div>
+          </div>
           <div class="bubble-wrap" id="bubble-aptos"></div>
         </div>
+        <div class="card">
+          <div class="card-title">Próximos vencimentos</div>
+          <div id="card-vencimentos"><div style="font-size:0.75rem;color:var(--text-dim);padding:0.5rem 0">Nenhum prazo definido ainda.</div></div>
+        </div>
       </div>
+
+      <!-- LINHA 3: ULTIMAS ATIVIDADES + CRITICOS -->
+      <div class="charts-row" style="margin-bottom:0.75rem">
+        <div class="card">
+          <div class="card-title">Últimas atividades</div>
+          <div id="card-atividades"><div style="font-size:0.75rem;color:var(--text-dim);padding:0.5rem 0">Nenhuma atividade registrada ainda.</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Apartamentos críticos</div>
+          <div id="card-criticos"><div style="font-size:0.75rem;color:var(--text-dim);padding:0.5rem 0">Nenhum apartamento crítico.</div></div>
+        </div>
+      </div>
+
+      <!-- LINHA 4: CONFERENCIAS + OBSERVACOES RECENTES -->
+      <div class="charts-row">
+        <div class="card">
+          <div class="card-title">Conferências por responsável</div>
+          <div id="card-conferencias"><div style="font-size:0.75rem;color:var(--text-dim);padding:0.5rem 0">Nenhuma conferência registrada.</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Observações recentes</div>
+          <div id="card-obs"><div style="font-size:0.75rem;color:var(--text-dim);padding:0.5rem 0">Nenhuma observação registrada.</div></div>
+        </div>
+      </div>
+
     </div>
 
     <!-- ETAPA VIEW -->
@@ -724,8 +773,14 @@ function checkLate(apto){
 function updateDashboard(){
   const pc=calcPct('civil'),pr=calcPct('rev'),pm=calcPct('marm');
   const geral=Math.round((pc+pr+pm)/3);
-  document.getElementById('pct-geral').textContent=geral+'%';
-  document.getElementById('bar-geral').style.width=geral+'%';
+  // Barra geral sidebar
+  const pg=document.getElementById('pct-geral'),bg=document.getElementById('bar-geral');
+  if(pg) pg.textContent=geral+'%';
+  if(bg) bg.style.width=geral+'%';
+  // Barra geral grande
+  const pgb=document.getElementById('pct-geral-big'),bgb=document.getElementById('bar-geral-big');
+  if(pgb) pgb.textContent=geral+'%';
+  if(bgb) bgb.style.width=geral+'%';
   document.getElementById('badge-civil').textContent=pc+'%';
   document.getElementById('badge-rev').textContent=pr+'%';
   document.getElementById('badge-marm').textContent=pm+'%';
@@ -733,23 +788,205 @@ function updateDashboard(){
     const b=document.getElementById('bar-'+e),t=document.getElementById('pct-'+e+'-chart');
     if(b) b.style.width=p+'%';if(t) t.textContent=p+'%';
   });
-  let conc=0,and=0,late=0;
+
+  let conc=0,and=0,late=0,totalDone=0,totalItems=0,confCount=0;
   const bw=document.getElementById('bubble-aptos');if(bw) bw.innerHTML='';
+
   APTOS.forEach(apto=>{
     const pct=calcAptoPct(apto),isLate=checkLate(apto);
     if(pct===100) conc++;else if(pct>0) and++;
     if(isLate) late++;
+    // contar itens feitos
+    Object.keys(ETAPAS_DEF).forEach(etapa=>{
+      Object.keys(ETAPAS_DEF[etapa].itens).forEach(item=>{
+        ETAPAS_DEF[etapa].itens[item].checkboxes.forEach(c=>{
+          totalItems++;
+          if(STATE[sk(etapa,item,apto,c)]) totalDone++;
+        });
+      });
+    });
+    // conferências
+    Object.keys(ETAPAS_DEF).forEach(etapa=>{
+      Object.keys(ETAPAS_DEF[etapa].itens).forEach(item=>{
+        const ck=`conf_${etapa}_${item}_${apto}`;
+        if(CONF[ck]&&CONF[ck].checked) confCount++;
+      });
+    });
     let cls='bubble-none';
     if(pct===100) cls='bubble-done';
     else if(isLate) cls='bubble-late';
     else if(pct>=50) cls='bubble-mid';
     else if(pct>0) cls='bubble-low';
-    if(bw) bw.innerHTML+=`<div class="bubble ${cls}" title="Apto ${apto}: ${pct}%">${apto}</div>`;
+    if(bw) bw.innerHTML+=`<div class="bubble ${cls}" title="Apto ${apto}: ${pct}%" onclick="openAptoDetalhe('${apto}')">${apto}</div>`;
   });
+
   const sc=document.getElementById('stat-conc'),sa=document.getElementById('stat-and'),sl=document.getElementById('stat-late');
+  const si=document.getElementById('stat-itens'),scf=document.getElementById('stat-conf');
   if(sc) sc.innerHTML=`<span>${conc}</span>`;
   if(sa) sa.innerHTML=`<span>${and}</span>`;
   if(sl) sl.innerHTML=`<span>${late}</span>`;
+  if(si) si.innerHTML=`<span>${totalDone}</span>`;
+  if(scf) scf.innerHTML=`<span>${confCount}</span>`;
+
+  buildVencimentos();
+  buildAtividades();
+  buildCriticos();
+  buildConferencias();
+  buildObsRecentes();
+}
+
+function buildVencimentos(){
+  const hoje=new Date();hoje.setHours(0,0,0,0);
+  const lista=[];
+  Object.keys(ETAPAS_DEF).forEach(etapa=>{
+    Object.keys(ETAPAS_DEF[etapa].itens).forEach(item=>{
+      const key=`prazo_${etapa}_${item}`;
+      const prazo=PRAZOS[key];
+      if(!prazo) return;
+      const d=new Date(prazo+'T00:00:00');
+      const diff=Math.ceil((d-hoje)/86400000);
+      const pct=calcPctItem(etapa,item);
+      if(pct<100) lista.push({etapa,item,prazo,diff,label:ETAPAS_DEF[etapa].itens[item].label,etapaLabel:ETAPAS_DEF[etapa].label});
+    });
+  });
+  lista.sort((a,b)=>a.diff-b.diff);
+  const el=document.getElementById('card-vencimentos');
+  if(!el) return;
+  if(!lista.length){el.innerHTML='<div style="font-size:0.75rem;color:var(--text-dim);padding:0.5rem 0">Nenhum prazo definido ainda.</div>';return;}
+  el.innerHTML=lista.slice(0,6).map(v=>{
+    let cor=v.diff<0?'var(--danger)':v.diff<=7?'var(--warning)':'var(--success)';
+    let txt=v.diff<0?`Atrasado ${Math.abs(v.diff)}d`:v.diff===0?'Vence hoje':`${v.diff}d restantes`;
+    return `<div style="display:flex;align-items:center;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--bg2);gap:0.5rem">
+      <div>
+        <div style="font-size:0.75rem;color:var(--text);font-weight:500">${v.label}</div>
+        <div style="font-size:0.65rem;color:var(--text-dim)">${v.etapaLabel}</div>
+      </div>
+      <span style="font-size:0.65rem;font-weight:500;color:${cor};white-space:nowrap">${txt}</span>
+    </div>`;
+  }).join('');
+}
+
+function calcPctItem(etapa,item){
+  const checks=ETAPAS_DEF[etapa].itens[item].checkboxes;
+  let total=0,done=0;
+  APTOS.forEach(apto=>{
+    checks.forEach(c=>{total++;if(STATE[sk(etapa,item,apto,c)]) done++;});
+  });
+  return total>0?Math.round(done/total*100):0;
+}
+
+function buildAtividades(){
+  const ativs=[];
+  Object.keys(STATE).forEach(key=>{
+    if(key.endsWith('_date')&&STATE[key]){
+      const base=key.replace('_date','');
+      const parts=base.split('|');
+      if(parts.length===4){
+        const [etapa,item,apto,sub]=parts;
+        if(ETAPAS_DEF[etapa]&&ETAPAS_DEF[etapa].itens[item])
+          ativs.push({etapa,item,apto,sub,date:STATE[key],label:sub,aptoLabel:apto});
+      }
+    }
+  });
+  // Ordena por data (mais recente primeiro) - simplificado
+  ativs.reverse();
+  const el=document.getElementById('card-atividades');
+  if(!el) return;
+  if(!ativs.length){el.innerHTML='<div style="font-size:0.75rem;color:var(--text-dim);padding:0.5rem 0">Nenhuma atividade registrada ainda.</div>';return;}
+  el.innerHTML=ativs.slice(0,6).map(a=>`
+    <div style="display:flex;align-items:center;gap:0.6rem;padding:0.32rem 0;border-bottom:1px solid var(--bg2)">
+      <div style="width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0"></div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:0.73rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Apto ${a.apto} — ${a.label}</div>
+        <div style="font-size:0.63rem;color:var(--text-dim)">${ETAPAS_DEF[a.etapa].itens[a.item].label}</div>
+      </div>
+      <span style="font-size:0.63rem;color:var(--text-dim);white-space:nowrap">${a.date}</span>
+    </div>`).join('');
+}
+
+function buildCriticos(){
+  const lista=[];
+  APTOS.forEach(apto=>{
+    const pct=calcAptoPct(apto);
+    const isLate=checkLate(apto);
+    let pendentes=0;
+    Object.keys(ETAPAS_DEF).forEach(etapa=>{
+      Object.keys(ETAPAS_DEF[etapa].itens).forEach(item=>{
+        const checks=ETAPAS_DEF[etapa].itens[item].checkboxes;
+        checks.forEach(c=>{if(!STATE[sk(etapa,item,apto,c)]) pendentes++;});
+      });
+    });
+    if(isLate||pct<20) lista.push({apto,pct,pendentes,isLate});
+  });
+  lista.sort((a,b)=>a.pct-b.pct);
+  const el=document.getElementById('card-criticos');
+  if(!el) return;
+  if(!lista.length){el.innerHTML='<div style="font-size:0.75rem;color:var(--success);padding:0.5rem 0">Nenhum apartamento crítico.</div>';return;}
+  el.innerHTML=lista.slice(0,6).map(a=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--bg2);gap:0.5rem">
+      <div>
+        <div style="font-size:0.75rem;color:var(--text);font-weight:500">Apto ${a.apto}</div>
+        <div style="font-size:0.63rem;color:var(--text-dim)">${a.pendentes} itens pendentes</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:0.72rem;font-weight:500;color:${a.isLate?'var(--danger)':'var(--warning)'}">${a.pct}%</div>
+        ${a.isLate?'<div style="font-size:0.6rem;color:var(--danger)">Atrasado</div>':''}
+      </div>
+    </div>`).join('');
+}
+
+function buildConferencias(){
+  const contagem={};
+  CONFERENTES.forEach(n=>{if(n!=='—') contagem[n]=0;});
+  APTOS.forEach(apto=>{
+    Object.keys(ETAPAS_DEF).forEach(etapa=>{
+      Object.keys(ETAPAS_DEF[etapa].itens).forEach(item=>{
+        const ck=`conf_${etapa}_${item}_${apto}`;
+        if(CONF[ck]&&CONF[ck].checked&&CONF[ck].who&&CONF[ck].who!=='—'){
+          contagem[CONF[ck].who]=(contagem[CONF[ck].who]||0)+1;
+        }
+      });
+    });
+  });
+  const el=document.getElementById('card-conferencias');
+  if(!el) return;
+  const total=Object.values(contagem).reduce((a,b)=>a+b,0);
+  if(!total){el.innerHTML='<div style="font-size:0.75rem;color:var(--text-dim);padding:0.5rem 0">Nenhuma conferência registrada.</div>';return;}
+  const maxVal=Math.max(...Object.values(contagem),1);
+  el.innerHTML=Object.entries(contagem).map(([nome,qtd])=>`
+    <div style="margin-bottom:0.45rem">
+      <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);margin-bottom:0.2rem">
+        <span>${nome}</span><span style="color:var(--gold);font-weight:500">${qtd}</span>
+      </div>
+      <div style="height:4px;background:var(--bg3);border-radius:2px;overflow:hidden">
+        <div style="height:100%;width:${Math.round(qtd/maxVal*100)}%;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light));border-radius:2px;transition:width 0.6s"></div>
+      </div>
+    </div>`).join('');
+}
+
+function buildObsRecentes(){
+  const lista=[];
+  Object.keys(OBS).forEach(key=>{
+    if(OBS[key]&&OBS[key].trim()){
+      const parts=key.replace('obs_','').split('_');
+      if(parts.length>=3){
+        const apto=parts[parts.length-1];
+        lista.push({key,apto,obs:OBS[key]});
+      }
+    }
+  });
+  const el=document.getElementById('card-obs');
+  if(!el) return;
+  if(!lista.length){el.innerHTML='<div style="font-size:0.75rem;color:var(--text-dim);padding:0.5rem 0">Nenhuma observação registrada.</div>';return;}
+  el.innerHTML=lista.slice(0,5).map(o=>`
+    <div style="padding:0.38rem 0;border-bottom:1px solid var(--bg2)">
+      <div style="font-size:0.7rem;color:var(--text);font-weight:500;margin-bottom:0.15rem">Apto ${o.apto}</div>
+      <div style="font-size:0.7rem;color:var(--text-muted);line-height:1.4;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${o.obs}</div>
+    </div>`).join('');
+}
+
+function openAptoDetalhe(apto){
+  openEtapa('civil','vedacao',null);
 }
 
 function saveConfig(){
