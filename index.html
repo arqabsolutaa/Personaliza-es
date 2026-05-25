@@ -39,6 +39,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .sidebar-logo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:300;letter-spacing:0.1em;color:#F0EDE8;}
 .sidebar-logo span{color:var(--gold-light);}
 .sidebar-obra{font-size:0.65rem;letter-spacing:0.3em;color:#6B6659;text-transform:uppercase;margin-top:0.2rem;}
+.view-toggle{display:flex;gap:0.35rem;margin-top:0.85rem;}
+.view-toggle-btn{flex:1;padding:0.4rem 0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:#9C9484;font-family:'DM Sans',sans-serif;font-size:0.68rem;letter-spacing:0.08em;cursor:pointer;border-radius:5px;transition:all 0.2s;}
+.view-toggle-btn:hover{background:rgba(184,146,74,0.12);color:#D4B483;border-color:rgba(184,146,74,0.2);}
+.view-toggle-btn.active{background:rgba(184,146,74,0.15);border-color:rgba(184,146,74,0.35);color:#D4B483;font-weight:500;}
 .sidebar-progress-wrap{padding:0.9rem 1.4rem;border-bottom:1px solid rgba(255,255,255,0.05);}
 .sidebar-progress-label{display:flex;justify-content:space-between;font-size:0.69rem;color:#9C9484;margin-bottom:0.45rem;}
 .progress-bar-track{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
@@ -249,6 +253,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="sidebar-header">
     <div class="sidebar-logo">Essence <span>Residence</span></div>
     <div class="sidebar-obra">Controle de Obras</div>
+    <div class="view-toggle">
+      <button id="btn-computador" class="view-toggle-btn active" onclick="applyViewMode('desktop')">Computador</button>
+      <button id="btn-celular" class="view-toggle-btn" onclick="applyViewMode('mobile')">Celular</button>
+    </div>
   </div>
   <div class="sidebar-progress-wrap">
     <div class="sidebar-progress-label"><span>Progresso geral</span><span id="pct-geral">—</span></div>
@@ -472,6 +480,8 @@ function init(){
     document.getElementById('cfg-script-url').value=SCRIPT_URL;
     syncData();
   }
+  const savedMode = localStorage.getItem('essence_view_mode');
+  if(savedMode) applyViewMode(savedMode);
   updateDashboard();
 }
 
@@ -808,6 +818,32 @@ function openReport(){
   document.getElementById('modal-overlay').classList.add('open');
 }
 function closeModal(){document.getElementById('modal-overlay').classList.remove('open');}
+
+function applyViewMode(mode){
+  const sidebar = document.getElementById('sidebar');
+  const main = document.getElementById('main');
+  const topbar = document.getElementById('topbar-mobile');
+  const mainHeader = document.querySelector('.main-header');
+  const btnComp = document.getElementById('btn-computador');
+  const btnCel = document.getElementById('btn-celular');
+  localStorage.setItem('essence_view_mode', mode);
+  if(mode === 'mobile'){
+    sidebar.style.transform = 'translateX(-100%)';
+    main.style.marginLeft = '0';
+    topbar.style.display = 'flex';
+    if(mainHeader) mainHeader.style.display = 'none';
+    if(btnComp) btnComp.classList.remove('active');
+    if(btnCel) btnCel.classList.add('active');
+  } else {
+    sidebar.style.transform = '';
+    main.style.marginLeft = 'var(--sidebar-w)';
+    topbar.style.display = 'none';
+    if(mainHeader) mainHeader.style.display = 'flex';
+    if(btnComp) btnComp.classList.add('active');
+    if(btnCel) btnCel.classList.remove('active');
+  }
+}
+
 function showToast(msg,type=''){
   const t=document.getElementById('toast');
   t.textContent=msg;t.className='show '+(type||'');
