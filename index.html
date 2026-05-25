@@ -486,14 +486,7 @@ function init(){
 }
 
 // SIDEBAR MOBILE
-function openSidebar(){
-  document.getElementById('sidebar').classList.add('mobile-open');
-  document.getElementById('sidebar-overlay').classList.add('show');
-}
-function closeSidebar(){
-  document.getElementById('sidebar').classList.remove('mobile-open');
-  document.getElementById('sidebar-overlay').classList.remove('show');
-}
+
 
 function toggleSection(id,btn){
   const sub=document.getElementById('sub-'+id);
@@ -824,23 +817,45 @@ function applyViewMode(mode){
   const main = document.getElementById('main');
   const topbar = document.getElementById('topbar-mobile');
   const mainHeader = document.querySelector('.main-header');
+  const overlay = document.getElementById('sidebar-overlay');
   const btnComp = document.getElementById('btn-computador');
   const btnCel = document.getElementById('btn-celular');
   localStorage.setItem('essence_view_mode', mode);
+
   if(mode === 'mobile'){
-    sidebar.style.transform = 'translateX(-100%)';
-    main.style.marginLeft = '0';
-    topbar.style.display = 'flex';
-    if(mainHeader) mainHeader.style.display = 'none';
+    // Esconde sidebar, mostra topbar mobile, conteudo ocupa tudo
+    sidebar.style.cssText = 'transform:translateX(-100%) !important;';
+    main.style.cssText = 'margin-left:0 !important;';
+    topbar.style.cssText = 'display:flex !important;';
+    if(mainHeader) mainHeader.style.cssText = 'display:none !important;';
+    if(overlay) overlay.classList.remove('show');
     if(btnComp) btnComp.classList.remove('active');
     if(btnCel) btnCel.classList.add('active');
   } else {
-    sidebar.style.transform = '';
-    main.style.marginLeft = 'var(--sidebar-w)';
-    topbar.style.display = 'none';
-    if(mainHeader) mainHeader.style.display = 'flex';
+    // Modo desktop normal
+    sidebar.style.cssText = 'transform:translateX(0) !important;';
+    main.style.cssText = 'margin-left:var(--sidebar-w) !important;';
+    topbar.style.cssText = 'display:none !important;';
+    if(mainHeader) mainHeader.style.cssText = 'display:flex !important;';
+    if(overlay) overlay.classList.remove('show');
     if(btnComp) btnComp.classList.add('active');
     if(btnCel) btnCel.classList.remove('active');
+  }
+}
+
+function openSidebar(){
+  const mode = localStorage.getItem('essence_view_mode');
+  if(mode === 'mobile'){
+    document.getElementById('sidebar').style.cssText = 'transform:translateX(0) !important;';
+    document.getElementById('sidebar-overlay').classList.add('show');
+  }
+}
+
+function closeSidebar(){
+  const mode = localStorage.getItem('essence_view_mode');
+  if(mode === 'mobile'){
+    document.getElementById('sidebar').style.cssText = 'transform:translateX(-100%) !important;';
+    document.getElementById('sidebar-overlay').classList.remove('show');
   }
 }
 
