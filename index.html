@@ -317,7 +317,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div id="topbar-mobile">
     <button class="topbar-btn" onclick="openSidebar()">☰</button>
     <div class="topbar-logo">Essence <span>Residence</span></div>
-    <button class="topbar-btn" onclick="saveAll()">✓</button>
+    <div style="display:flex;align-items:center;gap:0.4rem">
+      <button onclick="applyViewMode('desktop')" style="background:rgba(184,146,74,0.2);border:1px solid rgba(184,146,74,0.4);color:#D4B483;font-family:'DM Sans',sans-serif;font-size:0.65rem;padding:0.3rem 0.65rem;border-radius:5px;cursor:pointer;letter-spacing:0.05em;">Computador</button>
+      <button class="topbar-btn" onclick="saveAll()">✓</button>
+    </div>
   </div>
 
   <div class="main-header">
