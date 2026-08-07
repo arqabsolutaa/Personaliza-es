@@ -10,7 +10,7 @@
   --gold:#B8924A;--gold-light:#D4B483;--gold-dark:#8A6A30;
   --bg:#F5F2ED;--bg2:#EDEAE3;--bg3:#E4E0D6;--bg4:#D8D3C8;
   --sidebar-bg:#2C2A26;--text:#1E1C18;--text-muted:#6B6659;--text-dim:#9C9484;
-  --white:#FFFFFF;--card-border:rgba(184,146,74,0.18);
+  --white:#E8EBE0;--card-border:rgba(90,110,70,0.25);
   --success:#3A8F62;--warning:#C47F1A;--danger:#C04040;
   --sidebar-w:280px;--radius:10px;
 }
@@ -213,6 +213,42 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 #toast.success{border-color:rgba(58,143,98,0.5);}
 #toast.error{border-color:rgba(192,64,64,0.5);}
 
+.gtab-btn{padding:0.4rem 1rem;border-radius:6px;font-size:0.73rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;border:1px solid var(--bg4);background:var(--white);color:var(--text-muted);}
+.gtab-btn.active{background:var(--gold);color:white;border-color:var(--gold);font-weight:500;}
+.gtab-btn:hover:not(.active){background:var(--bg2);}
+.kanban-col{background:var(--bg2);border-radius:var(--radius);overflow:hidden;}
+.kanban-col-header{padding:0.75rem 1rem;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);font-weight:500;background:var(--white);border-bottom:1px solid var(--bg3);}
+.kanban-col-body{padding:0.5rem;min-height:200px;display:flex;flex-direction:column;gap:0.4rem;}
+.kanban-card{background:var(--white);border:1px solid var(--card-border);border-radius:8px;padding:0.75rem;cursor:pointer;transition:box-shadow 0.2s;box-shadow:0 1px 2px rgba(0,0,0,0.04);}
+.kanban-card:hover{box-shadow:0 3px 8px rgba(0,0,0,0.1);}
+.kanban-card-title{font-size:0.78rem;color:var(--text);font-weight:500;margin-bottom:0.3rem;line-height:1.3;}
+.kanban-card-meta{font-size:0.65rem;color:var(--text-dim);display:flex;gap:0.4rem;flex-wrap:wrap;align-items:center;}
+.kcat{font-size:0.6rem;padding:0.08rem 0.35rem;border-radius:10px;font-weight:500;}
+.kcat-reuniao{background:rgba(100,149,237,0.12);color:#4169E1;}
+.kcat-fornecedor{background:rgba(184,146,74,0.12);color:var(--gold-dark);}
+.kcat-financeiro{background:rgba(58,143,98,0.12);color:var(--success);}
+.kcat-vistoria{background:rgba(150,100,200,0.12);color:#8B5CF6;}
+.kcat-projeto{background:rgba(232,168,74,0.15);color:var(--warning);}
+.kcat-administrativo{background:rgba(100,100,100,0.1);color:var(--text-muted);}
+.kcat-obra{background:rgba(192,64,64,0.1);color:var(--danger);}
+.lista-item{background:var(--white);border:1px solid var(--card-border);border-radius:var(--radius);padding:0.85rem 1.1rem;margin-bottom:0.5rem;display:flex;align-items:flex-start;gap:0.75rem;cursor:pointer;transition:box-shadow 0.2s;}
+.lista-item:hover{box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.lista-item-check{width:16px;height:16px;accent-color:var(--success);flex-shrink:0;margin-top:2px;cursor:pointer;}
+.lista-item-body{flex:1;min-width:0;}
+.lista-item-title{font-size:0.8rem;color:var(--text);font-weight:500;}
+.lista-item-title.done{text-decoration:line-through;color:var(--text-dim);}
+.lista-item-meta{font-size:0.67rem;color:var(--text-dim);margin-top:0.25rem;display:flex;gap:0.5rem;flex-wrap:wrap;}
+.lista-item-actions{display:flex;gap:0.35rem;flex-shrink:0;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
+.cal-header{text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);padding:0.4rem 0;font-weight:500;}
+.cal-day{background:var(--white);border:1px solid var(--bg3);border-radius:6px;min-height:80px;padding:0.3rem;cursor:pointer;transition:border-color 0.2s;}
+.cal-day:hover{border-color:var(--gold);}
+.cal-day.today{border-color:var(--gold);background:rgba(184,146,74,0.04);}
+.cal-day.other-month{background:var(--bg2);opacity:0.5;}
+.cal-day-num{font-size:0.7rem;color:var(--text-muted);margin-bottom:0.2rem;font-weight:500;}
+.cal-day.today .cal-day-num{color:var(--gold);font-weight:700;}
+.cal-event{font-size:0.6rem;padding:0.08rem 0.3rem;border-radius:3px;margin-bottom:0.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:rgba(184,146,74,0.15);color:var(--gold-dark);}
+.cal-event.late{background:rgba(192,64,64,0.12);color:var(--danger);}
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px;}
@@ -302,6 +338,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       </div>
     </div>
     <div><button class="nav-section-btn" onclick="openPrazos();closeSidebar()">◈ &nbsp;Prazos Globais</button></div>
+    <div><button class="nav-section-btn" onclick="openGestao();closeSidebar()">◈ &nbsp;Gestão / Tarefas</button></div>
     <div><button class="nav-section-btn" onclick="openConfig();closeSidebar()">◈ &nbsp;Configurações</button></div>
   </nav>
   <div class="sidebar-footer">
@@ -419,6 +456,68 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="prazos-grid" id="prazos-grid"></div>
     </div>
 
+    <!-- GESTÃO -->
+    <div id="view-gestao" style="display:none">
+      <!-- TABS -->
+      <div style="display:flex;gap:0.5rem;margin-bottom:1rem;border-bottom:1px solid var(--bg3);padding-bottom:0.75rem;flex-wrap:wrap">
+        <button class="gtab-btn active" id="gtab-kanban" onclick="showGTab('kanban')">Kanban</button>
+        <button class="gtab-btn" id="gtab-lista" onclick="showGTab('lista')">Lista</button>
+        <button class="gtab-btn" id="gtab-calendario" onclick="showGTab('calendario')">Calendário</button>
+        <button class="btn-sm btn-primary" onclick="openNovaTarefa()" style="margin-left:auto">+ Nova tarefa</button>
+      </div>
+
+      <!-- KANBAN -->
+      <div id="gtab-kanban-view">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.75rem">
+          <div class="kanban-col" id="kanban-afazer">
+            <div class="kanban-col-header" style="border-top:3px solid var(--warning)">A fazer</div>
+            <div class="kanban-col-body" id="kcol-afazer"></div>
+          </div>
+          <div class="kanban-col" id="kanban-andamento">
+            <div class="kanban-col-header" style="border-top:3px solid var(--gold)">Em andamento</div>
+            <div class="kanban-col-body" id="kcol-andamento"></div>
+          </div>
+          <div class="kanban-col" id="kanban-concluido">
+            <div class="kanban-col-header" style="border-top:3px solid var(--success)">Concluído</div>
+            <div class="kanban-col-body" id="kcol-concluido"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LISTA -->
+      <div id="gtab-lista-view" style="display:none">
+        <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap;align-items:center">
+          <select id="filtro-cat" onchange="buildLista()" style="background:var(--white);border:1px solid var(--bg4);color:var(--text);padding:0.38rem 0.65rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.75rem;">
+            <option value="">Todas categorias</option>
+            <option>Reunião com cliente</option>
+            <option>Fornecedor</option>
+            <option>Financeiro</option>
+            <option>Vistoria</option>
+            <option>Projeto</option>
+            <option>Administrativo</option>
+            <option>Obra</option>
+          </select>
+          <select id="filtro-status" onchange="buildLista()" style="background:var(--white);border:1px solid var(--bg4);color:var(--text);padding:0.38rem 0.65rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.75rem;">
+            <option value="">Todos status</option>
+            <option>A fazer</option>
+            <option>Em andamento</option>
+            <option>Concluído</option>
+          </select>
+        </div>
+        <div id="lista-tarefas"></div>
+      </div>
+
+      <!-- CALENDÁRIO -->
+      <div id="gtab-calendario-view" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+          <button onclick="mesAnterior()" class="btn-sm btn-outline">‹ Anterior</button>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:var(--text)" id="cal-titulo"></div>
+          <button onclick="mesSeguinte()" class="btn-sm btn-outline">Próximo ›</button>
+        </div>
+        <div id="calendario-grid"></div>
+      </div>
+    </div>
+
     <!-- CONFIGURAÇÕES -->
     <div id="view-config" style="display:none">
       <div class="config-section">
@@ -455,6 +554,55 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 </div>
 
 <!-- MODAL -->
+<!-- MODAL TAREFA -->
+<div id="modal-tarefa-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:600;display:none;align-items:center;justify-content:center;padding:1rem;">
+  <div style="background:var(--white);border-radius:12px;padding:1.5rem;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 10px 40px rgba(0,0,0,0.15);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400" id="modal-tarefa-title">Nova tarefa</div>
+      <button onclick="closeNovaTarefa()" style="background:none;border:none;color:var(--text-dim);font-size:1rem;cursor:pointer">✕</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.75rem">
+      <div><label style="font-size:0.68rem;color:var(--text-muted);display:block;margin-bottom:0.3rem">Título *</label>
+        <input id="t-titulo" type="text" placeholder="Nome da tarefa" style="width:100%;background:var(--bg);border:1px solid var(--bg4);color:var(--text);padding:0.55rem 0.8rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.8rem;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem">
+        <div><label style="font-size:0.68rem;color:var(--text-muted);display:block;margin-bottom:0.3rem">Categoria</label>
+          <select id="t-cat" style="width:100%;background:var(--bg);border:1px solid var(--bg4);color:var(--text);padding:0.52rem 0.65rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.78rem;">
+            <option>Reunião com cliente</option>
+            <option>Fornecedor</option>
+            <option>Financeiro</option>
+            <option>Vistoria</option>
+            <option>Projeto</option>
+            <option>Administrativo</option>
+            <option>Obra</option>
+          </select></div>
+        <div><label style="font-size:0.68rem;color:var(--text-muted);display:block;margin-bottom:0.3rem">Status</label>
+          <select id="t-status" style="width:100%;background:var(--bg);border:1px solid var(--bg4);color:var(--text);padding:0.52rem 0.65rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.78rem;">
+            <option>A fazer</option>
+            <option>Em andamento</option>
+            <option>Concluído</option>
+          </select></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem">
+        <div><label style="font-size:0.68rem;color:var(--text-muted);display:block;margin-bottom:0.3rem">Data de vencimento</label>
+          <input id="t-data" type="date" style="width:100%;background:var(--bg);border:1px solid var(--bg4);color:var(--text);padding:0.52rem 0.65rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.78rem;"></div>
+        <div><label style="font-size:0.68rem;color:var(--text-muted);display:block;margin-bottom:0.3rem">Prioridade</label>
+          <select id="t-prior" style="width:100%;background:var(--bg);border:1px solid var(--bg4);color:var(--text);padding:0.52rem 0.65rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.78rem;">
+            <option>Normal</option>
+            <option>Alta</option>
+            <option>Urgente</option>
+          </select></div>
+      </div>
+      <div><label style="font-size:0.68rem;color:var(--text-muted);display:block;margin-bottom:0.3rem">Descrição / notas</label>
+        <textarea id="t-desc" placeholder="Detalhes, links, observações..." style="width:100%;background:var(--bg);border:1px solid var(--bg4);color:var(--text);padding:0.52rem 0.7rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.78rem;resize:none;min-height:80px;"></textarea></div>
+    </div>
+    <div style="display:flex;gap:0.6rem;justify-content:flex-end;margin-top:1.25rem">
+      <button onclick="closeNovaTarefa()" class="btn-sm btn-outline">Cancelar</button>
+      <button onclick="salvarTarefa()" class="btn-sm btn-primary" id="btn-salvar-tarefa">Salvar tarefa</button>
+      <button onclick="excluirTarefa()" class="btn-sm" id="btn-excluir-tarefa" style="display:none;background:rgba(192,64,64,0.1);border:1px solid rgba(192,64,64,0.3);color:var(--danger);">Excluir</button>
+    </div>
+  </div>
+</div>
+
 <div id="modal-overlay">
   <div id="modal">
     <div class="modal-header">
@@ -532,6 +680,7 @@ function init(){
     document.getElementById('cfg-script-url').value=SCRIPT_URL;
     syncData();
   }
+  loadTarefas();
   const savedMode = localStorage.getItem('essence_view_mode');
   if(savedMode) applyViewMode(savedMode);
   updateDashboard();
@@ -548,12 +697,7 @@ function toggleSection(id,btn){
   if(!isOpen){sub.classList.add('open');btn.classList.add('active');}
 }
 
-function showView(h,e,p,c){
-  document.getElementById('view-home').style.display=h?'block':'none';
-  document.getElementById('view-etapa').style.display=e?'block':'none';
-  document.getElementById('view-prazos').style.display=p?'block':'none';
-  document.getElementById('view-config').style.display=c?'block':'none';
-}
+
 
 function setHeader(title,sub){
   document.getElementById('main-title').textContent=title;
@@ -1017,8 +1161,24 @@ async function pushItem(etapa,item,apto,sub,checked){
 function saveAll(){
   saveState();
   if(SCRIPT_URL){
-    fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify({action:'saveAll',state:STATE,prazos:PRAZOS,pdfs:PDFS_APTO,obs:OBS,conf:CONF}),headers:{'Content-Type':'text/plain'}})
-    .then(()=>showToast('Salvo ✓','success')).catch(()=>showToast('Salvo localmente ✓','success'));
+    // Pega o HTML atual da página e envia pro Apps Script gravar no GitHub
+    const html = document.documentElement.outerHTML;
+    fetch(SCRIPT_URL,{
+      method:'POST',
+      body:JSON.stringify({
+        action:'saveAll',
+        state:STATE,
+        prazos:PRAZOS,
+        pdfs_etapa:PDFS_ETAPA,
+        pdfs:PDFS_APTO,
+        obs:OBS,
+        conf:CONF,
+        html:html
+      }),
+      headers:{'Content-Type':'text/plain'}
+    })
+    .then(()=>showToast('Salvo e publicado no GitHub ✓','success'))
+    .catch(()=>showToast('Salvo localmente ✓','success'));
   } else showToast('Salvo localmente ✓','success');
 }
 
@@ -1097,6 +1257,303 @@ function closeSidebar(){
     document.getElementById('sidebar').style.cssText = 'transform:translateX(-100%) !important;';
     document.getElementById('sidebar-overlay').classList.remove('show');
   }
+}
+
+// ── GESTÃO DE TAREFAS ────────────────────────────────────────
+let TAREFAS = [];
+let editandoTarefaId = null;
+let calMes = new Date().getMonth();
+let calAno = new Date().getFullYear();
+let gTabAtual = 'kanban';
+
+function loadTarefas(){
+  const r = localStorage.getItem('essence_tarefas');
+  TAREFAS = r ? JSON.parse(r) : [];
+}
+function saveTarefas(){
+  localStorage.setItem('essence_tarefas', JSON.stringify(TAREFAS));
+}
+
+function openGestao(){
+  showView(false,false,false,false);
+  document.getElementById('view-gestao').style.display = 'block';
+  setHeader('Gestão / Tarefas','Kanban · Lista · Calendário');
+  loadTarefas();
+  buildKanban();
+}
+
+function showView(h,e,p,c){
+  document.getElementById('view-home').style.display=h?'block':'none';
+  document.getElementById('view-etapa').style.display=e?'block':'none';
+  document.getElementById('view-prazos').style.display=p?'block':'none';
+  document.getElementById('view-config').style.display=c?'block':'none';
+  document.getElementById('view-gestao').style.display='none';
+}
+
+function showGTab(tab){
+  gTabAtual = tab;
+  ['kanban','lista','calendario'].forEach(t=>{
+    document.getElementById('gtab-'+t+'-view').style.display = t===tab?'block':'none';
+    const btn = document.getElementById('gtab-'+t);
+    if(btn){ btn.classList.toggle('active', t===tab); }
+  });
+  if(tab==='kanban') buildKanban();
+  if(tab==='lista') buildLista();
+  if(tab==='calendario') buildCalendario();
+}
+
+function catClass(cat){
+  const map = {
+    'Reunião com cliente':'reuniao','Fornecedor':'fornecedor',
+    'Financeiro':'financeiro','Vistoria':'vistoria',
+    'Projeto':'projeto','Administrativo':'administrativo','Obra':'obra'
+  };
+  return 'kcat kcat-'+(map[cat]||'administrativo');
+}
+
+function priorColor(p){
+  if(p==='Urgente') return 'var(--danger)';
+  if(p==='Alta') return 'var(--warning)';
+  return 'var(--text-dim)';
+}
+
+function diffDias(data){
+  if(!data) return null;
+  const hoje=new Date();hoje.setHours(0,0,0,0);
+  const d=new Date(data+'T00:00:00');
+  return Math.ceil((d-hoje)/86400000);
+}
+
+function tagDias(data,done){
+  if(done) return '<span style="font-size:0.6rem;color:var(--success)">✓ Concluído</span>';
+  const d=diffDias(data);
+  if(d===null) return '';
+  if(d<0) return `<span style="font-size:0.6rem;color:var(--danger);font-weight:500">Atrasado ${Math.abs(d)}d</span>`;
+  if(d===0) return `<span style="font-size:0.6rem;color:var(--warning);font-weight:500">Vence hoje</span>`;
+  if(d<=3) return `<span style="font-size:0.6rem;color:var(--warning)">${d}d</span>`;
+  return `<span style="font-size:0.6rem;color:var(--text-dim)">${d}d</span>`;
+}
+
+function buildKanban(){
+  const cols = {'A fazer':'afazer','Em andamento':'andamento','Concluído':'concluido'};
+  Object.keys(cols).forEach(status=>{
+    const el = document.getElementById('kcol-'+cols[status]);
+    if(!el) return;
+    const items = TAREFAS.filter(t=>t.status===status);
+    if(!items.length){
+      el.innerHTML='<div style="font-size:0.72rem;color:var(--text-dim);text-align:center;padding:1rem 0">Nenhuma tarefa</div>';
+      return;
+    }
+    el.innerHTML = items.map(t=>`
+      <div class="kanban-card" onclick="editarTarefa('${t.id}')">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:0.4rem;margin-bottom:0.4rem">
+          <div class="kanban-card-title">${t.titulo}</div>
+          ${t.prioridade==='Urgente'?'<span style="font-size:0.58rem;color:var(--danger);font-weight:600;white-space:nowrap">● Urgente</span>':t.prioridade==='Alta'?'<span style="font-size:0.58rem;color:var(--warning);font-weight:600;white-space:nowrap">● Alta</span>':''}
+        </div>
+        <div class="kanban-card-meta">
+          <span class="${catClass(t.categoria)}">${t.categoria}</span>
+          ${t.data?`<span style="font-size:0.62rem;color:var(--text-dim)">${formatData(t.data)}</span>`:''}
+          ${tagDias(t.data,t.status==='Concluído')}
+        </div>
+        ${t.desc?`<div style="font-size:0.68rem;color:var(--text-dim);margin-top:0.4rem;line-height:1.4;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${t.desc}</div>`:''}
+      </div>`).join('');
+  });
+}
+
+function buildLista(){
+  const filtCat = document.getElementById('filtro-cat')?.value||'';
+  const filtStatus = document.getElementById('filtro-status')?.value||'';
+  let items = TAREFAS.filter(t=>{
+    if(filtCat && t.categoria!==filtCat) return false;
+    if(filtStatus && t.status!==filtStatus) return false;
+    return true;
+  });
+  items.sort((a,b)=>{
+    if(!a.data&&!b.data) return 0;
+    if(!a.data) return 1;
+    if(!b.data) return -1;
+    return a.data.localeCompare(b.data);
+  });
+  const el = document.getElementById('lista-tarefas');
+  if(!el) return;
+  if(!items.length){el.innerHTML='<div style="font-size:0.78rem;color:var(--text-dim);padding:1rem 0;text-align:center">Nenhuma tarefa encontrada.</div>';return;}
+  el.innerHTML = items.map(t=>`
+    <div class="lista-item" onclick="editarTarefa('${t.id}')">
+      <input type="checkbox" class="lista-item-check" ${t.status==='Concluído'?'checked':''} onclick="event.stopPropagation();toggleTarefaStatus('${t.id}',this.checked)" title="Marcar como concluído">
+      <div class="lista-item-body">
+        <div class="lista-item-title ${t.status==='Concluído'?'done':''}">${t.titulo}</div>
+        <div class="lista-item-meta">
+          <span class="${catClass(t.categoria)}" style="font-size:0.62rem;padding:0.05rem 0.35rem;border-radius:10px">${t.categoria}</span>
+          <span>${t.status}</span>
+          ${t.data?`<span>${formatData(t.data)}</span>`:''}
+          ${tagDias(t.data,t.status==='Concluído')}
+          ${t.prioridade!=='Normal'?`<span style="color:${priorColor(t.prioridade)};font-weight:500">${t.prioridade}</span>`:''}
+        </div>
+        ${t.desc?`<div style="font-size:0.7rem;color:var(--text-dim);margin-top:0.25rem;line-height:1.4">${t.desc}</div>`:''}
+      </div>
+    </div>`).join('');
+}
+
+function buildCalendario(){
+  const hoje = new Date();
+  const titulo = new Date(calAno, calMes, 1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  const tituloEl = document.getElementById('cal-titulo');
+  if(tituloEl) tituloEl.textContent = titulo.charAt(0).toUpperCase()+titulo.slice(1);
+
+  const grid = document.getElementById('calendario-grid');
+  if(!grid) return;
+
+  const diasSemana = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  let html = '<div class="cal-grid">';
+  diasSemana.forEach(d=>{ html+=`<div class="cal-header">${d}</div>`; });
+
+  const primeiroDia = new Date(calAno, calMes, 1).getDay();
+  const diasNoMes = new Date(calAno, calMes+1, 0).getDate();
+  const diasMesAnterior = new Date(calAno, calMes, 0).getDate();
+
+  // Dias do mês anterior
+  for(let i=primeiroDia-1;i>=0;i--){
+    html+=`<div class="cal-day other-month"><div class="cal-day-num">${diasMesAnterior-i}</div></div>`;
+  }
+
+  // Dias do mês atual
+  for(let dia=1;dia<=diasNoMes;dia++){
+    const dataStr = `${calAno}-${String(calMes+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
+    const isHoje = hoje.getDate()===dia && hoje.getMonth()===calMes && hoje.getFullYear()===calAno;
+    const tarefasDia = TAREFAS.filter(t=>t.data===dataStr);
+    // Prazos de etapas
+    const prazosEtapa = [];
+    Object.keys(ETAPAS_DEF).forEach(etapa=>{
+      Object.keys(ETAPAS_DEF[etapa].itens).forEach(item=>{
+        if(PRAZOS[`prazo_${etapa}_${item}`]===dataStr){
+          prazosEtapa.push(ETAPAS_DEF[etapa].itens[item].label);
+        }
+      });
+    });
+    const hojeClass = isHoje?' today':'';
+    html+=`<div class="cal-day${hojeClass}" onclick="calDayClick('${dataStr}')">
+      <div class="cal-day-num">${dia}</div>
+      ${tarefasDia.slice(0,2).map(t=>`<div class="cal-event ${t.status==='Concluído'?'':''}">● ${t.titulo}</div>`).join('')}
+      ${tarefasDia.length>2?`<div style="font-size:0.58rem;color:var(--text-dim)">+${tarefasDia.length-2} mais</div>`:''}
+      ${prazosEtapa.slice(0,1).map(p=>`<div class="cal-event late">⏱ ${p}</div>`).join('')}
+    </div>`;
+  }
+
+  // Dias do próximo mês
+  const totalCelulas = Math.ceil((primeiroDia+diasNoMes)/7)*7;
+  const diasProximo = totalCelulas - primeiroDia - diasNoMes;
+  for(let i=1;i<=diasProximo;i++){
+    html+=`<div class="cal-day other-month"><div class="cal-day-num">${i}</div></div>`;
+  }
+  html+='</div>';
+  grid.innerHTML=html;
+}
+
+function calDayClick(dataStr){
+  openNovaTarefa();
+  setTimeout(()=>{ document.getElementById('t-data').value=dataStr; },50);
+}
+
+function mesAnterior(){
+  calMes--;
+  if(calMes<0){calMes=11;calAno--;}
+  buildCalendario();
+}
+function mesSeguinte(){
+  calMes++;
+  if(calMes>11){calMes=0;calAno++;}
+  buildCalendario();
+}
+
+function formatData(data){
+  if(!data) return '';
+  const [a,m,d]=data.split('-');
+  return `${d}/${m}/${a}`;
+}
+
+function openNovaTarefa(){
+  editandoTarefaId=null;
+  document.getElementById('modal-tarefa-title').textContent='Nova tarefa';
+  document.getElementById('t-titulo').value='';
+  document.getElementById('t-cat').value='Reunião com cliente';
+  document.getElementById('t-status').value='A fazer';
+  document.getElementById('t-data').value='';
+  document.getElementById('t-prior').value='Normal';
+  document.getElementById('t-desc').value='';
+  document.getElementById('btn-excluir-tarefa').style.display='none';
+  document.getElementById('modal-tarefa-overlay').style.display='flex';
+}
+
+function editarTarefa(id){
+  const t = TAREFAS.find(x=>x.id===id);
+  if(!t) return;
+  editandoTarefaId=id;
+  document.getElementById('modal-tarefa-title').textContent='Editar tarefa';
+  document.getElementById('t-titulo').value=t.titulo;
+  document.getElementById('t-cat').value=t.categoria;
+  document.getElementById('t-status').value=t.status;
+  document.getElementById('t-data').value=t.data||'';
+  document.getElementById('t-prior').value=t.prioridade||'Normal';
+  document.getElementById('t-desc').value=t.desc||'';
+  document.getElementById('btn-excluir-tarefa').style.display='inline-block';
+  document.getElementById('modal-tarefa-overlay').style.display='flex';
+}
+
+function salvarTarefa(){
+  const titulo = document.getElementById('t-titulo').value.trim();
+  if(!titulo){showToast('Digite um título','error');return;}
+  if(editandoTarefaId){
+    const idx = TAREFAS.findIndex(t=>t.id===editandoTarefaId);
+    if(idx>-1){
+      TAREFAS[idx]={...TAREFAS[idx],
+        titulo,
+        categoria:document.getElementById('t-cat').value,
+        status:document.getElementById('t-status').value,
+        data:document.getElementById('t-data').value,
+        prioridade:document.getElementById('t-prior').value,
+        desc:document.getElementById('t-desc').value
+      };
+    }
+  } else {
+    TAREFAS.push({
+      id:'t'+Date.now(),
+      titulo,
+      categoria:document.getElementById('t-cat').value,
+      status:document.getElementById('t-status').value,
+      data:document.getElementById('t-data').value,
+      prioridade:document.getElementById('t-prior').value,
+      desc:document.getElementById('t-desc').value,
+      criadoEm:new Date().toLocaleDateString('pt-BR')
+    });
+  }
+  saveTarefas();
+  closeNovaTarefa();
+  showToast('Tarefa salva ✓','success');
+  if(gTabAtual==='kanban') buildKanban();
+  else if(gTabAtual==='lista') buildLista();
+  else buildCalendario();
+}
+
+function excluirTarefa(){
+  if(!editandoTarefaId) return;
+  if(!confirm('Excluir esta tarefa?')) return;
+  TAREFAS = TAREFAS.filter(t=>t.id!==editandoTarefaId);
+  saveTarefas();
+  closeNovaTarefa();
+  showToast('Tarefa excluída','success');
+  if(gTabAtual==='kanban') buildKanban();
+  else if(gTabAtual==='lista') buildLista();
+  else buildCalendario();
+}
+
+function toggleTarefaStatus(id,checked){
+  const t=TAREFAS.find(x=>x.id===id);
+  if(t){ t.status=checked?'Concluído':'A fazer'; saveTarefas(); buildLista(); }
+}
+
+function closeNovaTarefa(){
+  document.getElementById('modal-tarefa-overlay').style.display='none';
+  editandoTarefaId=null;
 }
 
 function showToast(msg,type=''){
