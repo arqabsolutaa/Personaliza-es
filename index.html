@@ -1375,6 +1375,19 @@ function loadTarefas(){
       {id:'crono_'+agora+'_40',titulo:'Móveis externos',categoria:'Fornecedor',status:'A fazer',data:'',prioridade:'Normal',desc:'15 dias — Aluminas? Importar? 120 dias. Responsável: Bárbara',criadoEm:'24/05/2026'},
       {id:'crono_'+agora+'_41',titulo:'All Tech — Sonorização',categoria:'Fornecedor',status:'A fazer',data:'',prioridade:'Normal',desc:'Orçando com All Tech',criadoEm:'24/05/2026'},
       {id:'crono_'+agora+'_42',titulo:'All Tech — Projeto de faciais',categoria:'Projeto',status:'A fazer',data:'',prioridade:'Normal',desc:'Orçando com All Tech',criadoEm:'24/05/2026'},
+      {id:'crono_extra_01',titulo:'Hidráulica — 9º ao 15º andar',categoria:'Obra',status:'A fazer',data:'',prioridade:'Normal',desc:'Executar hidráulica do 9º ao 15º andar',criadoEm:'24/05/2026'},
+      {id:'crono_extra_02',titulo:'Elétrica piso — 7º ao 15º andar',categoria:'Obra',status:'A fazer',data:'',prioridade:'Normal',desc:'Executar elétrica de piso do 7º ao 15º andar',criadoEm:'24/05/2026'},
+      {id:'crono_extra_03',titulo:'Gesso — rever personalização',categoria:'Projeto',status:'A fazer',data:'',prioridade:'Normal',desc:'Rever execução do gesso de acordo com personalização dos clientes',criadoEm:'24/05/2026'},
+      {id:'crono_extra_04',titulo:'Contrapiso — rever personalização',categoria:'Projeto',status:'A fazer',data:'',prioridade:'Normal',desc:'Rever execução do contrapiso de acordo com personalização dos clientes',criadoEm:'24/05/2026'},
+      {id:'crono_extra_05',titulo:'Vistas aquecedores e cozinha',categoria:'Projeto',status:'Concluído',data:'',prioridade:'Normal',desc:'Detalhar vistas de aquecedores e cozinha — OK',criadoEm:'24/05/2026'},
+      {id:'crono_extra_06',titulo:'Postar executivo ático',categoria:'Projeto',status:'A fazer',data:'',prioridade:'Normal',desc:'Postar projeto executivo do ático',criadoEm:'24/05/2026'},
+      {id:'crono_extra_07',titulo:'Organizar vistas térreo',categoria:'Projeto',status:'A fazer',data:'',prioridade:'Normal',desc:'Posicionar indicações — LEVANTAR VISTAS do térreo',criadoEm:'24/05/2026'},
+      {id:'crono_extra_08',titulo:'Projeto ar-condicionado (tipo)',categoria:'Projeto',status:'A fazer',data:'',prioridade:'Normal',desc:'Desenvolver projeto de ar-condicionado para unidades tipo',criadoEm:'24/05/2026'},
+      {id:'crono_extra_09',titulo:'Ajuste projeto elétrica térreo',categoria:'Projeto',status:'A fazer',data:'',prioridade:'Normal',desc:'Solicitar ajuste projeto elétrica térreo conforme arquitetura nova',criadoEm:'24/05/2026'},
+      {id:'crono_extra_10',titulo:'Hidráulica as-built — canos',categoria:'Projeto',status:'A fazer',data:'',prioridade:'Normal',desc:'Levantamento as-built dos caminhos de canos hidráulicos',criadoEm:'24/05/2026'},
+      {id:'crono_extra_11',titulo:'Duto ar-condicionado térreo',categoria:'Obra',status:'A fazer',data:'',prioridade:'Normal',desc:'Verificar e resolver questões do duto de ar-condicionado no térreo com ar dutado',criadoEm:'24/05/2026'},
+      {id:'crono_extra_12',titulo:'Bomba para irrigação',categoria:'Obra',status:'A fazer',data:'',prioridade:'Normal',desc:'Definir e instalar bomba para sistema de irrigação',criadoEm:'24/05/2026'},
+      {id:'crono_extra_13',titulo:'Elétrica para irrigação',categoria:'Obra',status:'A fazer',data:'',prioridade:'Normal',desc:'Executar elétrica para sistema de irrigação',criadoEm:'24/05/2026'},
     ];
     TAREFAS = [...TAREFAS, ...tarefasCrono];
     saveTarefas();
@@ -1806,8 +1819,9 @@ function renderCronograma(){
 
 // ── VISÃO POR SEÇÃO ──────────────────────────────────────────
 const SECOES_CRONO = {
-  'Unidades Tipo': ['Gesso','Contrapiso','Ar-condicionado (unidades)','Forro','Revestimentos (unidades)','Ralos lineares','Argamassa','Rejunte','Perfil metálico para piso','Proteção de piso','Massa Corrida','Tinta Suvinil','Marmoraria (unidades)','Proteção de pedras','Vasos sanitários','Metais','Cubas Cozinha','Portas','Fechaduras','Rodapé'],
-  'Áreas Comuns': ['Paisagismo','Aspersor','Iluminação jardim','Ralo linear térreo','Pedras seixos','Piso petplace','Playground','Academia','Mobiliários áreas comuns','Esquadrias','Cobogó','Piscina aquecida','Iluminação térreo','Fachada — perfis alumínio','Ar-condicionado térreo','Comunicação visual','Beach Tennis','Pedras fachada guarita','Espelhos térreo','Móveis externos','All Tech — Sonorização','All Tech — Projeto de faciais']
+  'Unidades Tipo': ['Gesso','Contrapiso','Ar-condicionado (unidades)','Forro','Revestimentos (unidades)','Ralos lineares','Argamassa','Rejunte','Perfil metálico para piso','Proteção de piso','Massa Corrida','Tinta Suvinil','Marmoraria (unidades)','Proteção de pedras','Vasos sanitários','Metais','Cubas Cozinha','Portas','Fechaduras','Rodapé','Hidráulica — 9º ao 15º andar','Elétrica piso — 7º ao 15º andar','Gesso — rever personalização','Contrapiso — rever personalização'],
+  'Áreas Comuns': ['Paisagismo','Aspersor','Iluminação jardim','Ralo linear térreo','Pedras seixos','Piso petplace','Playground','Academia','Mobiliários áreas comuns','Esquadrias','Cobogó','Piscina aquecida','Iluminação térreo','Fachada — perfis alumínio','Ar-condicionado térreo','Comunicação visual','Beach Tennis','Pedras fachada guarita','Espelhos térreo','Móveis externos','All Tech — Sonorização','All Tech — Projeto de faciais','Bomba para irrigação','Elétrica para irrigação','Duto ar-condicionado térreo'],
+  'Projetos': ['Vistas aquecedores e cozinha','Postar executivo ático','Organizar vistas térreo','Projeto ar-condicionado (tipo)','Ajuste projeto elétrica térreo','Hidráulica as-built — canos']
 };
 
 function buildSecao(){
