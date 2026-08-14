@@ -249,6 +249,37 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .cal-day.today .cal-day-num{color:var(--gold);font-weight:700;}
 .cal-event{font-size:0.6rem;padding:0.08rem 0.3rem;border-radius:3px;margin-bottom:0.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:rgba(184,146,74,0.15);color:var(--gold-dark);}
 .cal-event.late{background:rgba(192,64,64,0.12);color:var(--danger);}
+.crono-section{margin-bottom:1.5rem;}
+.crono-section-title{font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:1px solid var(--bg3);}
+.crono-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0.6rem;}
+.crono-card{background:var(--white);border:1px solid var(--card-border);border-radius:var(--radius);padding:0.85rem 1rem;box-shadow:0 1px 3px rgba(0,0,0,0.04);border-left:3px solid var(--bg4);transition:box-shadow 0.2s;}
+.crono-card:hover{box-shadow:0 3px 8px rgba(0,0,0,0.08);}
+.crono-card.status-prazo{border-left-color:var(--success);}
+.crono-card.status-andamento{border-left-color:var(--gold);}
+.crono-card.status-atrasado{border-left-color:var(--danger);}
+.crono-card.status-urgente{border-left-color:var(--danger);background:rgba(192,64,64,0.04);}
+.crono-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:0.5rem;margin-bottom:0.4rem;}
+.crono-card-title{font-size:0.82rem;font-weight:500;color:var(--text);flex:1;}
+.crono-badge{font-size:0.58rem;padding:0.1rem 0.4rem;border-radius:10px;font-weight:600;white-space:nowrap;flex-shrink:0;}
+.crono-badge.prazo{background:rgba(58,143,98,0.12);color:var(--success);}
+.crono-badge.andamento{background:rgba(184,146,74,0.15);color:var(--gold-dark);}
+.crono-badge.atrasado{background:rgba(192,64,64,0.12);color:var(--danger);}
+.crono-badge.urgente{background:rgba(192,64,64,0.2);color:var(--danger);}
+.crono-card-obs{font-size:0.72rem;color:var(--text-muted);line-height:1.4;margin-bottom:0.35rem;}
+.crono-card-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.3rem;}
+.crono-card-resp{font-size:0.65rem;color:var(--text-dim);font-style:italic;}
+.crono-card-prazo{font-size:0.65rem;color:var(--text-dim);}
+.crono-filters{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;align-items:center;}
+.crono-filter-btn{padding:0.35rem 0.85rem;border-radius:20px;font-size:0.72rem;cursor:pointer;font-family:'DM Sans',sans-serif;border:1px solid var(--bg4);background:var(--white);color:var(--text-muted);transition:all 0.2s;}
+.crono-filter-btn.active{background:var(--gold);color:white;border-color:var(--gold);}
+.crono-filter-btn:hover:not(.active){background:var(--bg2);}
+.timeline-wrap{position:relative;padding-left:20px;}
+.timeline-wrap::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--bg3);}
+.timeline-item{position:relative;margin-bottom:1rem;padding-left:1.5rem;}
+.timeline-dot{position:absolute;left:-14px;top:4px;width:10px;height:10px;border-radius:50%;border:2px solid var(--white);flex-shrink:0;}
+.timeline-dot.prazo{background:var(--success);}
+.timeline-dot.andamento{background:var(--gold);}
+.timeline-dot.atrasado,.timeline-dot.urgente{background:var(--danger);}
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px;}
@@ -339,6 +370,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     </div>
     <div><button class="nav-section-btn" onclick="openPrazos();closeSidebar()">◈ &nbsp;Prazos Globais</button></div>
     <div><button class="nav-section-btn" onclick="openGestao();closeSidebar()">◈ &nbsp;Gestão / Tarefas</button></div>
+    <div><button class="nav-section-btn" onclick="openCronograma();closeSidebar()">◈ &nbsp;Cronograma</button></div>
     <div><button class="nav-section-btn" onclick="openConfig();closeSidebar()">◈ &nbsp;Configurações</button></div>
   </nav>
   <div class="sidebar-footer">
@@ -516,6 +548,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         </div>
         <div id="calendario-grid"></div>
       </div>
+    </div>
+
+    <!-- CRONOGRAMA -->
+    <div id="view-cronograma" style="display:none">
+      <div class="crono-filters">
+        <button class="crono-filter-btn active" onclick="filterCrono('todos',this)">Todos</button>
+        <button class="crono-filter-btn" onclick="filterCrono('prazo',this)">No prazo</button>
+        <button class="crono-filter-btn" onclick="filterCrono('andamento',this)">Em andamento</button>
+        <button class="crono-filter-btn" onclick="filterCrono('atrasado',this)">Atrasado</button>
+        <button class="crono-filter-btn" onclick="filterCrono('urgente',this)">Urgente</button>
+        <div style="margin-left:auto;display:flex;gap:0.5rem">
+          <button class="crono-filter-btn" id="btn-view-cards" onclick="setCronoView('cards')" style="background:var(--gold);color:white;border-color:var(--gold)">Cards</button>
+          <button class="crono-filter-btn" id="btn-view-timeline" onclick="setCronoView('timeline')">Timeline</button>
+        </div>
+      </div>
+      <div id="crono-content"></div>
     </div>
 
     <!-- CONFIGURAÇÕES -->
@@ -1288,6 +1336,7 @@ function showView(h,e,p,c){
   document.getElementById('view-prazos').style.display=p?'block':'none';
   document.getElementById('view-config').style.display=c?'block':'none';
   document.getElementById('view-gestao').style.display='none';
+  document.getElementById('view-cronograma').style.display='none';
 }
 
 function showGTab(tab){
@@ -1554,6 +1603,140 @@ function toggleTarefaStatus(id,checked){
 function closeNovaTarefa(){
   document.getElementById('modal-tarefa-overlay').style.display='none';
   editandoTarefaId=null;
+}
+
+// ── CRONOGRAMA ────────────────────────────────────────────────
+const CRONOGRAMA = {
+  'Unidades Tipo': [
+    {titulo:'Gesso',status:'andamento',obs:'Em andamento até 5º andar',resp:'',prazo:''},
+    {titulo:'Contrapiso',status:'andamento',obs:'Em andamento até 3º andar',resp:'',prazo:''},
+    {titulo:'Ar-condicionado',status:'atrasado',obs:'Finalizar levantamento de material',resp:'Bárbara',prazo:''},
+    {titulo:'Forro',status:'prazo',obs:'Definir cortineiro',resp:'Bárbara',prazo:''},
+    {titulo:'Revestimentos',status:'prazo',obs:'Selecionados pelos clientes — unidades pendentes: 32, 82, 122',resp:'Bárbara',prazo:''},
+    {titulo:'Ralos lineares',status:'prazo',obs:'Se igual ao Vista Park: 10 dias úteis',resp:'',prazo:'10 dias úteis'},
+    {titulo:'Argamassa',status:'prazo',obs:'Votorantin? Até 10 dias úteis — 1ª carga: Bira / Jailto',resp:'Jailto',prazo:'10 dias úteis'},
+    {titulo:'Rejunte',status:'prazo',obs:'20 dias — olhar catálogo atualizado Quartzolit',resp:'Bárbara e Jailto',prazo:'20 dias'},
+    {titulo:'Perfil metálico para piso',status:'prazo',obs:'Bárbara escolher cor',resp:'Bárbara',prazo:'10 dias úteis'},
+    {titulo:'Proteção de piso',status:'prazo',obs:'Avaliar nova possibilidade — 30 dias úteis',resp:'Thaisa',prazo:'30 dias úteis'},
+    {titulo:'Massa Corrida',status:'prazo',obs:'Prazo entrega fabricante: 15 a 20 dias úteis',resp:'',prazo:'15-20 dias úteis'},
+    {titulo:'Tinta Suvinil',status:'prazo',obs:'Esmalte: mín 10 latas por cor / Látex: mín 20 latas por cor',resp:'',prazo:''},
+    {titulo:'Marmoraria',status:'prazo',obs:'Selecionados pelos clientes',resp:'Clientes',prazo:''},
+    {titulo:'Proteção de pedras',status:'prazo',obs:'Avaliar nova possibilidade (contact) — 30 dias úteis',resp:'Bárbara',prazo:'30 dias úteis'},
+    {titulo:'Vasos sanitários',status:'prazo',obs:'Importar? Prazo 120 dias corridos',resp:'Bárbara',prazo:'120 dias'},
+    {titulo:'Metais',status:'prazo',obs:'Stock / Lorenzetti / Deca e Roca — 20 dias úteis',resp:'Bárbara',prazo:'20 dias úteis'},
+    {titulo:'Cubas Cozinha',status:'prazo',obs:'Tecnocuba 10 dias — Importar? 120 dias (SEGONG e TECOOL)',resp:'Bárbara',prazo:'10-120 dias'},
+    {titulo:'Portas',status:'prazo',obs:'Pormade / Sincol',resp:'',prazo:''},
+    {titulo:'Fechaduras',status:'prazo',obs:'Intelbras',resp:'Bárbara',prazo:''},
+    {titulo:'Rodapé',status:'prazo',obs:'Ver fornecedor',resp:'Bárbara',prazo:''},
+  ],
+  'Áreas Comuns': [
+    {titulo:'Paisagismo',status:'prazo',obs:'Plantas: 7 dias úteis — verificar substrato',resp:'',prazo:'7 dias úteis'},
+    {titulo:'Aspersor',status:'prazo',obs:'30 dias de antecedência',resp:'',prazo:'30 dias'},
+    {titulo:'Iluminação jardim',status:'prazo',obs:'',resp:'',prazo:''},
+    {titulo:'Ralo linear térreo',status:'prazo',obs:'Mercado Livre — 7 dias úteis',resp:'',prazo:'7 dias úteis'},
+    {titulo:'Pedras seixos',status:'prazo',obs:'7 dias úteis',resp:'',prazo:'7 dias úteis'},
+    {titulo:'Piso petplace',status:'prazo',obs:'15 dias úteis — procurar solução para não feder grama',resp:'',prazo:'15 dias úteis'},
+    {titulo:'Playground',status:'prazo',obs:'Innovation Brinquedos — 60 dias',resp:'Bárbara',prazo:'60 dias'},
+    {titulo:'Academia',status:'prazo',obs:'Equipamentos — importar? 120 dias',resp:'Bárbara',prazo:'120 dias'},
+    {titulo:'Mobiliários áreas comuns',status:'prazo',obs:'Verificar importação',resp:'Bárbara',prazo:''},
+    {titulo:'Esquadrias',status:'andamento',obs:'Detalhamento sendo executado — produção: Eder (após entrega dos detalhamentos)',resp:'Eder',prazo:''},
+    {titulo:'Cobogó',status:'prazo',obs:'10 dias úteis',resp:'',prazo:'10 dias úteis'},
+    {titulo:'Piscina aquecida',status:'prazo',obs:'Sistema de ventilação',resp:'Bárbara',prazo:''},
+    {titulo:'Iluminação térreo',status:'prazo',obs:'Interno e externo — ver novo fornecedor',resp:'',prazo:''},
+    {titulo:'Fachada',status:'urgente',obs:'Verificar perfis de alumínio para iluminação',resp:'Bárbara',prazo:'URGENTE'},
+    {titulo:'Ar-condicionado térreo',status:'prazo',obs:'Dutado — Cassete: 7 dias entrega',resp:'Bárbara',prazo:'7 dias'},
+    {titulo:'Comunicação visual',status:'prazo',obs:'60 dias',resp:'Bárbara',prazo:'60 dias'},
+    {titulo:'Beach Tennis',status:'prazo',obs:'Verificar fornecedores de areia — entender melhor a execução',resp:'Bárbara',prazo:''},
+    {titulo:'Pedras fachada guarita',status:'prazo',obs:'60 dias',resp:'',prazo:'60 dias'},
+    {titulo:'Espelhos térreo',status:'prazo',obs:'Verificar fornecedor',resp:'',prazo:''},
+    {titulo:'Móveis externos',status:'prazo',obs:'15 dias — Aluminas? Importar? 120 dias',resp:'Bárbara',prazo:'15-120 dias'},
+    {titulo:'Sonorização',status:'andamento',obs:'Projeto em andamento — All Tech (projeto facial)',resp:'All Tech',prazo:''},
+  ]
+};
+
+let cronoFiltro = 'todos';
+let cronoView = 'cards';
+
+function openCronograma(){
+  showView(false,false,false,false);
+  document.getElementById('view-cronograma').style.display='block';
+  setHeader('Cronograma Essence','Unidades Tipo · Áreas Comuns');
+  renderCronograma();
+}
+
+function filterCrono(filtro,btn){
+  cronoFiltro=filtro;
+  document.querySelectorAll('.crono-filter-btn').forEach(b=>{
+    if(['todos','prazo','andamento','atrasado','urgente'].includes(b.textContent.toLowerCase().trim().replace(' ',''))) b.classList.remove('active');
+  });
+  btn.classList.add('active');
+  renderCronograma();
+}
+
+function setCronoView(view){
+  cronoView=view;
+  document.getElementById('btn-view-cards').style.cssText = view==='cards'?'background:var(--gold);color:white;border-color:var(--gold)':'';
+  document.getElementById('btn-view-timeline').style.cssText = view==='timeline'?'background:var(--gold);color:white;border-color:var(--gold)':'';
+  renderCronograma();
+}
+
+function renderCronograma(){
+  const el=document.getElementById('crono-content');
+  if(!el) return;
+  let html='';
+  const badgeMap={prazo:'No prazo',andamento:'Em andamento',atrasado:'Atrasado',urgente:'URGENTE'};
+
+  if(cronoView==='cards'){
+    Object.keys(CRONOGRAMA).forEach(secao=>{
+      const itens=CRONOGRAMA[secao].filter(i=>cronoFiltro==='todos'||i.status===cronoFiltro);
+      if(!itens.length) return;
+      html+=`<div class="crono-section"><div class="crono-section-title">${secao} <span style="color:var(--text-dim);font-weight:400">(${itens.length} itens)</span></div><div class="crono-grid">`;
+      itens.forEach(item=>{
+        html+=`<div class="crono-card status-${item.status}">
+          <div class="crono-card-header">
+            <div class="crono-card-title">${item.titulo}</div>
+            <span class="crono-badge ${item.status}">${badgeMap[item.status]||item.status}</span>
+          </div>
+          ${item.obs?`<div class="crono-card-obs">${item.obs}</div>`:''}
+          <div class="crono-card-meta">
+            <span class="crono-card-resp">${item.resp?'👤 '+item.resp:''}</span>
+            <span class="crono-card-prazo">${item.prazo?'⏱ '+item.prazo:''}</span>
+          </div>
+        </div>`;
+      });
+      html+='</div></div>';
+    });
+  } else {
+    // Timeline view
+    const todos=[];
+    Object.keys(CRONOGRAMA).forEach(secao=>{
+      CRONOGRAMA[secao].forEach(i=>{if(cronoFiltro==='todos'||i.status===cronoFiltro) todos.push({...i,secao});});
+    });
+    const urgentes=todos.filter(i=>i.status==='urgente');
+    const atrasados=todos.filter(i=>i.status==='atrasado');
+    const andamento=todos.filter(i=>i.status==='andamento');
+    const prazo=todos.filter(i=>i.status==='prazo');
+    const grupos=[{label:'🔴 Urgente',items:urgentes},{label:'⚠️ Atrasado',items:atrasados},{label:'🟡 Em andamento',items:andamento},{label:'🟢 No prazo',items:prazo}];
+    grupos.forEach(g=>{
+      if(!g.items.length) return;
+      html+=`<div class="crono-section"><div class="crono-section-title">${g.label} (${g.items.length})</div><div class="timeline-wrap">`;
+      g.items.forEach(item=>{
+        html+=`<div class="timeline-item">
+          <div class="timeline-dot ${item.status}"></div>
+          <div style="font-size:0.8rem;font-weight:500;color:var(--text)">${item.titulo} <span style="font-size:0.65rem;color:var(--text-dim);font-weight:400">${item.secao}</span></div>
+          ${item.obs?`<div style="font-size:0.71rem;color:var(--text-muted);margin-top:0.15rem">${item.obs}</div>`:''}
+          <div style="display:flex;gap:0.75rem;margin-top:0.2rem">
+            ${item.resp?`<span style="font-size:0.63rem;color:var(--text-dim)">👤 ${item.resp}</span>`:''}
+            ${item.prazo?`<span style="font-size:0.63rem;color:var(--text-dim)">⏱ ${item.prazo}</span>`:''}
+          </div>
+        </div>`;
+      });
+      html+='</div></div>';
+    });
+  }
+
+  if(!html) html='<div style="font-size:0.8rem;color:var(--text-dim);padding:2rem 0;text-align:center">Nenhum item encontrado para este filtro.</div>';
+  el.innerHTML=html;
 }
 
 function showToast(msg,type=''){
