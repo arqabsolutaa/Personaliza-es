@@ -20,7 +20,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 /* ── SPLASH ── */
 #splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.8s,visibility 0.8s;overflow:hidden;background:#1a1814;}
 #splash.hidden{opacity:0;visibility:hidden;pointer-events:none;}
-#splash-img{position:absolute;inset:0;filter:brightness(0.38);overflow:hidden;}#splash-img img{width:100%;height:100%;object-fit:cover;display:block;}
+#splash-img{position:absolute;inset:0;overflow:hidden;}#splash-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.38);}#splash-fallback{position:absolute;inset:0;background:linear-gradient(135deg,#1a1814 0%,#2c2518 40%,#1a1814 100%);}
 .splash-content{position:relative;text-align:center;padding:2rem;}
 .splash-logo{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,7vw,4rem);font-weight:300;letter-spacing:0.15em;color:#F0EDE8;line-height:1;}
 .splash-logo span{color:var(--gold-light);}
@@ -249,6 +249,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .cal-day.today .cal-day-num{color:var(--gold);font-weight:700;}
 .cal-event{font-size:0.6rem;padding:0.08rem 0.3rem;border-radius:3px;margin-bottom:0.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:rgba(184,146,74,0.15);color:var(--gold-dark);}
 .cal-event.late{background:rgba(192,64,64,0.12);color:var(--danger);}
+.fase-wrap{margin-bottom:2rem;}
+.fase-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;padding:0.75rem 1rem;background:var(--white);border-radius:var(--radius);border:1px solid var(--card-border);box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+.fase-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;color:white;flex-shrink:0;}
+.fase-info{flex:1;}
+.fase-titulo{font-size:0.85rem;font-weight:500;color:var(--text);}
+.fase-periodo{font-size:0.67rem;color:var(--text-dim);margin-top:0.1rem;}
+.fase-status{font-size:0.6rem;padding:0.12rem 0.45rem;border-radius:10px;font-weight:600;}
+.fase-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:0.5rem;padding-left:0.5rem;}
+.fase-item{background:var(--white);border:1px solid var(--card-border);border-radius:8px;padding:0.6rem 0.85rem;box-shadow:0 1px 2px rgba(0,0,0,0.03);border-left:3px solid var(--bg4);}
+.fase-item.atual{border-left-color:var(--gold);}
+.fase-item.futuro{border-left-color:var(--bg4);opacity:0.75;}
+.fase-item.concluido{border-left-color:var(--success);}
+.fase-item.urgente{border-left-color:var(--danger);}
+.fase-item-titulo{font-size:0.77rem;font-weight:500;color:var(--text);margin-bottom:0.2rem;}
+.fase-item-desc{font-size:0.68rem;color:var(--text-muted);line-height:1.4;}
+.fase-item-resp{font-size:0.62rem;color:var(--text-dim);margin-top:0.25rem;font-style:italic;}
 .crono-section{margin-bottom:1.5rem;}
 .crono-section-title{font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:1px solid var(--bg3);}
 .crono-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0.6rem;}
@@ -303,7 +319,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 <!-- SPLASH -->
 <div id="splash">
-  <div id="splash-img"><img src="https://drive.google.com/thumbnail?id=1dkq2l7ZTkHBW5IWYi6Hh6noUn2ZfqMMG&sz=w1920" alt="" onerror="this.parentElement.style.background='linear-gradient(160deg,#1a1814,#2c2518)'"></div>
+  <div id="splash-img"><div id="splash-fallback"></div><img src="https://drive.google.com/thumbnail?id=1dkq2l7ZTkHBW5IWYi6Hh6noUn2ZfqMMG&sz=w1200" alt="" loading="eager" decoding="async" onload="document.getElementById('splash-fallback').style.opacity='0'" onerror="this.style.display='none'" style="position:relative;z-index:1"></div>
   <div class="splash-content">
     <div class="splash-logo">Essence <span>Residence</span></div>
     <div class="splash-sub">Controle de Obras</div>
@@ -561,18 +577,32 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
     <!-- CRONOGRAMA -->
     <div id="view-cronograma" style="display:none">
-      <div class="crono-filters">
-        <button class="crono-filter-btn active" onclick="filterCrono('todos',this)">Todos</button>
-        <button class="crono-filter-btn" onclick="filterCrono('prazo',this)">No prazo</button>
-        <button class="crono-filter-btn" onclick="filterCrono('andamento',this)">Em andamento</button>
-        <button class="crono-filter-btn" onclick="filterCrono('atrasado',this)">Atrasado</button>
-        <button class="crono-filter-btn" onclick="filterCrono('urgente',this)">Urgente</button>
-        <div style="margin-left:auto;display:flex;gap:0.5rem">
-          <button class="crono-filter-btn" id="btn-view-cards" onclick="setCronoView('cards')" style="background:var(--gold);color:white;border-color:var(--gold)">Cards</button>
-          <button class="crono-filter-btn" id="btn-view-timeline" onclick="setCronoView('timeline')">Timeline</button>
-        </div>
+      <div style="display:flex;gap:0.5rem;margin-bottom:1rem;border-bottom:1px solid var(--bg3);padding-bottom:0.75rem;flex-wrap:wrap">
+        <button class="gtab-btn active" id="ctab-obra" onclick="showCronoTab('obra')">Cronograma de Obra</button>
+        <button class="gtab-btn" id="ctab-gestao" onclick="showCronoTab('gestao')">Gestão de Itens</button>
+        <button class="btn-sm btn-outline" onclick="exportarPDFCronograma()" style="margin-left:auto;border-color:var(--gold);color:var(--gold)">↓ Exportar PDF</button>
       </div>
-      <div id="crono-content"></div>
+
+      <!-- ABA OBRA -->
+      <div id="ctab-obra-view">
+        <div id="fases-obra"></div>
+      </div>
+
+      <!-- ABA GESTÃO (cards antigos) -->
+      <div id="ctab-gestao-view" style="display:none">
+        <div class="crono-filters" style="margin-bottom:1rem">
+          <button class="crono-filter-btn active" onclick="filterCrono('todos',this)">Todos</button>
+          <button class="crono-filter-btn" onclick="filterCrono('prazo',this)">No prazo</button>
+          <button class="crono-filter-btn" onclick="filterCrono('andamento',this)">Em andamento</button>
+          <button class="crono-filter-btn" onclick="filterCrono('atrasado',this)">Atrasado</button>
+          <button class="crono-filter-btn" onclick="filterCrono('urgente',this)">Urgente</button>
+          <div style="margin-left:auto;display:flex;gap:0.5rem">
+            <button class="crono-filter-btn" id="btn-view-cards" onclick="setCronoView('cards')" style="background:var(--gold);color:white;border-color:var(--gold)">Cards</button>
+            <button class="crono-filter-btn" id="btn-view-timeline" onclick="setCronoView('timeline')">Timeline</button>
+          </div>
+        </div>
+        <div id="crono-content"></div>
+      </div>
     </div>
 
     <!-- CONFIGURAÇÕES -->
@@ -1683,7 +1713,239 @@ function closeNovaTarefa(){
   editandoTarefaId=null;
 }
 
-// ── CRONOGRAMA ────────────────────────────────────────────────
+// ── CRONOGRAMA DE OBRA ────────────────────────────────────────
+const FASES_OBRA = [
+  {
+    num:1, titulo:'Estrutura & Civil Pesado', periodo:'Em andamento',
+    cor:'#B8924A', status:'atual',
+    items:[
+      {titulo:'Concretagem e estrutura',desc:'Finalizar lajes e pilares — 15º e 16º andares (cobertura/duplex)',resp:'',status:'atual'},
+      {titulo:'Deck de piscina',desc:'Estrutura e concretagem do deck — área comum',resp:'',status:'atual'},
+      {titulo:'Levantamento paredes térreo',desc:'Alvenaria dos ambientes do térreo em andamento',resp:'',status:'atual'},
+      {titulo:'Impermeabilização',desc:'Levantar fornecedores e especificar — lajes, coberturas, áreas molhadas',resp:'Bárbara',status:'urgente'},
+      {titulo:'Fachada — definição',desc:'Detalhar fachada, levantar perfis de alumínio e iluminação',resp:'Bárbara',status:'urgente'},
+      {titulo:'Esquadrias — detalhamento',desc:'Finalizar detalhamentos para envio à produção (Eder)',resp:'Eder',status:'atual'},
+    ]
+  },
+  {
+    num:2, titulo:'Instalações Hidro-Sanitárias', periodo:'Próxima fase',
+    cor:'#4A8FA8', status:'atual',
+    items:[
+      {titulo:'Hidráulica 9º ao 15º andar',desc:'Executar tubulações hidráulicas nos andares superiores',resp:'',status:'atual'},
+      {titulo:'Hidráulica as-built',desc:'Registrar caminho dos canos conforme executado',resp:'',status:'futuro'},
+      {titulo:'Pontos de banheira',desc:'Confirmar posicionamentos conforme personalização',resp:'',status:'futuro'},
+      {titulo:'Aspiração central',desc:'Tubulação e pontos por andar',resp:'',status:'futuro'},
+      {titulo:'Bomba para irrigação',desc:'Definir bomba e executar tubulação',resp:'',status:'futuro'},
+      {titulo:'Ralos lineares',desc:'Especificar e pedir — 10 dias úteis (verificar padrão Vista Park)',resp:'',status:'futuro'},
+    ]
+  },
+  {
+    num:3, titulo:'Instalações Elétricas', periodo:'Paralelo às instalações',
+    cor:'#8F6A3A', status:'atual',
+    items:[
+      {titulo:'Elétrica piso 7º ao 15º andar',desc:'Executar elétrica de piso nos andares superiores',resp:'',status:'atual'},
+      {titulo:'Elétrica térreo — ajuste',desc:'Adequar projeto elétrico ao novo layout de arquitetura',resp:'',status:'urgente'},
+      {titulo:'Elétrica para irrigação',desc:'Pontos elétricos para sistema de irrigação',resp:'',status:'futuro'},
+      {titulo:'Iluminação jardim',desc:'Projeto e especificação de pontos',resp:'',status:'futuro'},
+      {titulo:'Iluminação térreo',desc:'Interno e externo — definir novo fornecedor',resp:'',status:'futuro'},
+      {titulo:'Sonorização',desc:'Tubulação e pontos conforme projeto All Tech',resp:'All Tech',status:'futuro'},
+    ]
+  },
+  {
+    num:4, titulo:'Ar-Condicionado & Ventilação', periodo:'Especificar agora, executar em breve',
+    cor:'#6A8F7A', status:'futuro',
+    items:[
+      {titulo:'Projeto ar-cond (tipo)',desc:'Desenvolver projeto para as unidades tipo',resp:'Bárbara',status:'futuro'},
+      {titulo:'Levantamento material unidades',desc:'Finalizar levantamento — ATRASADO',resp:'Bárbara',status:'urgente'},
+      {titulo:'Ar-cond térreo dutado',desc:'Definir trajeto de dutos, cassetes: 7 dias entrega',resp:'Bárbara',status:'futuro'},
+      {titulo:'Verificar dutos térreo',desc:'Resolver questões de duto do ar-condicionado no térreo',resp:'',status:'futuro'},
+      {titulo:'Piscina aquecida',desc:'Definir sistema de ventilação e aquecimento',resp:'Bárbara',status:'futuro'},
+    ]
+  },
+  {
+    num:5, titulo:'Vedação, Gesso & Contrapiso', periodo:'Andamento e próximas semanas',
+    cor:'#8A7A6A', status:'atual',
+    items:[
+      {titulo:'Vedação (alvenaria interna)',desc:'Paredes internas de todos os andares',resp:'',status:'atual'},
+      {titulo:'Gesso nas paredes',desc:'Rever execução conforme personalização de cada cliente',resp:'',status:'atual'},
+      {titulo:'Forro',desc:'Definir cortineiro antes da execução',resp:'Bárbara',status:'futuro'},
+      {titulo:'Nichos',desc:'Executar conforme projeto de cada unidade',resp:'',status:'futuro'},
+      {titulo:'Contrapiso',desc:'Rever tipo (vinílico x porcelanato) por unidade conforme personalização',resp:'',status:'atual'},
+      {titulo:'Argamassa',desc:'Pedir Votorantin — até 10 dias úteis. 1ª carga: Bira (Jailto)',resp:'Jailto',status:'futuro'},
+    ]
+  },
+  {
+    num:6, titulo:'Projetos Executivos & Coordenação', periodo:'Paralelo — resolver agora',
+    cor:'#7A6A8F', status:'futuro',
+    items:[
+      {titulo:'Executivo ático',desc:'Postar projeto executivo do ático para equipe',resp:'',status:'urgente'},
+      {titulo:'Vistas térreo',desc:'Organizar e posicionar indicações — LEVANTAR VISTAS',resp:'',status:'urgente'},
+      {titulo:'Vistas aquecedores e cozinha',desc:'Detalhar — concluído',resp:'',status:'concluido'},
+      {titulo:'All Tech — fachada (faciais)',desc:'Aguardando orçamento do projeto de faciais',resp:'All Tech',status:'futuro'},
+      {titulo:'Projeto paisagismo',desc:'Especificar plantas, substrato, aspersor (30 dias antecedência)',resp:'',status:'futuro'},
+    ]
+  },
+  {
+    num:7, titulo:'Revestimentos & Marmoraria', periodo:'Clientes escolhendo agora',
+    cor:'#4A8F62', status:'futuro',
+    items:[
+      {titulo:'Catálogos enviados',desc:'Catálogos de revestimento e marmoraria enviados aos clientes',resp:'Bárbara',status:'concluido'},
+      {titulo:'Personalização — pendentes',desc:'Unidades 32, 82, 122 ainda sem escolha de revestimento',resp:'Bárbara',status:'urgente'},
+      {titulo:'Rejunte',desc:'Olhar catálogo atualizado Quartzolit — 20 dias lead time',resp:'Bárbara e Jailto',status:'futuro'},
+      {titulo:'Perfil metálico piso',desc:'Escolher cor — 10 dias lead time',resp:'Bárbara',status:'futuro'},
+      {titulo:'Proteção piso',desc:'Avaliar nova possibilidade — 30 dias lead time',resp:'Thaisa',status:'futuro'},
+      {titulo:'Proteção de pedras',desc:'Avaliar nova possibilidade (contact) — 30 dias lead time',resp:'Bárbara',status:'futuro'},
+    ]
+  },
+  {
+    num:8, titulo:'Acabamentos & Pintura', periodo:'Após revestimentos',
+    cor:'#6A8A4A', status:'futuro',
+    items:[
+      {titulo:'Massa corrida',desc:'Lead time fabricante: 15 a 20 dias úteis — pedir com antecedência',resp:'',status:'futuro'},
+      {titulo:'Tinta Suvinil',desc:'Esmalte: mín 10 latas/cor · Látex: mín 20 latas/cor — pedir por etapa',resp:'',status:'futuro'},
+      {titulo:'Rodapé',desc:'Definir fornecedor',resp:'Bárbara',status:'futuro'},
+      {titulo:'Cobogó',desc:'10 dias úteis',resp:'',status:'futuro'},
+      {titulo:'Espelhos térreo',desc:'Verificar fornecedor',resp:'',status:'futuro'},
+    ]
+  },
+  {
+    num:9, titulo:'Louças, Metais & Equipamentos', periodo:'Pedir com antecedência — lead time longo',
+    cor:'#C04040', status:'futuro',
+    items:[
+      {titulo:'Vasos sanitários',desc:'⚠ Se importar: 120 dias corridos — DECIDIR AGORA',resp:'Bárbara',status:'urgente'},
+      {titulo:'Metais',desc:'Stock / Lorenzetti / Deca / Roca — 20 dias úteis',resp:'Bárbara',status:'futuro'},
+      {titulo:'Cubas de cozinha',desc:'Tecnocuba 10 dias · Importar (SEGONG/TECOOL): 120 dias — DECIDIR',resp:'Bárbara',status:'urgente'},
+      {titulo:'Portas',desc:'Pormade / Sincol — verificar lead time',resp:'',status:'futuro'},
+      {titulo:'Fechaduras',desc:'Intelbras',resp:'Bárbara',status:'futuro'},
+      {titulo:'Academia',desc:'Equipamentos — se importar: 120 dias — DECIDIR',resp:'Bárbara',status:'urgente'},
+      {titulo:'Mobiliários áreas comuns',desc:'Verificar importação — lead time longo',resp:'Bárbara',status:'urgente'},
+      {titulo:'Móveis externos',desc:'15 dias (nacional) ou 120 dias (importado) — DECIDIR',resp:'Bárbara',status:'urgente'},
+    ]
+  },
+  {
+    num:10, titulo:'Áreas Comuns & Paisagismo', periodo:'Últimas semanas antes da entrega',
+    cor:'#3A8F62', status:'futuro',
+    items:[
+      {titulo:'Playground',desc:'Innovation Brinquedos — 60 dias lead time',resp:'Bárbara',status:'futuro'},
+      {titulo:'Beach Tennis',desc:'Verificar fornecedor de areia — entender execução',resp:'Bárbara',status:'futuro'},
+      {titulo:'Piso petplace',desc:'15 dias úteis — solução para odor da grama',resp:'',status:'futuro'},
+      {titulo:'Pedras seixos',desc:'7 dias úteis',resp:'',status:'futuro'},
+      {titulo:'Ralo linear térreo',desc:'7 dias úteis — Mercado Livre',resp:'',status:'futuro'},
+      {titulo:'Pedras fachada guarita',desc:'60 dias',resp:'',status:'futuro'},
+      {titulo:'Comunicação visual',desc:'60 dias',resp:'Bárbara',status:'futuro'},
+      {titulo:'Piscina — acabamento',desc:'Após estrutura de deck concluída',resp:'',status:'futuro'},
+    ]
+  },
+  {
+    num:11, titulo:'Vistoria & Entrega', periodo:'Out–Dez 2026',
+    cor:'#2C2A26', status:'futuro',
+    items:[
+      {titulo:'Vistorias por unidade',desc:'Vinícius, Jack, Milton, Cabelo, Bárbara — conferência de cada apartamento',resp:'Equipe',status:'futuro'},
+      {titulo:'Relatório de pendências',desc:'Gerar relatório de itens por concluir por apartamento',resp:'',status:'futuro'},
+      {titulo:'Regularização e documentação',desc:'Habite-se e documentação da entrega',resp:'',status:'futuro'},
+      {titulo:'Entrega das chaves',desc:'Previsão: outubro 2026 (possível dezembro)',resp:'',status:'futuro'},
+    ]
+  },
+];
+
+function showCronoTab(tab){
+  ['obra','gestao'].forEach(t=>{
+    const v=document.getElementById('ctab-'+t+'-view');
+    const b=document.getElementById('ctab-'+t);
+    if(v) v.style.display=t===tab?'block':'none';
+    if(b) b.classList.toggle('active',t===tab);
+  });
+  if(tab==='obra') buildFasesObra();
+}
+
+function buildFasesObra(){
+  const el=document.getElementById('fases-obra');
+  if(!el) return;
+  const statusLabel={atual:'Em andamento',futuro:'Próxima fase',concluido:'Concluído',urgente:'Atenção'};
+  const statusCor  ={atual:'var(--gold)',futuro:'var(--text-dim)',concluido:'var(--success)',urgente:'var(--danger)'};
+  const statusBg   ={atual:'rgba(184,146,74,0.1)',futuro:'rgba(0,0,0,0.03)',concluido:'rgba(58,143,98,0.06)',urgente:'rgba(192,64,64,0.06)'};
+
+  el.innerHTML = FASES_OBRA.map(fase=>{
+    const urgentes = fase.items.filter(i=>i.status==='urgente').length;
+    const conc     = fase.items.filter(i=>i.status==='concluido').length;
+    return `<div class="fase-wrap">
+      <div class="fase-header">
+        <div class="fase-num" style="background:${fase.cor}">${fase.num}</div>
+        <div class="fase-info">
+          <div class="fase-titulo">${fase.titulo}</div>
+          <div class="fase-periodo">${fase.periodo}</div>
+        </div>
+        ${urgentes?`<span class="fase-status" style="background:rgba(192,64,64,0.1);color:var(--danger)">⚠ ${urgentes} urgente${urgentes>1?'s':''}</span>`:''}
+        ${conc===fase.items.length?`<span class="fase-status" style="background:rgba(58,143,98,0.1);color:var(--success)">✓ Concluído</span>`:''}
+        <span style="font-size:0.67rem;color:var(--text-dim)">${conc}/${fase.items.length}</span>
+      </div>
+      <div class="fase-items">
+        ${fase.items.map(item=>`
+          <div class="fase-item ${item.status}">
+            <div class="fase-item-titulo" style="color:${statusCor[item.status]||'var(--text)'}">${item.titulo}</div>
+            <div class="fase-item-desc">${item.desc}</div>
+            ${item.resp?`<div class="fase-item-resp">👤 ${item.resp}</div>`:''}
+          </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function exportarPDFCronograma(){
+  const hoje = new Date().toLocaleDateString('pt-BR');
+  const statusCor={atual:'#B8924A',futuro:'#9C9484',concluido:'#3A8F62',urgente:'#C04040'};
+
+  let html=`<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:Arial,sans-serif;color:#1E1C18;padding:28px 36px;font-size:9.5pt;}
+    .header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #B8924A;}
+    .logo{font-size:20pt;font-weight:300;letter-spacing:0.1em;}
+    .logo span{color:#B8924A;}
+    .meta{font-size:8pt;color:#9C9484;text-align:right;line-height:1.6;}
+    .fase{margin-bottom:18px;break-inside:avoid;}
+    .fase-h{display:flex;align-items:center;gap:8px;padding:5px 8px;margin-bottom:5px;}
+    .fase-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:7.5pt;font-weight:700;color:white;flex-shrink:0;}
+    .fase-titulo{font-size:10.5pt;font-weight:600;}
+    .fase-periodo{font-size:8pt;color:#9C9484;margin-left:4px;}
+    .items{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding-left:8px;}
+    .item{padding:5px 8px;border-left:2.5px solid #ddd;background:#fafafa;border-radius:0 4px 4px 0;}
+    .item-t{font-size:8.5pt;font-weight:600;}
+    .item-d{font-size:7.5pt;color:#666;margin-top:1px;line-height:1.35;}
+    .item-r{font-size:7pt;color:#999;margin-top:2px;font-style:italic;}
+    .rodape{margin-top:28px;padding-top:8px;border-top:1px solid #ddd;font-size:7.5pt;color:#999;display:flex;justify-content:space-between;}
+  </style></head><body>
+  <div class="header">
+    <div class="logo">Essence <span>Residence</span></div>
+    <div class="meta">Cronograma de Obra · Reunião interna<br>${hoje}</div>
+  </div>`;
+
+  FASES_OBRA.forEach(fase=>{
+    html+=`<div class="fase">
+      <div class="fase-h" style="background:${fase.cor}18;border-radius:6px">
+        <div class="fase-num" style="background:${fase.cor}">${fase.num}</div>
+        <span class="fase-titulo">${fase.titulo}</span>
+        <span class="fase-periodo">· ${fase.periodo}</span>
+      </div>
+      <div class="items">
+        ${fase.items.map(i=>`<div class="item" style="border-left-color:${statusCor[i.status]||'#ddd'}">
+          <div class="item-t" style="color:${statusCor[i.status]||'#1E1C18'}">${i.status==='urgente'?'⚠ ':''}${i.titulo}</div>
+          <div class="item-d">${i.desc}</div>
+          ${i.resp?`<div class="item-r">👤 ${i.resp}</div>`:''}
+        </div>`).join('')}
+      </div>
+    </div>`;
+  });
+
+  html+=`<div class="rodape"><span>Essence Residence · Controle de Obras</span><span>Previsão entrega: Out–Dez 2026</span></div>
+  </body></html>`;
+
+  const blob=new Blob([html],{type:'text/html'});
+  const win=window.open(URL.createObjectURL(blob),'_blank');
+  setTimeout(()=>{if(win) win.print();},800);
+}
+
+// ── CRONOGRAMA GESTÃO (itens) ──────────────────────────────────
 const CRONOGRAMA = {
   'Unidades Tipo': [
     {titulo:'Gesso',status:'andamento',obs:'Em andamento até 5º andar',resp:'',prazo:''},
@@ -1738,8 +2000,8 @@ let cronoView = 'cards';
 function openCronograma(){
   showView(false,false,false,false);
   document.getElementById('view-cronograma').style.display='block';
-  setHeader('Cronograma Essence','Unidades Tipo · Áreas Comuns');
-  renderCronograma();
+  setHeader('Cronograma de Obra','Fases · Gestão de Itens');
+  showCronoTab('obra');
 }
 
 function filterCrono(filtro,btn){
