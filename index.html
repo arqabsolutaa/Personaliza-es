@@ -2469,23 +2469,21 @@ function closePersModal(){
 function renderPersModalTabs(){
   const tabs = document.getElementById('pers-modal-tabs');
   if(!tabs) return;
-  const labels = {
-    'Civil — Paredes & Estrutura': 'Civil',
-    'Hidráulica': 'Hidráulica',
-    'Elétrica': 'Elétrica',
-    'Revestimentos': 'Revestimentos',
-    'Marmoraria': 'Marmoraria'
-  };
-  tabs.innerHTML = Object.keys(PERS_ITENS).map(secao => {
-    const label = labels[secao] || secao.split('—')[0].trim();
+  const secoes = Object.keys(PERS_ITENS);
+  const labels = ['Civil','Hidráulica','Elétrica','Revestimentos','Marmoraria'];
+  tabs.innerHTML = secoes.map((secao, idx) => {
     const isActive = secao === persModalSecao;
-    return `<button class="pers-modal-tab ${isActive?'active':''}" onclick="switchPersTab('${secao}')">${label}</button>`;
+    return `<button class="pers-modal-tab ${isActive?'active':''}" onclick="switchPersTabByIndex(${idx})">${labels[idx]||secao}</button>`;
   }).join('');
-  // Scroll para aba ativa
   setTimeout(()=>{
     const activeTab = tabs.querySelector('.active');
     if(activeTab) activeTab.scrollIntoView({block:'nearest',inline:'center'});
   },50);
+}
+
+function switchPersTabByIndex(idx){
+  const secoes = Object.keys(PERS_ITENS);
+  if(secoes[idx]) switchPersTab(secoes[idx]);
 }
 
 function switchPersTab(secao){
