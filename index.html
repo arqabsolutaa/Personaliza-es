@@ -1716,138 +1716,182 @@ function closeNovaTarefa(){
 // ── CRONOGRAMA DE OBRA ────────────────────────────────────────
 const FASES_OBRA = [
   {
-    num:1, titulo:'Estrutura & Civil Pesado', periodo:'Em andamento',
+    num:1, titulo:'Serviços Iniciais & Fundação', periodo:'Concluído — Jan a Set 2025',
+    cor:'#3A8F62', status:'concluido',
+    items:[
+      {titulo:'Serviços iniciais',desc:'Concluído — Jan/Fev 2025',resp:'',status:'concluido'},
+      {titulo:'Estacas / Blocos / Baldrames',desc:'Fundação concluída — Fev a Set 2025',resp:'',status:'concluido'},
+    ]
+  },
+  {
+    num:2, titulo:'Estrutura — Alvenaria Estrutural & Concretagens', periodo:'95% concluído — em finalização',
     cor:'#B8924A', status:'atual',
     items:[
-      {titulo:'Concretagem e estrutura',desc:'Finalizar lajes e pilares — 15º e 16º andares (cobertura/duplex)',resp:'',status:'atual'},
-      {titulo:'Deck de piscina',desc:'Estrutura e concretagem do deck — área comum',resp:'',status:'atual'},
-      {titulo:'Levantamento paredes térreo',desc:'Alvenaria dos ambientes do térreo em andamento',resp:'',status:'atual'},
-      {titulo:'Impermeabilização',desc:'Levantar fornecedores e especificar — lajes, coberturas, áreas molhadas',resp:'Bárbara',status:'urgente'},
-      {titulo:'Fachada — definição',desc:'Detalhar fachada, levantar perfis de alumínio e iluminação',resp:'Bárbara',status:'urgente'},
-      {titulo:'Esquadrias — detalhamento',desc:'Finalizar detalhamentos para envio à produção (Eder)',resp:'Eder',status:'atual'},
+      {titulo:'Alvenaria estrutural',desc:'93.8% concluído — pavimentos 1 a 16 executados, ático e reservatório pendentes',resp:'',status:'atual'},
+      {titulo:'Concretagem laje piso — Ap. 01',desc:'100% concluído até 16° pavimento',resp:'',status:'concluido'},
+      {titulo:'Concretagem laje piso — Ap. 02',desc:'90.9% concluído — cobertura e reservatório pendentes (Ago/Set 2026)',resp:'',status:'atual'},
+      {titulo:'Escoramento laje piso',desc:'97.3% concluído — reservatório e cobertura pendentes (Set/Out 2026)',resp:'',status:'atual'},
     ]
   },
   {
-    num:2, titulo:'Instalações Hidro-Sanitárias', periodo:'Próxima fase',
+    num:3, titulo:'Alvenaria de Vedação & Contramarcos', periodo:'Em andamento — até Set 2026',
+    cor:'#8A6A3A', status:'atual',
+    items:[
+      {titulo:'Alvenaria de vedação — Final 01',desc:'51.4% concluído — 7° ao 16° pavimento em execução (até Ago 2026)',resp:'',status:'atual'},
+      {titulo:'Alvenaria de vedação — Final 02',desc:'92.7% concluído — 15° e 16° pavimento pendentes (Ago 2026)',resp:'',status:'atual'},
+      {titulo:'Encunhamento alvenaria — Final 01',desc:'87.5% concluído — 15° e 16° pavimentos pendentes (Set 2026)',resp:'',status:'atual'},
+      {titulo:'Encunhamento alvenaria — Final 02',desc:'87.5% concluído — 15° e 16° pavimentos pendentes (Set 2026)',resp:'',status:'atual'},
+      {titulo:'Fechamento shaft — Final 01',desc:'56.3% concluído — 7°, 10°, 12° ao 16° pendentes (até Set 2026)',resp:'',status:'atual'},
+      {titulo:'Fechamento shaft — Final 02',desc:'50% concluído — 6°, 8°, 9°, 11° ao 16° pendentes (até Set 2026)',resp:'',status:'atual'},
+      {titulo:'Contramarcos — Final 01 e 02',desc:'93.8% concluído — 16° pavimento pendente (Out 2026)',resp:'',status:'atual'},
+    ]
+  },
+  {
+    num:4, titulo:'Instalações Hidráulicas', periodo:'14% concluído — Abr 2026 a Jun 2027',
     cor:'#4A8FA8', status:'atual',
     items:[
-      {titulo:'Hidráulica 9º ao 15º andar',desc:'Executar tubulações hidráulicas nos andares superiores',resp:'',status:'atual'},
-      {titulo:'Hidráulica as-built',desc:'Registrar caminho dos canos conforme executado',resp:'',status:'futuro'},
-      {titulo:'Pontos de banheira',desc:'Confirmar posicionamentos conforme personalização',resp:'',status:'futuro'},
-      {titulo:'Aspiração central',desc:'Tubulação e pontos por andar',resp:'',status:'futuro'},
-      {titulo:'Bomba para irrigação',desc:'Definir bomba e executar tubulação',resp:'',status:'futuro'},
-      {titulo:'Ralos lineares',desc:'Especificar e pedir — 10 dias úteis (verificar padrão Vista Park)',resp:'',status:'futuro'},
+      {titulo:'Distribuição hidráulica / esgoto — Ap. 01',desc:'57.8% concluído — 7°, 9° ao 16° pendentes (até Out 2026)',resp:'',status:'atual'},
+      {titulo:'Distribuição hidráulica / esgoto — Ap. 02',desc:'50% concluído — 7°, 9° ao 16° pendentes (até Out 2026)',resp:'',status:'atual'},
+      {titulo:'Prumadas esgoto (apto) — Final 01 e 02',desc:'87.5% concluído — 15° e 16° pavimentos pendentes (Out/Nov 2026)',resp:'',status:'atual'},
+      {titulo:'Distribuição gás — Final 01 e 02',desc:'25% concluído — 5° ao 16° pavimentos pendentes (Jul a Out 2026)',resp:'',status:'atual'},
+      {titulo:'Rede frigorígena ar-cond — Final 01 e 02',desc:'0% — início Set 2026 ao Jan 2027',resp:'',status:'futuro'},
+      {titulo:'Dreno ar-condicionado — Final 01 e 02',desc:'0% — início Set 2026 ao Jan 2027',resp:'',status:'futuro'},
+      {titulo:'Louças',desc:'0% — início Nov 2026, término Mai 2027 (andar a andar)',resp:'',status:'futuro'},
+      {titulo:'Metais',desc:'0% — início Dez 2026, término Jun 2027',resp:'',status:'futuro'},
+      {titulo:'Prumadas hidráulicas hall',desc:'17.6% concluído — 4° ao 16° e ático pendentes (até Jan 2027)',resp:'',status:'atual'},
+      {titulo:'Prumadas incêndio e infra ar-cond hall',desc:'0% — início Set/Out 2026',resp:'',status:'futuro'},
     ]
   },
   {
-    num:3, titulo:'Instalações Elétricas', periodo:'Paralelo às instalações',
+    num:5, titulo:'Instalações Elétricas', periodo:'37% concluído — Jun 2026 a Jun 2027',
     cor:'#8F6A3A', status:'atual',
     items:[
-      {titulo:'Elétrica piso 7º ao 15º andar',desc:'Executar elétrica de piso nos andares superiores',resp:'',status:'atual'},
-      {titulo:'Elétrica térreo — ajuste',desc:'Adequar projeto elétrico ao novo layout de arquitetura',resp:'',status:'urgente'},
-      {titulo:'Elétrica para irrigação',desc:'Pontos elétricos para sistema de irrigação',resp:'',status:'futuro'},
-      {titulo:'Iluminação jardim',desc:'Projeto e especificação de pontos',resp:'',status:'futuro'},
-      {titulo:'Iluminação térreo',desc:'Interno e externo — definir novo fornecedor',resp:'',status:'futuro'},
-      {titulo:'Sonorização',desc:'Tubulação e pontos conforme projeto All Tech',resp:'All Tech',status:'futuro'},
+      {titulo:'Distribuição elétrica — Final 01',desc:'68.8% concluído — 7°, 13° ao 16° pavimentos pendentes (até Out 2026)',resp:'',status:'atual'},
+      {titulo:'Distribuição elétrica — Final 02',desc:'75% concluído — 13° ao 16° pavimentos pendentes (até Out 2026)',resp:'',status:'atual'},
+      {titulo:'Fundo quadro elétrico — Final 01 e 02',desc:'0% — início Ago 2026 (todos os pavimentos)',resp:'',status:'urgente'},
+      {titulo:'Fiação elétrica — Final 01 e 02',desc:'6.3% concluído — 2° ao 16° pavimentos pendentes (Set 2026 a Mar 2027)',resp:'',status:'atual'},
+      {titulo:'Acabamentos elétricos',desc:'0% — início Nov 2026, término Mai 2027',resp:'',status:'futuro'},
+      {titulo:'Prumadas elétricas / dados hall',desc:'70.6% concluído — 13° ao 16° e ático pendentes (Fev a Abr 2027)',resp:'',status:'atual'},
+      {titulo:'Distribuição elétrica escadaria',desc:'100% concluído',resp:'',status:'concluido'},
+      {titulo:'Luminárias hall',desc:'0% — início Nov 2026 ao Jun 2027',resp:'',status:'futuro'},
     ]
   },
   {
-    num:4, titulo:'Ar-Condicionado & Ventilação', periodo:'Especificar agora, executar em breve',
-    cor:'#6A8F7A', status:'futuro',
+    num:6, titulo:'Gesso, Forro & Contrapiso', periodo:'Em andamento — Jul 2026 a Abr 2027',
+    cor:'#6A8A4A', status:'atual',
     items:[
-      {titulo:'Projeto ar-cond (tipo)',desc:'Desenvolver projeto para as unidades tipo',resp:'Bárbara',status:'futuro'},
-      {titulo:'Levantamento material unidades',desc:'Finalizar levantamento — ATRASADO',resp:'Bárbara',status:'urgente'},
-      {titulo:'Ar-cond térreo dutado',desc:'Definir trajeto de dutos, cassetes: 7 dias entrega',resp:'Bárbara',status:'futuro'},
-      {titulo:'Verificar dutos térreo',desc:'Resolver questões de duto do ar-condicionado no térreo',resp:'',status:'futuro'},
-      {titulo:'Piscina aquecida',desc:'Definir sistema de ventilação e aquecimento',resp:'Bárbara',status:'futuro'},
+      {titulo:'Gesso liso — Final 01',desc:'30.8% concluído — 6° ao 16° pavimentos pendentes (Ago a Set 2026)',resp:'',status:'atual'},
+      {titulo:'Gesso liso — Final 02',desc:'29.2% concluído — 5° ao 16° pavimentos pendentes (Ago a Set 2026)',resp:'',status:'atual'},
+      {titulo:'Forro gesso — Final 01 e 02',desc:'0% — início Set/Out 2026 ao Abr 2027',resp:'',status:'futuro'},
+      {titulo:'Contrapiso — Final 01',desc:'23.1% concluído — 5° ao 16° pavimentos pendentes (Ago a Out 2026)',resp:'',status:'atual'},
+      {titulo:'Contrapiso — Final 02',desc:'23.1% concluído — 5° ao 16° pavimentos pendentes (Ago a Out 2026)',resp:'',status:'atual'},
+      {titulo:'Contrapiso e forro hall',desc:'0% — início Out 2026 ao Abr 2027',resp:'',status:'futuro'},
+      {titulo:'Impermeabilização — Final 01 e 02',desc:'0% — início Set 2026 ao Mar 2027',resp:'',status:'urgente'},
     ]
   },
   {
-    num:5, titulo:'Vedação, Gesso & Contrapiso', periodo:'Andamento e próximas semanas',
-    cor:'#8A7A6A', status:'atual',
+    num:7, titulo:'Fachada', periodo:'0% — Set 2026 a Fev 2027',
+    cor:'#C04040', status:'urgente',
     items:[
-      {titulo:'Vedação (alvenaria interna)',desc:'Paredes internas de todos os andares',resp:'',status:'atual'},
-      {titulo:'Gesso nas paredes',desc:'Rever execução conforme personalização de cada cliente',resp:'',status:'atual'},
-      {titulo:'Forro',desc:'Definir cortineiro antes da execução',resp:'Bárbara',status:'futuro'},
-      {titulo:'Nichos',desc:'Executar conforme projeto de cada unidade',resp:'',status:'futuro'},
-      {titulo:'Contrapiso',desc:'Rever tipo (vinílico x porcelanato) por unidade conforme personalização',resp:'',status:'atual'},
-      {titulo:'Argamassa',desc:'Pedir Votorantin — até 10 dias úteis. 1ª carga: Bira (Jailto)',resp:'Jailto',status:'futuro'},
+      {titulo:'Montagem balancim',desc:'0% — Set a Out 2026 (8 etapas)',resp:'Bárbara',status:'urgente'},
+      {titulo:'Limpeza de fachada',desc:'0% — Set a Out 2026',resp:'',status:'urgente'},
+      {titulo:'Chapisco fachada',desc:'0% — Set a Out 2026',resp:'',status:'urgente'},
+      {titulo:'Revestimento argamassado',desc:'0% — Set 2026 a Jan 2027',resp:'',status:'futuro'},
+      {titulo:'Pingadeiras',desc:'0% — Out 2026 a Jan 2027',resp:'',status:'futuro'},
+      {titulo:'Esquadrias alumínio',desc:'0% — Out 2026 a Jan 2027',resp:'Eder',status:'futuro'},
+      {titulo:'Fundo textura',desc:'0% — Out 2026 a Jan 2027',resp:'',status:'futuro'},
+      {titulo:'Textura fachada',desc:'0% — Out 2026 a Jan 2027',resp:'',status:'futuro'},
+      {titulo:'ACM fachada',desc:'0% — Out 2026 a Fev 2027',resp:'',status:'futuro'},
+      {titulo:'Brises fachada',desc:'0% — Nov 2026 a Fev 2027 — verificar perfis alumínio',resp:'Bárbara',status:'urgente'},
     ]
   },
   {
-    num:6, titulo:'Projetos Executivos & Coordenação', periodo:'Paralelo — resolver agora',
+    num:8, titulo:'Porcelanatos & Revestimentos', periodo:'0% — Set 2026 a Mai 2027',
     cor:'#7A6A8F', status:'futuro',
     items:[
-      {titulo:'Executivo ático',desc:'Postar projeto executivo do ático para equipe',resp:'',status:'urgente'},
-      {titulo:'Vistas térreo',desc:'Organizar e posicionar indicações — LEVANTAR VISTAS',resp:'',status:'urgente'},
-      {titulo:'Vistas aquecedores e cozinha',desc:'Detalhar — concluído',resp:'',status:'concluido'},
-      {titulo:'All Tech — fachada (faciais)',desc:'Aguardando orçamento do projeto de faciais',resp:'All Tech',status:'futuro'},
-      {titulo:'Projeto paisagismo',desc:'Especificar plantas, substrato, aspersor (30 dias antecedência)',resp:'',status:'futuro'},
+      {titulo:'Azulejo paredes — Final 01 e 02',desc:'0% — início Set 2026 ao Mar 2027 (após impermeabilização)',resp:'',status:'futuro'},
+      {titulo:'Piso porcelanato — Final 01 e 02',desc:'0% — início Set 2026 ao Abr 2027',resp:'',status:'futuro'},
+      {titulo:'Proteção de piso — Final 01 e 02',desc:'0% — início Set 2026 ao Abr 2027',resp:'Thaisa',status:'futuro'},
+      {titulo:'Piso hall',desc:'0% — início Out 2026 ao Mai 2027',resp:'',status:'futuro'},
+      {titulo:'Guarda-corpos terraços',desc:'0% — início Set 2026 ao Abr 2027',resp:'',status:'futuro'},
+      {titulo:'Bancadas (marmoraria)',desc:'0% — início Set 2026 ao Abr 2027',resp:'',status:'futuro'},
     ]
   },
   {
-    num:7, titulo:'Revestimentos & Marmoraria', periodo:'Clientes escolhendo agora',
-    cor:'#4A8F62', status:'futuro',
+    num:9, titulo:'Pintura & Massa Corrida', periodo:'0% — Set 2026 a Jun 2027',
+    cor:'#4A6A8F', status:'futuro',
     items:[
-      {titulo:'Catálogos enviados',desc:'Catálogos de revestimento e marmoraria enviados aos clientes',resp:'Bárbara',status:'concluido'},
-      {titulo:'Personalização — pendentes',desc:'Unidades 32, 82, 122 ainda sem escolha de revestimento',resp:'Bárbara',status:'urgente'},
-      {titulo:'Rejunte',desc:'Olhar catálogo atualizado Quartzolit — 20 dias lead time',resp:'Bárbara e Jailto',status:'futuro'},
-      {titulo:'Perfil metálico piso',desc:'Escolher cor — 10 dias lead time',resp:'Bárbara',status:'futuro'},
-      {titulo:'Proteção piso',desc:'Avaliar nova possibilidade — 30 dias lead time',resp:'Thaisa',status:'futuro'},
-      {titulo:'Proteção de pedras',desc:'Avaliar nova possibilidade (contact) — 30 dias lead time',resp:'Bárbara',status:'futuro'},
+      {titulo:'Massa corrida — Final 01 e 02',desc:'0% — início Set/Out 2026 ao Abr 2027 (andar a andar)',resp:'',status:'futuro'},
+      {titulo:'1ª demão pintura — Final 01 e 02',desc:'0% — início Out 2026 ao Abr 2027',resp:'',status:'futuro'},
+      {titulo:'Retoque pintura',desc:'0% — Dez 2026 a Jun 2027',resp:'',status:'futuro'},
+      {titulo:'Massa corrida e pintura hall',desc:'0% — Out 2026 a Jun 2027',resp:'',status:'futuro'},
+      {titulo:'Pintura e massa escadaria',desc:'0% — Nov 2026 a Jun 2027',resp:'',status:'futuro'},
     ]
   },
   {
-    num:8, titulo:'Acabamentos & Pintura', periodo:'Após revestimentos',
-    cor:'#6A8A4A', status:'futuro',
+    num:10, titulo:'Bombeiro, Acabamentos & Esquadrias', periodo:'0% — Set 2026 a Jun 2027',
+    cor:'#8F4A6A', status:'futuro',
     items:[
-      {titulo:'Massa corrida',desc:'Lead time fabricante: 15 a 20 dias úteis — pedir com antecedência',resp:'',status:'futuro'},
-      {titulo:'Tinta Suvinil',desc:'Esmalte: mín 10 latas/cor · Látex: mín 20 latas/cor — pedir por etapa',resp:'',status:'futuro'},
-      {titulo:'Rodapé',desc:'Definir fornecedor',resp:'Bárbara',status:'futuro'},
-      {titulo:'Cobogó',desc:'10 dias úteis',resp:'',status:'futuro'},
-      {titulo:'Espelhos térreo',desc:'Verificar fornecedor',resp:'',status:'futuro'},
+      {titulo:'Batentes PCF hall',desc:'0% — Set 2026 a Mai 2027',resp:'',status:'futuro'},
+      {titulo:'Caixas / mangueiras incêndio hall',desc:'0% — Nov 2026 a Jun 2027',resp:'',status:'futuro'},
+      {titulo:'Alarmes incêndio hall',desc:'0% — Nov 2026 a Jun 2027',resp:'',status:'futuro'},
+      {titulo:'Extintores hall',desc:'0% — Nov 2026 a Jun 2027',resp:'',status:'futuro'},
+      {titulo:'PCF hall',desc:'0% — Nov 2026 a Jun 2027',resp:'',status:'futuro'},
+      {titulo:'Corrimão escadaria',desc:'0% — Nov 2026 a Jun 2027',resp:'',status:'futuro'},
+      {titulo:'Kit porta pronta',desc:'0% — Nov 2026 a Jun 2027 (louças instaladas antes)',resp:'',status:'futuro'},
+      {titulo:'Acabamentos esquadrias',desc:'0% — Dez 2026 a Jun 2027',resp:'',status:'futuro'},
+      {titulo:'Comunicação visual hall e escadaria',desc:'0% — Nov 2026 a Jun 2027',resp:'Bárbara',status:'futuro'},
     ]
   },
   {
-    num:9, titulo:'Louças, Metais & Equipamentos', periodo:'Pedir com antecedência — lead time longo',
-    cor:'#C04040', status:'futuro',
-    items:[
-      {titulo:'Vasos sanitários',desc:'⚠ Se importar: 120 dias corridos — DECIDIR AGORA',resp:'Bárbara',status:'urgente'},
-      {titulo:'Metais',desc:'Stock / Lorenzetti / Deca / Roca — 20 dias úteis',resp:'Bárbara',status:'futuro'},
-      {titulo:'Cubas de cozinha',desc:'Tecnocuba 10 dias · Importar (SEGONG/TECOOL): 120 dias — DECIDIR',resp:'Bárbara',status:'urgente'},
-      {titulo:'Portas',desc:'Pormade / Sincol — verificar lead time',resp:'',status:'futuro'},
-      {titulo:'Fechaduras',desc:'Intelbras',resp:'Bárbara',status:'futuro'},
-      {titulo:'Academia',desc:'Equipamentos — se importar: 120 dias — DECIDIR',resp:'Bárbara',status:'urgente'},
-      {titulo:'Mobiliários áreas comuns',desc:'Verificar importação — lead time longo',resp:'Bárbara',status:'urgente'},
-      {titulo:'Móveis externos',desc:'15 dias (nacional) ou 120 dias (importado) — DECIDIR',resp:'Bárbara',status:'urgente'},
-    ]
-  },
-  {
-    num:10, titulo:'Áreas Comuns & Paisagismo', periodo:'Últimas semanas antes da entrega',
+    num:11, titulo:'Finalização & Limpeza', periodo:'0% — Out 2026 a Jun 2027',
     cor:'#3A8F62', status:'futuro',
     items:[
-      {titulo:'Playground',desc:'Innovation Brinquedos — 60 dias lead time',resp:'Bárbara',status:'futuro'},
-      {titulo:'Beach Tennis',desc:'Verificar fornecedor de areia — entender execução',resp:'Bárbara',status:'futuro'},
-      {titulo:'Piso petplace',desc:'15 dias úteis — solução para odor da grama',resp:'',status:'futuro'},
-      {titulo:'Pedras seixos',desc:'7 dias úteis',resp:'',status:'futuro'},
-      {titulo:'Ralo linear térreo',desc:'7 dias úteis — Mercado Livre',resp:'',status:'futuro'},
-      {titulo:'Pedras fachada guarita',desc:'60 dias',resp:'',status:'futuro'},
-      {titulo:'Comunicação visual',desc:'60 dias',resp:'Bárbara',status:'futuro'},
-      {titulo:'Piscina — acabamento',desc:'Após estrutura de deck concluída',resp:'',status:'futuro'},
+      {titulo:'Limpeza grossa',desc:'0% — Out 2026 a Abr 2027 (andar a andar)',resp:'',status:'futuro'},
+      {titulo:'Pré check-list',desc:'0% — Out 2026 a Mai 2027',resp:'',status:'futuro'},
+      {titulo:'Revisão pré check-list',desc:'0% — Out 2026 a Mai 2027',resp:'',status:'futuro'},
+      {titulo:'Limpeza fina',desc:'0% — Dez 2026 a Jun 2027',resp:'',status:'futuro'},
+      {titulo:'Limpeza grossa escadaria',desc:'0% — Nov 2026 a Jun 2027',resp:'',status:'futuro'},
     ]
   },
   {
-    num:11, titulo:'Vistoria & Entrega', periodo:'Out–Dez 2026',
+    num:12, titulo:'Equipamentos — Elevadores', periodo:'0% — Set 2026 a Mar 2027',
     cor:'#2C2A26', status:'futuro',
     items:[
-      {titulo:'Vistorias por unidade',desc:'Vinícius, Jack, Milton, Cabelo, Bárbara — conferência de cada apartamento',resp:'Equipe',status:'futuro'},
-      {titulo:'Relatório de pendências',desc:'Gerar relatório de itens por concluir por apartamento',resp:'',status:'futuro'},
-      {titulo:'Regularização e documentação',desc:'Habite-se e documentação da entrega',resp:'',status:'futuro'},
-      {titulo:'Entrega das chaves',desc:'Previsão: outubro 2026 (possível dezembro)',resp:'',status:'futuro'},
+      {titulo:'Elevador 1',desc:'0% — preparação poço Set/Out 2026, montagem Out/Nov 2026, piso Nov/Dez 2026',resp:'',status:'futuro'},
+      {titulo:'Elevador 2',desc:'0% — preparação Out/Nov 2026, montagem Nov 2026 a Jan 2027',resp:'',status:'futuro'},
+      {titulo:'Elevador 3',desc:'0% — preparação Nov/Dez 2026, montagem Jan a Mar 2027',resp:'',status:'futuro'},
+      {titulo:'Desmontagem cremalheira externa',desc:'0% — Nov/Dez 2026 (após montagem elevador 1)',resp:'',status:'futuro'},
+    ]
+  },
+  {
+    num:13, titulo:'Vistorias & Entrega', periodo:'0% — Jan a Jul 2027',
+    cor:'#B8924A', status:'futuro',
+    items:[
+      {titulo:'Vistoria interna',desc:'0% — Jan a Jul 2027 (andar a andar)',resp:'Equipe',status:'futuro'},
+      {titulo:'Ajustes de vistoria',desc:'0% — Jan a Jul 2027',resp:'',status:'futuro'},
+      {titulo:'Limpeza de vistoria',desc:'0% — Jan a Jul 2027',resp:'',status:'futuro'},
+      {titulo:'Vistoria com clientes',desc:'0% — Jun a Jul 2027',resp:'',status:'futuro'},
+    ]
+  },
+  {
+    num:14, titulo:'Área Comum — Térreo & Subsolos', periodo:'3.8% concluído — Jul 2026 a Jul 2027',
+    cor:'#4A8F7A', status:'atual',
+    items:[
+      {titulo:'Piso SS2',desc:'100% concluído — Mar a Jul 2026',resp:'',status:'concluido'},
+      {titulo:'Alvenaria convencional térreo',desc:'0% — Ago a Set 2026 (levantamento paredes em andamento)',resp:'',status:'urgente'},
+      {titulo:'Circulação veículos SS2',desc:'0% — Out 2026 a Fev 2027',resp:'',status:'futuro'},
+      {titulo:'Reservatório SS2',desc:'0% — Nov 2026 a Fev 2027',resp:'',status:'futuro'},
+      {titulo:'Depósitos e mini market SS2',desc:'0% — Dez 2026 a Fev 2027',resp:'',status:'futuro'},
+      {titulo:'Circulação veículos SS1',desc:'0% — Nov 2026 a Mar 2027',resp:'',status:'futuro'},
+      {titulo:'Depósitos e sala técnica SS1',desc:'0% — Jan a Mar 2027',resp:'',status:'futuro'},
+      {titulo:'Rampa SS1',desc:'0% — Mar a Abr 2027',resp:'',status:'futuro'},
+      {titulo:'Gerador SS1',desc:'0% — Mar a Abr 2027',resp:'',status:'futuro'},
+      {titulo:'Térreo interno (festas, academia, pilates, espaço beleza)',desc:'0% — Set 2026 a Mar 2027 (cada ambiente separado)',resp:'',status:'futuro'},
+      {titulo:'Piscina, deck e áreas externas',desc:'Estrutura deck em concretagem — finalização 2027',resp:'',status:'atual'},
     ]
   },
 ];
-
 function showCronoTab(tab){
   ['obra','gestao'].forEach(t=>{
     const v=document.getElementById('ctab-'+t+'-view');
