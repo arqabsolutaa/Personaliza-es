@@ -306,9 +306,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .pers-tag-per{background:rgba(184,146,74,0.15);color:var(--gold-dark);}
 .pers-tag-pend{background:rgba(192,64,64,0.1);color:var(--danger);}
 .pers-tag-ok{background:rgba(58,143,98,0.12);color:var(--success);}
-.pers-modal-tab{background:none;border:none;border-bottom:2px solid transparent;padding:0.6rem 0.75rem;font-family:"DM Sans",sans-serif;font-size:0.72rem;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all 0.2s;}
-.pers-modal-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
-.pers-modal-tab:hover:not(.active){color:var(--text);}
+.pers-modal-tab{background:none;border:none;border-bottom:3px solid transparent;padding:0.75rem 1rem;font-family:"DM Sans",sans-serif;font-size:0.75rem;font-weight:500;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all 0.2s;flex-shrink:0;}
+.pers-modal-tab.active{color:var(--gold);border-bottom-color:var(--gold);background:rgba(184,146,74,0.05);}
+.pers-modal-tab:hover:not(.active){color:var(--text);background:rgba(0,0,0,0.03);}
 .pers-item-row{padding:0.75rem 0;border-bottom:1px solid var(--bg2);}
 .pers-item-row:last-child{border-bottom:none;}
 .pers-item-label{font-size:0.8rem;font-weight:500;color:var(--text);margin-bottom:0.2rem;}
@@ -626,7 +626,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
           </div>
         </div>
         <!-- Tabs de seção -->
-        <div style="display:flex;overflow-x:auto;border-bottom:1px solid var(--bg3);background:var(--bg2);padding:0 0.75rem;gap:0.1rem" id="pers-modal-tabs"></div>
+        <div style="display:flex;overflow-x:auto;border-bottom:2px solid var(--bg3);background:var(--bg2);padding:0 0.5rem;gap:0;-webkit-overflow-scrolling:touch;scrollbar-width:none" id="pers-modal-tabs"></div>
         <!-- Conteúdo da seção -->
         <div style="flex:1;padding:1rem 1.25rem" id="pers-modal-body"></div>
         <!-- Footer -->
@@ -2469,10 +2469,23 @@ function closePersModal(){
 function renderPersModalTabs(){
   const tabs = document.getElementById('pers-modal-tabs');
   if(!tabs) return;
+  const labels = {
+    'Civil — Paredes & Estrutura': 'Civil',
+    'Hidráulica': 'Hidráulica',
+    'Elétrica': 'Elétrica',
+    'Revestimentos': 'Revestimentos',
+    'Marmoraria': 'Marmoraria'
+  };
   tabs.innerHTML = Object.keys(PERS_ITENS).map(secao => {
-    const short = secao.split('—')[0].trim().split(' ')[0];
-    return `<button class="pers-modal-tab ${secao===persModalSecao?'active':''}" onclick="switchPersTab('${secao}')">${short}</button>`;
+    const label = labels[secao] || secao.split('—')[0].trim();
+    const isActive = secao === persModalSecao;
+    return `<button class="pers-modal-tab ${isActive?'active':''}" onclick="switchPersTab('${secao}')">${label}</button>`;
   }).join('');
+  // Scroll para aba ativa
+  setTimeout(()=>{
+    const activeTab = tabs.querySelector('.active');
+    if(activeTab) activeTab.scrollIntoView({block:'nearest',inline:'center'});
+  },50);
 }
 
 function switchPersTab(secao){
