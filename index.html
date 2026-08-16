@@ -296,6 +296,32 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .timeline-dot.prazo{background:var(--success);}
 .timeline-dot.andamento{background:var(--gold);}
 .timeline-dot.atrasado,.timeline-dot.urgente{background:var(--danger);}
+.pers-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.pers-table{border-collapse:collapse;min-width:100%;font-size:0.71rem;}
+.pers-table th{background:var(--sidebar-bg);color:#D4B483;font-weight:500;padding:0.5rem 0.6rem;white-space:nowrap;border:1px solid rgba(255,255,255,0.08);font-size:0.65rem;letter-spacing:0.05em;position:sticky;top:0;z-index:10;}
+.pers-table th.apto-col{position:sticky;left:0;z-index:20;background:var(--sidebar-bg);}
+.pers-table td{padding:0.32rem 0.45rem;border:1px solid var(--bg3);vertical-align:middle;white-space:nowrap;}
+.pers-table td.apto-cell{position:sticky;left:0;background:var(--bg);font-family:"Cormorant Garamond",serif;font-size:0.9rem;font-weight:400;color:var(--text);z-index:5;border-right:2px solid var(--gold);}
+.pers-table tr:hover td{background:rgba(184,146,74,0.04);}
+.pers-table tr:hover td.apto-cell{background:var(--bg2);}
+.pers-section-header td{background:var(--bg2);color:var(--text-muted);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;border-top:2px solid var(--gold);padding:0.4rem 0.6rem;}
+.pers-cell{display:flex;flex-direction:column;gap:2px;min-width:72px;}
+.pers-tipo{display:flex;gap:3px;}
+.pers-btn{border:none;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:0.58rem;padding:0.12rem 0.32rem;border-radius:4px;transition:all 0.15s;font-weight:500;}
+.pers-btn-pad{background:rgba(58,143,98,0.1);color:var(--success);}
+.pers-btn-pad.on{background:var(--success);color:white;}
+.pers-btn-per{background:rgba(184,146,74,0.1);color:var(--gold-dark);}
+.pers-btn-per.on{background:var(--gold);color:white;}
+.pers-checks{display:flex;gap:3px;align-items:center;}
+.pers-check{display:flex;align-items:center;gap:2px;font-size:0.58rem;color:var(--text-dim);}
+.pers-check input{accent-color:var(--gold);width:11px;height:11px;cursor:pointer;}
+.pers-check input.exec{accent-color:var(--success);}
+.pers-check input.conf{accent-color:#7B5EA7;}
+.pers-obs-btn{background:none;border:1px solid var(--bg4);color:var(--text-dim);font-size:0.58rem;padding:0.1rem 0.28rem;border-radius:4px;cursor:pointer;}
+.pers-obs-btn.has-obs{border-color:var(--gold);color:var(--gold);}
+.pers-filter-bar{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;align-items:center;}
+.pers-legend{display:flex;gap:0.75rem;flex-wrap:wrap;font-size:0.65rem;color:var(--text-muted);margin-bottom:0.75rem;}
+.pers-legend span{display:flex;align-items:center;gap:0.3rem;}
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px;}
@@ -348,41 +374,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <nav class="sidebar-nav">
     <div><button class="nav-section-btn" onclick="goHome();closeSidebar()">◈ &nbsp;Visão Geral</button></div>
     <div>
-      <button class="nav-section-btn" onclick="toggleSection('civil',this)">◈ &nbsp;Etapa Civil <span class="nav-badge" id="badge-civil">0%</span><span class="nav-arrow">›</span></button>
-      <div class="nav-sub" id="sub-civil">
-        <button class="nav-sub-item" onclick="openEtapa('civil','vedacao',event);closeSidebar()"><span class="nav-sub-dot"></span>Vedação</button>
-        <button class="nav-sub-item" onclick="openEtapa('civil','eletrica',event);closeSidebar()"><span class="nav-sub-dot"></span>Elétrica</button>
-        <button class="nav-sub-item" onclick="openEtapa('civil','hidraulica',event);closeSidebar()"><span class="nav-sub-dot"></span>Hidráulica</button>
-        <button class="nav-sub-item" onclick="openEtapa('civil','banheira',event);closeSidebar()"><span class="nav-sub-dot"></span>Pontos de banheira</button>
-        <button class="nav-sub-item" onclick="openEtapa('civil','aspiracao',event);closeSidebar()"><span class="nav-sub-dot"></span>Aspiração central</button>
-        <button class="nav-sub-item" onclick="openEtapa('civil','arcond',event);closeSidebar()"><span class="nav-sub-dot"></span>Ar-condicionado</button>
-        <button class="nav-sub-item" onclick="openEtapa('civil','contrapiso',event);closeSidebar()"><span class="nav-sub-dot"></span>Contrapiso</button>
-        <button class="nav-sub-item" onclick="openEtapa('civil','forro',event);closeSidebar()"><span class="nav-sub-dot"></span>Forro</button>
-        <button class="nav-sub-item" onclick="openEtapa('civil','gesso',event);closeSidebar()"><span class="nav-sub-dot"></span>Gesso nas paredes</button>
-        <button class="nav-sub-item" onclick="openEtapa('civil','nichos',event);closeSidebar()"><span class="nav-sub-dot"></span>Nichos</button>
-      </div>
-    </div>
-    <div>
-      <button class="nav-section-btn" onclick="toggleSection('rev',this)">◈ &nbsp;Revestimentos <span class="nav-badge" id="badge-rev">0%</span><span class="nav-arrow">›</span></button>
-      <div class="nav-sub" id="sub-rev">
-        <button class="nav-sub-item" onclick="openEtapa('rev','catalogo',event);closeSidebar()"><span class="nav-sub-dot"></span>Catálogo enviado</button>
-        <button class="nav-sub-item" onclick="openEtapa('rev','projeto',event);closeSidebar()"><span class="nav-sub-dot"></span>Projeto recebido</button>
-        <button class="nav-sub-item" onclick="openEtapa('rev','escolhido',event);closeSidebar()"><span class="nav-sub-dot"></span>Revestimento escolhido</button>
-        <button class="nav-sub-item" onclick="openEtapa('rev','revestido',event);closeSidebar()"><span class="nav-sub-dot"></span>Ambientes revestidos</button>
-      </div>
-    </div>
-    <div>
-      <button class="nav-section-btn" onclick="toggleSection('marm',this)">◈ &nbsp;Marmoraria <span class="nav-badge" id="badge-marm">0%</span><span class="nav-arrow">›</span></button>
-      <div class="nav-sub" id="sub-marm">
-        <button class="nav-sub-item" onclick="openEtapa('marm','catalogo',event);closeSidebar()"><span class="nav-sub-dot"></span>Catálogo enviado</button>
-        <button class="nav-sub-item" onclick="openEtapa('marm','projeto',event);closeSidebar()"><span class="nav-sub-dot"></span>Projeto recebido</button>
-        <button class="nav-sub-item" onclick="openEtapa('marm','pedra',event);closeSidebar()"><span class="nav-sub-dot"></span>Pedra escolhida</button>
-        <button class="nav-sub-item" onclick="openEtapa('marm','chapas_sel',event);closeSidebar()"><span class="nav-sub-dot"></span>Chapas selecionadas</button>
-        <button class="nav-sub-item" onclick="openEtapa('marm','chapas_comp',event);closeSidebar()"><span class="nav-sub-dot"></span>Chapas compradas</button>
-        <button class="nav-sub-item" onclick="openEtapa('marm','pedras_obra',event);closeSidebar()"><span class="nav-sub-dot"></span>Pedras em obra</button>
-        <button class="nav-sub-item" onclick="openEtapa('marm','bancadas',event);closeSidebar()"><span class="nav-sub-dot"></span>Bancadas por ambiente</button>
-        <button class="nav-sub-item" onclick="openEtapa('marm','concluido',event);closeSidebar()"><span class="nav-sub-dot"></span>Apartamento concluído</button>
-      </div>
+      <button class="nav-section-btn" onclick="openPersonalizacao();closeSidebar()">◈ &nbsp;Personalização</button>
     </div>
     <div><button class="nav-section-btn" onclick="openPrazos();closeSidebar()">◈ &nbsp;Prazos Globais</button></div>
     <div><button class="nav-section-btn" onclick="openGestao();closeSidebar()">◈ &nbsp;Gestão / Tarefas</button></div>
@@ -605,6 +597,31 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       </div>
     </div>
 
+    <!-- PERSONALIZAÇÃO -->
+    <div id="view-personalizacao" style="display:none">
+      <div class="pers-filter-bar">
+        <select id="pers-filtro-apto" onchange="renderPersTable()" style="background:var(--white);border:1px solid var(--bg4);color:var(--text);padding:0.38rem 0.65rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.75rem;">
+          <option value="">Todos os apartamentos</option>
+        </select>
+        <select id="pers-filtro-status" onchange="renderPersTable()" style="background:var(--white);border:1px solid var(--bg4);color:var(--text);padding:0.38rem 0.65rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.75rem;">
+          <option value="">Todos</option>
+          <option value="personalizado">Personalizados</option>
+          <option value="pendente">Pendente definição</option>
+          <option value="executado">Executados</option>
+        </select>
+        <button class="btn-sm btn-outline" onclick="exportarPDFPersonalizacao()" style="border-color:var(--gold);color:var(--gold)">↓ Exportar PDF</button>
+        <button class="btn-sm btn-primary" onclick="saveAll()">✓ Salvar</button>
+      </div>
+      <div class="pers-legend">
+        <span><span style="width:10px;height:10px;background:var(--success);border-radius:2px;display:inline-block"></span>Padrão</span>
+        <span><span style="width:10px;height:10px;background:var(--gold);border-radius:2px;display:inline-block"></span>Personalizado</span>
+        <span>D = Definido &nbsp; E = Executado &nbsp; C = Conferido</span>
+      </div>
+      <div class="pers-wrap">
+        <table class="pers-table" id="pers-table"></table>
+      </div>
+    </div>
+
     <!-- CONFIGURAÇÕES -->
     <div id="view-config" style="display:none">
       <div class="config-section">
@@ -768,6 +785,7 @@ function init(){
     syncData();
   }
   loadTarefas();
+  loadPersData();
   const savedMode = localStorage.getItem('essence_view_mode');
   if(savedMode) applyViewMode(savedMode);
   updateDashboard();
@@ -1442,6 +1460,7 @@ function showView(h,e,p,c){
   document.getElementById('view-config').style.display=c?'block':'none';
   document.getElementById('view-gestao').style.display='none';
   document.getElementById('view-cronograma').style.display='none';
+  document.getElementById('view-personalizacao').style.display='none';
 }
 
 function showGTab(tab){
@@ -2285,6 +2304,226 @@ function exportarPDFGestao(){
   const url  = URL.createObjectURL(blob);
   const win  = window.open(url,'_blank');
   setTimeout(()=>{ if(win){ win.print(); } }, 800);
+}
+
+// ── PERSONALIZAÇÃO ────────────────────────────────────────────
+const PERS_ITENS = {
+  'Civil — Paredes & Estrutura': [
+    {id:'civ_paredes', label:'Paredes / Alvenaria', padrao:'Planta padrão construtora'},
+    {id:'civ_nichos',  label:'Nichos', padrao:'Nicho de pedra'},
+    {id:'civ_bases',   label:'Bases de alvenaria', padrao:'Padrão construtora'},
+    {id:'civ_muretas', label:'Muretas', padrao:'Padrão construtora'},
+    {id:'civ_enchimentos', label:'Enchimentos', padrao:'Padrão construtora'},
+    {id:'civ_contrapiso', label:'Contrapiso', padrao:'Vinílico (sem vinílico instalado)'},
+    {id:'civ_forro',   label:'Forro', padrao:'Forro liso'},
+  ],
+  'Hidráulica': [
+    {id:'hid_geral',   label:'Pontos gerais (lava-louças etc)', padrao:'Padrão construtora'},
+    {id:'hid_mono',    label:'Monocomandos', padrao:'Monocomando só no master; demais: misturador'},
+    {id:'hid_arcond',  label:'Ar-condicionado', padrao:'Padrão construtora'},
+    {id:'hid_gas',     label:'Gás', padrao:'Só na ilha da cozinha e gourmet'},
+    {id:'hid_aspiracao', label:'Aspiração central', padrao:'Não incluso'},
+    {id:'hid_banheira', label:'Pontos de banheira', padrao:'Não incluso'},
+    {id:'hid_ralo',    label:'Ralos (conferência)', padrao:'Padrão construtora'},
+  ],
+  'Elétrica': [
+    {id:'ele_tomadas',  label:'Tomadas gerais', padrao:'Padrão construtora'},
+    {id:'ele_tomada_piso', label:'Tomada de piso', padrao:'1 ponto padrão'},
+    {id:'ele_aspiracao', label:'Ponto aspiração central', padrao:'Não incluso'},
+    {id:'ele_arcond',   label:'Ar-condicionado', padrao:'Padrão construtora'},
+    {id:'ele_nicho',    label:'Iluminação de nicho', padrao:'Padrão construtora'},
+    {id:'ele_base_alv', label:'Iluminação base alvenaria', padrao:'Padrão construtora'},
+    {id:'ele_churrasco', label:'Ponto churrasqueira / exaustão', padrao:'Padrão construtora'},
+    {id:'ele_mono_4vias', label:'Monocomando 4 vias', padrao:'Não incluso'},
+    {id:'ele_ducha_mono', label:'Ducha higiênica monocomando', padrao:'Não incluso'},
+    {id:'ele_ducha_fria', label:'Ducha higiênica água fria', padrao:'Não incluso'},
+    {id:'ele_mono_nicho', label:'Ponto mono dentro do nicho', padrao:'Não incluso'},
+    {id:'ele_requadro',   label:'Requadro vão de gesso (sem porta)', padrao:'Porta padrão'},
+    {id:'ele_chuveiro',   label:'Chuveiro de teto', padrao:'Só no master'},
+  ],
+  'Revestimentos': [
+    {id:'rev_rejunte',  label:'Rejunte selecionado', padrao:'2 opções padrão'},
+    {id:'rev_piso',     label:'Piso selecionado', padrao:'2 opções padrão'},
+    {id:'rev_parede',   label:'Parede selecionada', padrao:'2 opções padrão'},
+    {id:'rev_nicho',    label:'Nicho com revestimento', padrao:'Nicho de pedra (padrão)'},
+  ],
+  'Marmoraria': [
+    {id:'marm_chapas',  label:'Compra de chapas', padrao:'5 tipos de pedra'},
+    {id:'marm_projeto', label:'Projeto definido', padrao:'Projeto padrão'},
+    {id:'marm_cubas',   label:'Cubas', padrao:'Cuba branca sobrepor'},
+    {id:'marm_cuba_coz', label:'Cuba cozinha', padrao:'Cuba inox'},
+    {id:'marm_tanque',  label:'Tanque', padrao:'Tanque comum inox'},
+    {id:'marm_metais',  label:'Metais', padrao:'Cromados'},
+    {id:'marm_bancada', label:'Bancada de pedra', padrao:'5 tipos à escolha'},
+  ],
+};
+
+// Estado personalização: PERS_DATA[apto][itemId] = {tipo:'pad'|'per', def:bool, exec:bool, conf:bool, obs:''}
+let PERS_DATA = {};
+
+function loadPersData(){
+  const r = localStorage.getItem('essence_pers');
+  PERS_DATA = r ? JSON.parse(r) : {};
+}
+function savePersData(){
+  localStorage.setItem('essence_pers', JSON.stringify(PERS_DATA));
+}
+function getPers(apto, id){
+  if(!PERS_DATA[apto]) PERS_DATA[apto] = {};
+  if(!PERS_DATA[apto][id]) PERS_DATA[apto][id] = {tipo:'pad', def:false, exec:false, conf:false, obs:''};
+  return PERS_DATA[apto][id];
+}
+
+function openPersonalizacao(){
+  showView(false,false,false,false);
+  document.getElementById('view-personalizacao').style.display = 'block';
+  document.getElementById('view-cronograma').style.display = 'none';
+  document.getElementById('view-gestao').style.display = 'none';
+  setHeader('Personalização','Controle por apartamento · Padrão / Personalizado / Definido / Executado');
+  loadPersData();
+  // popular filtro aptos
+  const sel = document.getElementById('pers-filtro-apto');
+  if(sel && sel.options.length === 1){
+    APTOS.forEach(a => { const o=document.createElement('option');o.value=a;o.textContent='Apto '+a;sel.appendChild(o); });
+  }
+  renderPersTable();
+}
+
+function renderPersTable(){
+  const table = document.getElementById('pers-table');
+  if(!table) return;
+  const filtroApto = document.getElementById('pers-filtro-apto')?.value || '';
+  const aptosVis = filtroApto ? [filtroApto] : APTOS;
+  const allItens = Object.values(PERS_ITENS).flat();
+
+  // Cabeçalho
+  let html = '<thead><tr><th class="apto-col">Apto</th>';
+  Object.keys(PERS_ITENS).forEach(secao => {
+    PERS_ITENS[secao].forEach(item => {
+      html += `<th title="${item.padrao}">${item.label}</th>`;
+    });
+  });
+  html += '</tr></thead><tbody>';
+
+  aptosVis.forEach(apto => {
+    html += `<tr><td class="apto-cell">Apto ${apto}</td>`;
+    Object.keys(PERS_ITENS).forEach(secao => {
+      PERS_ITENS[secao].forEach(item => {
+        const p = getPers(apto, item.id);
+        const hasObs = p.obs && p.obs.trim();
+        html += `<td>
+          <div class="pers-cell">
+            <div class="pers-tipo">
+              <button class="pers-btn pers-btn-pad ${p.tipo==='pad'?'on':''}" onclick="setPers('${apto}','${item.id}','tipo','pad',this)">P</button>
+              <button class="pers-btn pers-btn-per ${p.tipo==='per'?'on':''}" onclick="setPers('${apto}','${item.id}','tipo','per',this)">C</button>
+            </div>
+            <div class="pers-checks">
+              <span class="pers-check" title="Definido"><input type="checkbox" ${p.def?'checked':''} onchange="setPers('${apto}','${item.id}','def',this.checked,this)"><span>D</span></span>
+              <span class="pers-check" title="Executado"><input type="checkbox" class="exec" ${p.exec?'checked':''} onchange="setPers('${apto}','${item.id}','exec',this.checked,this)"><span>E</span></span>
+              <span class="pers-check" title="Conferido"><input type="checkbox" class="conf" ${p.conf?'checked':''} onchange="setPers('${apto}','${item.id}','conf',this.checked,this)"><span>C</span></span>
+              <button class="pers-obs-btn ${hasObs?'has-obs':''}" onclick="openPersObs('${apto}','${item.id}','${item.label.replace(/'/g,"\'")}')">✎</button>
+            </div>
+          </div>
+        </td>`;
+      });
+    });
+    html += '</tr>';
+  });
+  html += '</tbody>';
+  table.innerHTML = html;
+}
+
+function setPers(apto, id, campo, valor, el){
+  const p = getPers(apto, id);
+  if(campo === 'tipo'){
+    // Remover classe on de ambos os botões no cell
+    const cell = el.closest('td');
+    cell.querySelectorAll('.pers-btn').forEach(b => b.classList.remove('on'));
+    el.classList.add('on');
+    p.tipo = valor;
+  } else {
+    p[campo] = valor;
+  }
+  PERS_DATA[apto][id] = p;
+  savePersData();
+}
+
+function openPersObs(apto, id, label){
+  const p = getPers(apto, id);
+  const obs = prompt(`Observação — Apto ${apto} · ${label}:`, p.obs || '');
+  if(obs !== null){
+    p.obs = obs;
+    PERS_DATA[apto][id] = p;
+    savePersData();
+    renderPersTable();
+  }
+}
+
+function exportarPDFPersonalizacao(){
+  const hoje = new Date().toLocaleDateString('pt-BR');
+  const allItens = Object.values(PERS_ITENS).flat();
+
+  let html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:Arial,sans-serif;font-size:7pt;color:#1E1C18;}
+    .header{display:flex;justify-content:space-between;align-items:flex-end;padding:10px 12px;border-bottom:2px solid #B8924A;margin-bottom:8px;}
+    .logo{font-size:14pt;font-weight:300;letter-spacing:0.1em;}
+    .logo span{color:#B8924A;}
+    .meta{font-size:6.5pt;color:#9C9484;text-align:right;}
+    table{border-collapse:collapse;width:100%;}
+    th{background:#2C2A26;color:#D4B483;padding:3px 4px;font-size:6pt;white-space:nowrap;border:1px solid #444;text-align:center;}
+    th.apto{background:#1a1814;}
+    td{padding:2px 3px;border:1px solid #ddd;vertical-align:middle;text-align:center;}
+    td.apto{font-weight:600;font-size:7.5pt;text-align:left;background:#F5F2ED;white-space:nowrap;}
+    .secao td{background:#EDE9E0;color:#6B6659;font-size:5.5pt;letter-spacing:0.15em;text-transform:uppercase;font-weight:600;border-top:2px solid #B8924A;}
+    .p{background:#e8f5ee;color:#2d7a4f;font-weight:700;font-size:6.5pt;}
+    .c{background:#fef3e2;color:#8a5a00;font-weight:700;font-size:6.5pt;}
+    .ok{color:#2d7a4f;}
+    .no{color:#ccc;}
+    .obs{font-size:5.5pt;color:#8a6a00;font-style:italic;}
+    @page{size:A4 landscape;margin:8mm;}
+  </style></head><body>
+  <div class="header">
+    <div class="logo">Essence <span>Residence</span></div>
+    <div class="meta">Controle de Personalização · ${hoje}</div>
+  </div>
+  <table><thead><tr><th class="apto">Apto</th>`;
+
+  Object.keys(PERS_ITENS).forEach(secao => {
+    PERS_ITENS[secao].forEach(item => {
+      html += `<th>${item.label.replace(' ','<br>')}</th>`;
+    });
+  });
+  html += '</tr></thead><tbody>';
+
+  APTOS.forEach(apto => {
+    html += `<tr><td class="apto">Apto ${apto}</td>`;
+    Object.keys(PERS_ITENS).forEach(secao => {
+      PERS_ITENS[secao].forEach(item => {
+        const p = getPers(apto, item.id);
+        const tipo = p.tipo === 'per' ? '<span class="c">C</span>' : '<span class="p">P</span>';
+        const d = p.def ? '<span class="ok">✓</span>' : '<span class="no">·</span>';
+        const e = p.exec ? '<span class="ok">✓</span>' : '<span class="no">·</span>';
+        const c = p.conf ? '<span class="ok">✓</span>' : '<span class="no">·</span>';
+        const obs = p.obs ? `<div class="obs">${p.obs}</div>` : '';
+        html += `<td>${tipo} ${d}${e}${c}${obs}</td>`;
+      });
+    });
+    html += '</tr>';
+  });
+
+  html += `</tbody></table>
+  <div style="margin-top:8px;font-size:6pt;color:#9C9484;display:flex;gap:16px">
+    <span><b>P</b> = Padrão &nbsp; <b>C</b> = Customizado/Personalizado</span>
+    <span><b>D</b> = Definido &nbsp; <b>E</b> = Executado &nbsp; <b>C</b> = Conferido</span>
+    <span>✓ = Sim &nbsp; · = Pendente</span>
+  </div>
+  </body></html>`;
+
+  const blob = new Blob([html], {type:'text/html'});
+  const win = window.open(URL.createObjectURL(blob), '_blank');
+  setTimeout(() => { if(win) win.print(); }, 800);
 }
 
 function showToast(msg,type=''){
