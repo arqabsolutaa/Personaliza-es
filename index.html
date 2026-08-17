@@ -783,6 +783,16 @@ function loadState(){
 }
 function saveState(){localStorage.setItem('essence_v4',JSON.stringify({state:STATE,prazos:PRAZOS,disabled:DISABLED,pdfs_etapa:PDFS_ETAPA,pdfs_apto:PDFS_APTO,obs:OBS,conf:CONF}));}
 
+function enterApp(){
+  const splash = document.getElementById('splash');
+  if(splash){
+    splash.style.opacity = '0';
+    splash.style.visibility = 'hidden';
+    setTimeout(()=>{ splash.remove(); }, 900);
+  }
+  init();
+}
+
 function init(){
   loadState();
   // Aplicar imagem customizada se tiver
