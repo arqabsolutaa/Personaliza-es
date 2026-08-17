@@ -350,16 +350,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 <body>
 
 <!-- SPLASH -->
-<div id="splash">
-  <div id="splash-img" style="pointer-events:none">
-    <div id="splash-fallback"></div>
-    <img src="https://lh3.googleusercontent.com/d/1dkq2l7ZTkHBW5IWYi6Hh6noUn2ZfqMMG" alt="" loading="eager" decoding="async" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(0.38)">
-  </div>
-  <div class="splash-content" style="position:relative;z-index:10">
-    <div class="splash-logo">Essence <span>Residence</span></div>
-    <div class="splash-sub">Controle de Obras</div>
-    <div class="splash-divider"></div>
-    <button class="splash-enter" onclick="enterApp()">Acessar</button>
+<div id="splash" style="position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:#1a1814;transition:opacity 0.8s;">
+  <img src="https://lh3.googleusercontent.com/d/1dkq2l7ZTkHBW5IWYi6Hh6noUn2ZfqMMG" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(0.38);pointer-events:none" onerror="this.remove()">
+  <div style="position:relative;z-index:2;text-align:center;padding:2rem">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;letter-spacing:0.15em;color:#F0EDE8;line-height:1">Essence <span style="color:#D4B483">Residence</span></div>
+    <div style="font-size:0.72rem;letter-spacing:0.5em;color:#9C9484;text-transform:uppercase;margin-top:0.5rem">Controle de Obras</div>
+    <div style="width:50px;height:1px;background:#D4B483;margin:1.5rem auto;opacity:0.4"></div>
+    <button id="btn-acessar" style="background:transparent;border:1px solid #D4B483;color:#D4B483;font-family:'DM Sans',sans-serif;font-size:0.72rem;letter-spacing:0.35em;text-transform:uppercase;padding:0.85rem 2.5rem;cursor:pointer;border-radius:2px">Acessar</button>
   </div>
 </div>
 
@@ -790,11 +787,16 @@ function enterApp(){
   const splash = document.getElementById('splash');
   if(splash){
     splash.style.opacity = '0';
-    splash.style.visibility = 'hidden';
-    setTimeout(()=>{ splash.remove(); }, 900);
+    setTimeout(()=>{ splash.style.display='none'; }, 900);
   }
   init();
 }
+
+// Botão acessar - usar addEventListener em vez de onclick inline
+document.addEventListener('DOMContentLoaded', function(){
+  const btn = document.getElementById('btn-acessar');
+  if(btn) btn.addEventListener('click', enterApp);
+});
 
 function init(){
   loadState();
