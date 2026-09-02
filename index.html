@@ -616,7 +616,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
     <!-- MODAL PERSONALIZAÇÃO -->
     <div id="pers-modal-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:700;display:none;align-items:flex-start;justify-content:flex-end">
-      <div id="pers-modal" style="background:var(--white);width:100%;max-width:480px;height:100vh;overflow-y:auto;box-shadow:-4px 0 20px rgba(0,0,0,0.15);display:flex;flex-direction:column">
+      <div id="pers-modal" style="background:var(--white);width:100%;max-width:480px;height:100vh;overflow-y:hidden;box-shadow:-4px 0 20px rgba(0,0,0,0.15);display:flex;flex-direction:column">
         <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--bg3);display:flex;align-items:center;justify-content:space-between;background:var(--sidebar-bg);position:sticky;top:0;z-index:10">
           <div>
             <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:#F0EDE8" id="pers-modal-title">Apto 11</div>
@@ -628,9 +628,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
           </div>
         </div>
         <!-- Tabs de seção -->
-        <div style="display:flex;overflow-x:auto;border-bottom:2px solid var(--bg3);background:var(--bg2);padding:0 0.5rem;gap:0;-webkit-overflow-scrolling:touch;scrollbar-width:none" id="pers-modal-tabs"></div>
+        <div style="display:flex;overflow-x:auto;border-bottom:2px solid rgba(184,146,74,0.3);background:#F5F2ED;padding:0;gap:0;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:sticky;top:72px;z-index:9;flex-shrink:0;min-height:46px" id="pers-modal-tabs"></div>
         <!-- Conteúdo da seção -->
-        <div style="flex:1;padding:1rem 1.25rem" id="pers-modal-body"></div>
+        <div style="flex:1;padding:1rem 1.25rem;overflow-y:auto;-webkit-overflow-scrolling:touch" id="pers-modal-body"></div>
         <!-- Footer -->
         <div style="padding:0.75rem 1.25rem;border-top:1px solid var(--bg3);background:var(--bg)">
           <button onclick="closePersModal();renderPersGrade()" class="btn-sm btn-primary" style="width:100%">✓ Salvar e fechar</button>
