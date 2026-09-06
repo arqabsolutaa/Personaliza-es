@@ -7,12 +7,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --gold:#B8924A;--gold-light:#D4B483;--gold-dark:#8A6A30;
-  --bg:#F5F2ED;--bg2:#EDEAE3;--bg3:#E4E0D6;--bg4:#D8D3C8;
-  --sidebar-bg:#2C2A26;--text:#1E1C18;--text-muted:#6B6659;--text-dim:#9C9484;
-  --white:#E8EBE0;--card-border:rgba(90,110,70,0.25);
-  --success:#3A8F62;--warning:#C47F1A;--danger:#C04040;
-  --sidebar-w:280px;--radius:10px;
+  --gold:#A07840;--gold-light:#C4A060;--gold-dark:#7A5C28;
+  --bg:#F8F6F2;--bg2:#F0EDE7;--bg3:#E8E4DC;--bg4:#DDD8CE;
+  --sidebar-bg:#3A3630;--text:#1C1A16;--text-muted:#6A6358;--text-dim:#9A9288;
+  --white:#FFFFFF;--card-border:rgba(160,120,64,0.15);
+  --success:#2E8050;--warning:#B87018;--danger:#B83838;
+  --sidebar-w:270px;--radius:10px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
@@ -35,7 +35,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 #app{display:flex;min-height:100vh;}
 
 /* ── SIDEBAR ── */
-#sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--sidebar-bg);border-right:1px solid rgba(184,146,74,0.1);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:200;overflow-y:auto;transition:transform 0.3s ease;}
+#sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--sidebar-bg);border-right:1px solid rgba(160,120,64,0.15);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:200;overflow-y:auto;transition:transform 0.3s ease;}
 #sidebar.mobile-hidden{transform:translateX(-100%);}
 .sidebar-header{padding:1.6rem 1.4rem 1.1rem;border-bottom:1px solid rgba(255,255,255,0.06);}
 .sidebar-logo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:300;letter-spacing:0.1em;color:#F0EDE8;}
@@ -77,7 +77,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 /* ── MAIN ── */
 #main{margin-left:var(--sidebar-w);flex:1;min-height:100vh;display:flex;flex-direction:column;}
-.main-header{padding:1.1rem 1.75rem;border-bottom:1px solid var(--bg3);display:flex;align-items:center;justify-content:space-between;background:var(--white);flex-wrap:wrap;gap:0.6rem;box-shadow:0 1px 3px rgba(0,0,0,0.05);position:sticky;top:0;z-index:100;}
+.main-header{padding:1.1rem 1.75rem;border-bottom:1px solid var(--bg3);display:flex;align-items:center;justify-content:space-between;background:var(--white);flex-wrap:wrap;gap:0.6rem;box-shadow:0 1px 6px rgba(0,0,0,0.06);position:sticky;top:0;z-index:100;}
 .main-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:400;color:var(--text);}
 .main-subtitle{font-size:0.69rem;color:var(--text-dim);margin-top:0.08rem;}
 .header-actions{display:flex;gap:0.5rem;flex-wrap:wrap;}
@@ -90,7 +90,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 /* ── STATS ── */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.65rem;margin-bottom:1.1rem;}
-.stat-card{background:var(--white);border:1px solid var(--card-border);border-radius:var(--radius);padding:0.9rem 1.1rem;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+.stat-card{background:var(--white);border:1px solid var(--card-border);border-radius:var(--radius);padding:1rem 1.25rem;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
 .stat-label{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);}
 .stat-value{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--text);line-height:1;margin-top:0.2rem;}
 .stat-value span{color:var(--gold);}
@@ -98,7 +98,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 /* ── CHARTS ── */
 .charts-row{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;margin-bottom:1.1rem;}
 @media(max-width:700px){.charts-row{grid-template-columns:1fr;}}
-.card{background:var(--white);border:1px solid var(--card-border);border-radius:var(--radius);padding:1.1rem 1.35rem;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+.card{background:var(--white);border:1px solid var(--card-border);border-radius:var(--radius);padding:1.25rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
 .card-title{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.9rem;}
 .bar-chart{display:flex;flex-direction:column;gap:0.5rem;}
 .bar-row{display:flex;align-items:center;gap:0.55rem;}
@@ -117,8 +117,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 /* ── APTO GRID ── */
 .apto-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:0.65rem;}
-.apto-card{background:var(--white);border:1px solid var(--card-border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.04);transition:box-shadow 0.2s,border-color 0.2s;}
-.apto-card:hover{box-shadow:0 3px 10px rgba(0,0,0,0.08);border-color:rgba(184,146,74,0.3);}
+.apto-card{background:var(--white);border:1px solid var(--card-border);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:all 0.2s;}
+.apto-card:hover{box-shadow:0 6px 18px rgba(0,0,0,0.1);border-color:rgba(160,120,64,0.35);transform:translateY(-1px);}
 .apto-card.disabled{opacity:0.42;}
 .apto-header{padding:0.65rem 0.9rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bg2);background:var(--bg);}
 .apto-num{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--text);}
@@ -298,8 +298,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .timeline-dot.prazo{background:var(--success);}
 .timeline-dot.andamento{background:var(--gold);}
 .timeline-dot.atrasado,.timeline-dot.urgente{background:var(--danger);}
-.pers-apto-card{background:var(--white);border:1px solid var(--card-border);border-radius:var(--radius);padding:0.9rem;cursor:pointer;transition:all 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
-.pers-apto-card:hover{box-shadow:0 4px 12px rgba(0,0,0,0.1);border-color:rgba(184,146,74,0.4);transform:translateY(-1px);}
+.pers-apto-card{background:var(--white);border:1px solid var(--card-border);border-radius:var(--radius);padding:1rem;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.pers-apto-card:hover{box-shadow:0 6px 18px rgba(0,0,0,0.1);border-color:rgba(160,120,64,0.4);transform:translateY(-2px);}
 .pers-apto-num{font-family:"Cormorant Garamond",serif;font-size:1.3rem;font-weight:300;color:var(--text);margin-bottom:0.4rem;}
 .pers-apto-bar{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-bottom:0.5rem;}
 .pers-apto-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold-dark),var(--gold));border-radius:2px;transition:width 0.5s;}
@@ -311,17 +311,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .pers-modal-tab{background:none;border:none;border-bottom:3px solid transparent;padding:0.75rem 1rem;font-family:"DM Sans",sans-serif;font-size:0.75rem;font-weight:500;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all 0.2s;flex-shrink:0;}
 .pers-modal-tab.active{color:var(--gold);border-bottom-color:var(--gold);background:rgba(184,146,74,0.05);}
 .pers-modal-tab:hover:not(.active){color:var(--text);background:rgba(0,0,0,0.03);}
-.pers-item-row{padding:0.75rem 0;border-bottom:1px solid var(--bg2);}
+.pers-item-row{padding:0.9rem 0;border-bottom:1px solid var(--bg3);}
 .pers-item-row:last-child{border-bottom:none;}
-.pers-item-label{font-size:0.8rem;font-weight:500;color:var(--text);margin-bottom:0.2rem;}
-.pers-item-padrao{font-size:0.65rem;color:var(--text-dim);margin-bottom:0.5rem;font-style:italic;}
+.pers-item-label{font-size:0.83rem;font-weight:500;color:var(--text);margin-bottom:0.25rem;letter-spacing:0.01em;}
+.pers-item-padrao{font-size:0.67rem;color:var(--text-dim);margin-bottom:0.55rem;font-style:italic;letter-spacing:0.01em;}
 .pers-item-controls{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;}
 .pers-toggle{display:flex;border:1px solid var(--bg4);border-radius:6px;overflow:hidden;}
-.pers-toggle-btn{background:var(--bg);border:none;padding:0.3rem 0.65rem;font-family:"DM Sans",sans-serif;font-size:0.7rem;cursor:pointer;color:var(--text-muted);transition:all 0.15s;}
-.pers-toggle-btn.pad.on{background:var(--success);color:white;font-weight:500;}
-.pers-toggle-btn.per.on{background:var(--gold);color:white;font-weight:500;}
+.pers-toggle-btn{background:var(--bg2);border:none;padding:0.35rem 0.85rem;font-family:"DM Sans",sans-serif;font-size:0.72rem;cursor:pointer;color:var(--text-muted);transition:all 0.2s;}
+.pers-toggle-btn.pad.on{background:var(--success);color:white;font-weight:600;}
+.pers-toggle-btn.per.on{background:var(--gold);color:white;font-weight:600;}
 .pers-chk-group{display:flex;gap:0.5rem;}
-.pers-chk{display:flex;align-items:center;gap:0.25rem;font-size:0.7rem;color:var(--text-muted);background:var(--bg);border:1px solid var(--bg4);padding:0.25rem 0.5rem;border-radius:5px;cursor:pointer;}
+.pers-chk{display:flex;align-items:center;gap:0.3rem;font-size:0.72rem;color:var(--text-muted);background:var(--bg2);border:1px solid var(--bg4);padding:0.3rem 0.6rem;border-radius:6px;cursor:pointer;transition:all 0.15s;}
+.pers-chk:hover{background:var(--bg3);}
 .pers-chk input{accent-color:var(--gold);cursor:pointer;}
 .pers-chk.def input{accent-color:var(--gold);}
 .pers-chk.exec input{accent-color:var(--success);}
@@ -615,7 +616,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     </div>
 
     <!-- MODAL PERSONALIZAÇÃO -->
-    <div id="pers-modal-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:700;display:none;align-items:flex-start;justify-content:flex-end">
+    <div id="pers-modal-overlay" style="position:fixed;inset:0;background:rgba(28,26,22,0.55);z-index:700;display:none;align-items:flex-start;justify-content:flex-end">
       <div id="pers-modal" style="background:var(--white);width:100%;max-width:480px;height:100vh;overflow-y:hidden;box-shadow:-4px 0 20px rgba(0,0,0,0.15);display:flex;flex-direction:column">
         <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--bg3);display:flex;align-items:center;justify-content:space-between;background:var(--sidebar-bg);position:sticky;top:0;z-index:10">
           <div>
@@ -2355,57 +2356,75 @@ function exportarPDFGestao(){
 
 // ── PERSONALIZAÇÃO ────────────────────────────────────────────
 const PERS_ITENS = {
-  'Civil — Paredes & Estrutura': [
-    {id:'civ_paredes',    label:'Paredes / Alvenaria',            padrao:'Planta padrão construtora'},
-    {id:'civ_gesso',      label:'Gesso',                          padrao:'Gesso liso padrão'},
-    {id:'civ_nichos',     label:'Nichos',                         padrao:'Nicho de pedra'},
-    {id:'civ_bases',      label:'Bases de alvenaria',             padrao:'Padrão construtora'},
-    {id:'civ_muretas',    label:'Muretas',                        padrao:'Padrão construtora'},
-    {id:'civ_enchimentos',label:'Enchimentos',                    padrao:'Padrão construtora'},
-    {id:'civ_contrapiso', label:'Contrapiso',                     padrao:'Vinílico (sem vinílico instalado)'},
-    {id:'civ_forro',      label:'Forro',                          padrao:'Forro liso'},
+  'Civil': [
+    {id:'civ_paredes',    label:'Paredes / Alvenaria',               padrao:'Planta padrão construtora'},
+    {id:'civ_gesso',      label:'Gesso',                             padrao:'Gesso liso padrão'},
+    {id:'civ_forro',      label:'Forro',                             padrao:'Forro liso'},
+    {id:'civ_nichos',     label:'Nichos',                            padrao:'Nicho de pedra'},
+    {id:'civ_bases',      label:'Bases de alvenaria',                padrao:'Padrão construtora'},
+    {id:'civ_muretas',    label:'Muretas',                           padrao:'Padrão construtora'},
+    {id:'civ_enchimentos',label:'Enchimentos',                       padrao:'Padrão construtora'},
+    {id:'civ_contrapiso', label:'Contrapiso',                        padrao:'Vinílico (sem vinílico instalado)'},
     {id:'civ_requadro',   label:'Requadro vão de gesso (sem porta)', padrao:'Porta padrão'},
+    {id:'civ_impermeab',  label:'Impermeabilização',                 padrao:'Padrão construtora'},
   ],
   'Hidráulica': [
-    {id:'hid_geral',      label:'Pontos gerais (lava-louças etc)', padrao:'Padrão construtora'},
-    {id:'hid_mono',       label:'Monocomandos',                   padrao:'Monocomando só no master; demais: misturador'},
-    {id:'hid_arcond',     label:'Ar-condicionado',                padrao:'Padrão construtora'},
-    {id:'hid_gas',        label:'Gás',                            padrao:'Só na ilha da cozinha e gourmet'},
-    {id:'hid_aspiracao',  label:'Aspiração central',              padrao:'Não incluso'},
-    {id:'hid_banheira',   label:'Pontos de banheira',             padrao:'Não incluso'},
-    {id:'hid_ralo',       label:'Ralos (conferência)',            padrao:'Padrão construtora'},
-    {id:'hid_mono4vias',  label:'Monocomando 4 vias',            padrao:'Não incluso'},
-    {id:'hid_ducha_mono', label:'Ducha higiênica monocomando',   padrao:'Não incluso'},
-    {id:'hid_ducha_fria', label:'Ducha higiênica água fria',     padrao:'Não incluso'},
-    {id:'hid_mono_nicho', label:'Ponto monocomando no nicho',    padrao:'Acima do nicho'},
-    {id:'hid_chuveiro',   label:'Chuveiro de teto',              padrao:'Só no master'},
-    {id:'hid_bonecas',    label:'Bonecas hidráulicas',           padrao:'Padrão construtora'},
-    {id:'hid_impermeab',  label:'Impermeabilização',             padrao:'Padrão construtora'},
+    {id:'hid_geral',      label:'Pontos gerais (lava-louças etc)',   padrao:'Padrão construtora'},
+    {id:'hid_mono',       label:'Monocomandos',                      padrao:'Monocomando só no master; demais: misturador'},
+    {id:'hid_gas',        label:'Gás',                               padrao:'Só na ilha da cozinha e gourmet'},
+    {id:'hid_aspiracao',  label:'Aspiração central',                 padrao:'Não incluso'},
+    {id:'hid_banheira',   label:'Pontos de banheira',                padrao:'Não incluso'},
+    {id:'hid_ralo',       label:'Ralos (conferência)',               padrao:'Padrão construtora'},
+    {id:'hid_mono4vias',  label:'Monocomando 4 vias',               padrao:'Não incluso'},
+    {id:'hid_ducha_mono', label:'Ducha higiênica monocomando',      padrao:'Não incluso'},
+    {id:'hid_ducha_fria', label:'Ducha higiênica água fria',        padrao:'Não incluso'},
+    {id:'hid_mono_nicho', label:'Ponto monocomando no nicho',       padrao:'Acima do nicho'},
+    {id:'hid_chuveiro',   label:'Chuveiro de teto',                 padrao:'Só no master'},
+    {id:'hid_bonecas',    label:'Bonecas hidráulicas',              padrao:'Padrão construtora'},
   ],
   'Elétrica': [
-    {id:'ele_tomadas',    label:'Tomadas gerais',                 padrao:'Padrão construtora'},
-    {id:'ele_tomada_piso',label:'Tomada de piso',                 padrao:'1 ponto padrão'},
-    {id:'ele_fiacao',     label:'Passagem de fiação',             padrao:'Padrão construtora'},
-    {id:'ele_aspiracao',  label:'Ponto aspiração central',        padrao:'Não incluso'},
-    {id:'ele_arcond',     label:'Ar-condicionado',                padrao:'Padrão construtora'},
-    {id:'ele_nicho',      label:'Iluminação de nicho',            padrao:'Padrão construtora'},
-    {id:'ele_base_alv',   label:'Iluminação base alvenaria',      padrao:'Padrão construtora'},
-    {id:'ele_churrasco',  label:'Ponto churrasqueira / exaustão', padrao:'Padrão construtora'},
+    {id:'ele_tomadas',    label:'Tomadas gerais',                    padrao:'Padrão construtora'},
+    {id:'ele_tomada_piso',label:'Tomada de piso',                    padrao:'1 ponto padrão'},
+    {id:'ele_fiacao',     label:'Passagem de fiação',                padrao:'Padrão construtora'},
+    {id:'ele_aspiracao',  label:'Ponto aspiração central',           padrao:'Não incluso'},
+    {id:'ele_nicho',      label:'Iluminação de nicho',               padrao:'Padrão construtora'},
+    {id:'ele_base_alv',   label:'Iluminação base alvenaria',         padrao:'Padrão construtora'},
+    {id:'ele_churrasco',  label:'Ponto churrasqueira / exaustão',    padrao:'Padrão construtora'},
+  ],
+  'Ar-condicionado': [
+    {id:'arc_infra',      label:'Infraestrutura (tubulação)',        padrao:'Padrão construtora'},
+    {id:'arc_dreno',      label:'Dreno',                             padrao:'Padrão construtora'},
+    {id:'arc_eletrica',   label:'Elétrica dedicada',                 padrao:'Padrão construtora'},
+    {id:'arc_posicao',    label:'Posição da unidade evaporadora',    padrao:'Padrão construtora'},
+    {id:'arc_cassete',    label:'Cassete (teto)',                    padrao:'Não incluso'},
+    {id:'arc_duto',       label:'Dutado',                            padrao:'Não incluso'},
+    {id:'arc_split',      label:'Split convencional',                padrao:'Padrão construtora'},
+    {id:'arc_qtd',        label:'Quantidade de pontos',              padrao:'Padrão construtora'},
   ],
   'Revestimentos': [
-    {id:'rev_rejunte',    label:'Rejunte selecionado',            padrao:'De acordo com o piso'},
-    {id:'rev_piso',       label:'Piso selecionado',               padrao:'Piso neutro'},
-    {id:'rev_parede',     label:'Parede selecionada',             padrao:'Parede neutra'},
-    {id:'rev_nicho',      label:'Nicho com revestimento',         padrao:'Nicho de pedra'},
+    {id:'rev_rejunte',    label:'Rejunte selecionado',               padrao:'De acordo com o piso'},
+    {id:'rev_piso',       label:'Piso selecionado',                  padrao:'Piso neutro'},
+    {id:'rev_parede',     label:'Parede selecionada',                padrao:'Parede neutra'},
+    {id:'rev_nicho',      label:'Nicho com revestimento',            padrao:'Nicho de pedra'},
   ],
   'Marmoraria': [
-    {id:'marm_chapas',    label:'Compra de chapas',               padrao:'5 tipos de pedra'},
-    {id:'marm_projeto',   label:'Projeto definido',               padrao:'Projeto padrão'},
-    {id:'marm_cubas',     label:'Cubas',                          padrao:'Cuba branca sobrepor'},
-    {id:'marm_cuba_coz',  label:'Cuba cozinha',                   padrao:'Cuba inox'},
-    {id:'marm_tanque',    label:'Tanque',                         padrao:'Tanque comum inox'},
-    {id:'marm_metais',    label:'Metais',                         padrao:'Cromados'},
-    {id:'marm_bancada',   label:'Bancada de pedra',               padrao:'5 tipos à escolha'},
+    {id:'marm_chapas',    label:'Compra de chapas',                  padrao:'5 tipos de pedra'},
+    {id:'marm_projeto',   label:'Projeto definido',                  padrao:'Projeto padrão'},
+    {id:'marm_cubas',     label:'Cubas',                             padrao:'Cuba branca sobrepor'},
+    {id:'marm_cuba_coz',  label:'Cuba cozinha',                      padrao:'Cuba inox'},
+    {id:'marm_tanque',    label:'Tanque',                            padrao:'Tanque comum inox'},
+    {id:'marm_metais',    label:'Metais',                            padrao:'Cromados'},
+    {id:'marm_bancada',   label:'Bancada de pedra',                  padrao:'5 tipos à escolha'},
+  ],
+  'Projetos': [
+    {id:'proj_planta',    label:'Planta baixa entregue',             padrao:'Pendente'},
+    {id:'proj_eletrica',  label:'Projeto elétrico entregue',         padrao:'Pendente'},
+    {id:'proj_hidraulica',label:'Projeto hidráulico entregue',       padrao:'Pendente'},
+    {id:'proj_arcond',    label:'Projeto ar-condicionado entregue',  padrao:'Pendente'},
+    {id:'proj_marmoraria',label:'Projeto marmoraria entregue',       padrao:'Pendente'},
+    {id:'proj_revestimento',label:'Projeto revestimento entregue',   padrao:'Pendente'},
+    {id:'proj_em_obra',   label:'Projetos chegaram na obra',         padrao:'Pendente'},
+    {id:'proj_arquiteto', label:'Projeto do arquiteto recebido',     padrao:'Pendente'},
   ],
 };
 
@@ -2507,7 +2526,7 @@ function renderPersModalTabs(){
   const tabs = document.getElementById('pers-modal-tabs');
   if(!tabs) return;
   const secoes = Object.keys(PERS_ITENS);
-  const labels = ['Civil','Hidráulica','Elétrica','Revestimentos','Marmoraria'];
+  const labels = ['Civil','Hidráulica','Elétrica','Ar-cond','Revestimentos','Marmoraria','Projetos'];
   tabs.innerHTML = secoes.map((secao, idx) => {
     const isActive = secao === persModalSecao;
     return `<button class="pers-modal-tab ${isActive?'active':''}" onclick="switchPersTabByIndex(${idx})">${labels[idx]||secao}</button>`;
